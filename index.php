@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css">
     <style>
         body{
-            background-image: url('Img/loginBG.jpg');
+            background-image: url('Img/BG.jpg');
             background-size:cover;
             background-repeat: no-repeat;
             background-origin: content-box;
@@ -29,10 +29,9 @@
             font-family: ubuntu;
         }
         button{
-            background: #16BFFD;  
-            background: -webkit-linear-gradient(to right, #CB3066, #16BFFD);  
-            background: linear-gradient(to right, #CB3066, #16BFFD); 
-
+            background: #3C3B3F;  
+            background: -webkit-linear-gradient(to right, #605C3C, #3C3B3F); 
+            background: linear-gradient(to right, #605C3C, #3C3B3F);
         }
     </style>
 </head>
@@ -57,8 +56,13 @@
                 </select>
             </div>
            <div class="input-field">
-               <button class="btn waves-effect">login</button>
-               
+               <button class="btn waves-effect" onclick="loginBtn()">login</button>
+           </div>
+           <!-- SIGN UP -->
+           <div class="row">
+                <div class="input-field right">
+                    <a href="#">Create Account</a>
+                </div>
            </div>
         </div>
     </div>
@@ -67,5 +71,21 @@
     <!-- JAVASCRIPT -->
     <script src="jquery/jquery.min.js"></script>
     <script src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
+    <script src="node_modules/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        // FRONTENT------------------------------------------------------------------------------------------------------------------------
+        $(document).ready(function(){
+            $('.modal').modal();
+        });
+        // BACKEND ------------------------------------------------------------------------------------------------------------------------
+            const loginBtn =()=>{
+                var username = document.getElementById('username').value;
+                var pass = document.getElementById('password').value;
+                var role = document.getElementById('role').value;
+                if(username == ''){
+                    swal('Notification','Please enter your username!','info');
+                }
+            }
+    </script>
 </body>
 </html>
