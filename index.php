@@ -2,6 +2,7 @@
 <?php define('title','PRF System');?>
 <html lang="en">
 <head>
+    <link rel="icon" href="Img/logo.jpg" type="image/jpg" sizes="16x16">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo title;?></title>
@@ -29,14 +30,10 @@
         select{
             font-family: ubuntu;
         }
-        button{
+        .btn{
             background: #3C3B3F;  
             background: -webkit-linear-gradient(to right, #605C3C, #3C3B3F); 
             background: linear-gradient(to right, #605C3C, #3C3B3F);
-        }
-        #clock{
-            font-size:100px;
-           
         }
     </style>
 </head>
@@ -49,16 +46,17 @@
     <div class="row">
         <div class="container z-depth-5" style="display:none;">
             <h4 class="center">PRF System</h4>
+            <form action="" method="POST">
             <div class="input-field">
-                <input type="text" id="username" autocomplete="off">
+                <input type="text" id="username" name="username" autocomplete="off">
                     <label for="">Username</label>
             </div>
             <div class="input-field">
-                <input type="password" id="password">
+                <input type="password" id="password" name="password">
                     <label for="">Password</label>
             </div>
             <div class="input-field">
-                <select name="" id="role" class="browser-default">
+                <select  id="role"  name="role" class="browser-default">
                     <option value="">-- Select Role --</option>
                     <option value="requestor">Requestor</option>
                     <option value="verificator">Verificator</option>
@@ -66,8 +64,12 @@
                 </select>
             </div>
            <div class="input-field">
-               <button class="btn waves-effect" onclick="loginBtn()">login</button>
+               <input type="submit" class="btn" name="loginBtn" value="login">
            </div>
+           <div class="row">
+               <?php include 'php/User.php';?>
+           </div>
+            </form>
            <!-- SIGN UP -->
            <div class="row">
                 <div class="input-field right">
@@ -85,52 +87,8 @@
         $(document).ready(function(){
             $('.modal').modal();
             $('.container').fadeToggle(1000);
-            startTime();
         });
-        // BACKEND ------------------------------------------------------------------------------------------------------------------------
-            const loginBtn =()=>{
-                var username = document.getElementById('username').value;
-                var pass = document.getElementById('password').value;
-                var role = document.getElementById('role').value;
-                if(username == ''){
-                    swal('Notification','Please enter your username!','info');
-                }else if(pass == ''){
-                    swal('Notification','Please enter your password!','info');
-                }else if(role == ''){
-                    swal('Notification','Please select your role!','info');
-                }else{
-                    $.ajax({
-                        url: 'php/User.php',
-                        type: 'POST',
-                        cache:false,
-                        data:{
-                            method:'login',
-                            username:username,
-                            pass:pass,
-                            role:role
-                        },success:function(response){
-                            console.log(response);
-                            let split = response.split("~!~");
-                            let status = split[0];
-                            let role = split[1];
-                            if(status == "locked"){
-                                swal('Notification','Access Denied, invalid username or password! Please contact IT Department for account verification.','error');
-                            }else{
-                                if(role == "administrator"){
-                                    location.replace("Users/system_admin.php");
-                                }
-                                if(role == "verificator"){
-                                    location.replace("Users/verificator.php");
-                                }
-                                if(role == "requestor"){
-                                    location.replace("Users/requestor.php");
-                                }
-                            }
-                        }
-                    });
-                }
-            }
-
+       
     </script>
 </body>
 </html>
