@@ -58,9 +58,10 @@
             <div class="input-field">
                 <select  id="role"  name="role" class="browser-default">
                     <option value="">-- Select Role --</option>
-                    <option value="requestor">Requestor</option>
-                    <option value="verificator">Verificator</option>
-                    <option value="administrator">System Administrator</option>
+                    <option value="requestor">Requestor (Requesting Department)</option>
+                    <option value="approver">Approver (Requesting Department)</option>
+                    <option value="verificator">Verificator (HRD)</option>
+                    <option value="administrator">System Administrator (IT)</option>
                 </select>
             </div>
            <div class="input-field">
