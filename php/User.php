@@ -1,5 +1,6 @@
 <?php
     include 'Database.php';
+    session_start();
     if(isset($_POST['loginBtn'])){
         $username = $_POST['username'];
         $password = $_POST['password'];
@@ -9,9 +10,16 @@
         $stmt->execute();
         $stmt->fetchAll();
         if($stmt->rowCount() > 0){
-            session_start();
-            $_SESSION['username'] = $username;
-            $_SESSION['role'] = $role;
+            if($role === 'administrator'){
+                $_SESSION['username'] = $username;
+                $_SESSION['role'] = $role;
+                header('location: ../Users/admin.php');
+            }
+            elseif($role === 'requestor'){
+                $_SESSION['username'] = $username;
+                $_SESSION['role'] = $role;
+                header('location: Users/requestor.php');
+            }
         }else{
             echo "<center>Invalid Username or Password</center>";
         }

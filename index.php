@@ -49,7 +49,7 @@
             <form action="" method="POST">
             <div class="input-field">
                 <input type="text" id="username" name="username" autocomplete="off">
-                    <label for="">Username</label>
+                    <label for="">Email</label>
             </div>
             <div class="input-field">
                 <input type="password" id="password" name="password">

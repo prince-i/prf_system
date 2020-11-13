@@ -1,8 +1,6 @@
 <?php
-    if(isset($_SESSION['username'])){
-        $username = $_SESSION['username'];
-        echo $username;
-    }
+    include_once "../php/session.php";
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
