@@ -97,6 +97,47 @@ include 'Modals/request_mp_modal.php';
             let mp_plan_val = '0';
         }
     }
+    const validate_re_org =()=>{
+        if(re_org.checked == 1){
+            let re_org_val = '1';
+        }else{
+            let re_org_val = '0';
+        }
+    }
+    const validate_promotion =()=>{
+        if(promotion.checked == 1){
+            let promotion_val = '1';
+        }else{
+            let promotion_val = '0';
+        }
+    }
+    const validate_retire =()=>{
+        if(retire.checked == 1){
+            let retire_val =  '1';
+        }else{
+            let retire_val = '0'; 
+        }
+    }
+    const validate_replace =()=>{
+        if(replace.checked ==1){
+            let replace_val = '1';
+            document.getElementById('txt_replace').style.display = "block";
+        }else{
+            let replace_val = '0';
+            document.getElementById('txt_replace').style.display = "none";
+        }
+    }
+    const validate_others =()=>{
+        if(other.checked == 1){
+            let other_val = '1';
+            document.getElementById('txt_others').style.display = "block";
+        }else{
+            let other_val = '0';
+            document.getElementById('txt_others').style.display = "none";
+        }
+    }
+    // -------------------------------------------------------------------------------------------------------------
+    
 </script>
 </body>
 </html>

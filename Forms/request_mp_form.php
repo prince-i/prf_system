@@ -36,20 +36,23 @@
         <div class="input-field">
             <p><label><input type="checkbox" name="" id="additional_mp" class="filled-in" onclick="validate_add_mp()"><span>Additional Manpower</span></label></p>
             <p><label><input type="checkbox" name="" id="mp_plan" class="filled-in" onclick="validate_mp_plan()"><span>Manpower Plan</span></label></p>
-            <p><label><input type="checkbox" name="" id="re_org" class="filled-in"><span>Reorganization</span></label></p>
-            <p><label><input type="checkbox" name="" id="promotion" class="filled-in"><span>Promotion</span></label></p>
-            <p><label><input type="checkbox" name="" id="retire" class="filled-in"><span>Retirement</span></label></p>
-            <p><label><input type="checkbox" name="" id="replace" class="filled-in"><span>Replacement</span></label></p>
+            <p><label><input type="checkbox" name="" id="re_org" class="filled-in" onclick="validate_re_org()"><span>Reorganization</span></label></p>
+            <p><label><input type="checkbox" name="" id="promotion" class="filled-in" onclick="validate_promotion()"><span>Promotion</span></label></p>
+            <p><label><input type="checkbox" name="" id="retire" class="filled-in" onclick="validate_retire()"><span>Retirement</span></label></p>
+            <p><label><input type="checkbox" name="" id="replace" class="filled-in" onclick="validate_replace()"><span>Replacement</span></label></p>
             <!-- INPUT FOR REPLACEMENT-->
-            <div class="input-field col s12 l6 m6">
+            <div class="row" style="display:none;" id="txt_replace">
+            <div class="input-field col s12 l6 m6" >
                 <input type="text" id="replaceName">
             </div>
             <div class="input-field col s12 l6 m6">
-              <input type="text" id="replacePosition">
+              <input type="text" id="replacePosition" >
             </div>
-            <p><label><input type="checkbox" name="" id="other" class="filled-in"><span>Others(Justify)</span></label></p>
+            </div>
+           
+            <p><label><input type="checkbox" name="" id="other" class="filled-in" onclick="validate_others()"><span>Others(Justify)</span></label></p>
             <!-- INPUT FOR OTHERS -->
-            <div class="input-field col s12 l6 m6">
+            <div class="row input-field col s12 l6 m6" id="txt_others" style="display:none;">
               <input type="text" id="othersTxt">
             </div>
         </div>

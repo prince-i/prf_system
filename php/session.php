@@ -6,10 +6,17 @@
     $stmt = $conn->prepare($qry);
     $stmt->execute();
     $res = $stmt->fetchALL();
-    foreach($res as $x){
-        $name = $x['name'];
-        $position = $x['position'];
-        $role = $x['role'];
-        $department = $x['department'];
+    if($stmt->rowCount() > 0){
+        foreach($res as $x){
+            $name = $x['name'];
+            $position = $x['position'];
+            $role = $x['role'];
+            $department = $x['department'];
+        }
+    }else{
+        session_unset();
+        session_destroy();
+        header('location:../index.php');
     }
+    
 ?>
