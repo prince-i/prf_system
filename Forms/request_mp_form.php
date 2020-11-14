@@ -58,4 +58,84 @@
         </div>
 
     </div>
+    <!-- CONTRACT STATUS -->
+    <h5 class="header">Contract Status</h5>
+    <div class="row">
+        <div class="row input-field col l12 m12 s12">
+            <select name="" id="contract_status_val" class="browser-default">
+                <option value="" selected disabled>-- Select Contract Status --</option>
+                <?php
+                $query = "SELECT *FROM tb_contract_status";
+                $stmt = $conn->prepare($query);
+                $stmt->execute();
+                foreach($stmt->fetchALL() as $x){
+                    echo '<option value="'.$x['contractDesc'].'">'.$x['contractDesc'].'</option>';
+                }
+                ?>
+            </select>
+        </div>
+        <div class="row">
+            <div class="input-field col l6 m6 s6">
+                <input type="date" id="date_start"><label for="">Date Start</label>
+            </div>
+            <div class="input-field col l6 m6 s6">
+                <input type="date" id="date_end"><label for="">Date End</label>
+            </div>
+        </div>
+    </div>
+    <!-- QUALIFICATION REQUIRED -->
+    <h5 class="header">Qualification Required</h5>
+    <div class="row">
+        <div class="input-field col l6 m6 s12">
+            <input type="text" id="educationAttaintment" list="educAtt" onfocus="loadEduc()">
+            <label for="">Educational Attainment</label>
+            <datalist id="educAtt"></datalist>
+        </div>
+        <div class="input-field col l6 m6 s12">
+            <input type="text" id="require_license_cert" list="certList" onfocus="load_cert()">
+            <label for="">Required License/Certification</label>
+            <datalist id="certList"></datalist>
+        </div>
+        <div class="input-field col l6 m6 s12">
+            <input type="text" id="other_quali_val">
+            <label for="">Others</label>
+        </div>
+        <div class="input-field col l6 m6 s12">
+            <input type="text" id="job_duties_val">
+            <label for="">Brief description of duties</label>
+        </div>
+    </div>
+    <!-- INTERVIEW VALIDATION -->
+    <h5 class="header">Interview/Validation</h5>
+    <div class="row">
+        <div class="input-field col l6 m6 s12">
+            <b>Required for interview/validation:</b>
+            <select name="" id="" class="browser-default">
+                <option value="" selected disabled>--Select--</option>
+                <option value="need">Need</option>
+                <option value="noneed">No need</option>
+            </select>
+        </div>
+        <div class="input-field col l6 m6 s12">
+            <input type="text" id="interviewers"><label for="">Interviewer/s</label>
+        </div>
+    </div>
+    <!-- INTERVIEW INFO -->
+    <div class="row">
+    <div class="input-field col l6 m6 s12">
+        <input type="date" id="date_interview"><label for="">Day available for interview/validation</label>
+    </div>
+    <div class="input-field col l6 m6 s12">
+        <input type="time" id="time_interview"><label for="">Time available for interview/validation</label>
+    </div>
+    </div>
+    <!-- BUGDET INFO -->
+    <h5 class="header">Budget Information</h5>
+    <div class="row">
+        <div class="input-field col l6 m6 s12">
+            <input type="text" id="budget_source_val" list="bugdet_source">
+            <label for="">Budget Source</label>
+            <datalist id="budget_source"></datalist>
+        </div>
+    </div>
 </div>

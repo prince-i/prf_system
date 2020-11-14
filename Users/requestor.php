@@ -137,7 +137,30 @@ include 'Modals/request_mp_modal.php';
         }
     }
     // -------------------------------------------------------------------------------------------------------------
-    
+    const loadEduc =()=>{
+        $.ajax({
+            url: '../php/requestorController.php',
+            type: 'POST',
+            cache: false,
+            data:{
+                method:'load_educAtt'
+            },success:function(response){
+                document.getElementById('educAtt').innerHTML = response;
+            }
+        });
+    }
+    const load_cert =()=>{
+        $.ajax({
+            url: '../php/requestorController.php',
+            type: 'POST',
+            cache: false,
+            data:{
+                method:'load_certification'
+            },success:function(response){
+                document.getElementById('certList').innerHTML = response;
+            }
+        });
+    }
 </script>
 </body>
 </html>

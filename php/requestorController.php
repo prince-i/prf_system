@@ -9,4 +9,20 @@
             echo '<option value="'.$x['position'].'">';
         }
     }
+    if($method == 'load_educAtt'){
+        $query = "SELECT educDesc FROM tb_education";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $x){
+            echo '<option value="'.$x['educDesc'].'">';
+        }
+    }
+    if($method == 'load_certification'){
+        $query = "SELECT certDesc FROM tb_certification";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $x){
+            echo '<option value="'.$x['certDesc'].'">';
+        }
+    }
 ?>
