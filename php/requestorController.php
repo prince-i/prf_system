@@ -25,4 +25,12 @@
             echo '<option value="'.$x['certDesc'].'">';
         }
     }
+    if($method == 'load_dept'){
+        $query = "SELECT *FROM tb_department";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $x){
+            echo '<option value="'.$x['deptCode'].'">'.$x['deptDesc'];
+        }
+    }
 ?>

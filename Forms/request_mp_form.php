@@ -133,9 +133,17 @@
     <h5 class="header">Budget Information</h5>
     <div class="row">
         <div class="input-field col l6 m6 s12">
-            <input type="text" id="budget_source_val" list="bugdet_source">
+            <input type="text" id="budget_source_val" list="budget_source" onfocus="load_budget_source()">
             <label for="">Budget Source</label>
             <datalist id="budget_source"></datalist>
+        </div>
+        <div class="input-field col l6 m6 s12">
+            <select name="" id="budget_status" class="browser-default">
+                <option value="">--SELECT BUDGET STATUS--</option>
+                <option value="on/within budget">On/within Budget</option>
+                <option value="over budget">Over Budget</option>
+                <option value="under budget">Under Budget</option>
+            </select>
         </div>
     </div>
 </div>

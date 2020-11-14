@@ -46,6 +46,7 @@ include 'Modals/request_mp_modal.php';
         <a href="#" class="btn-floating btn-large red modal-trigger" data-target="request_mp_modal" onclick="load_request_form()"><b>&plus;</b></a>
     </div>
   </div>
+  <div id="elementH"></div>
   <!-- </MY_REQUEST> ---------------------------------------------------------------------------------------------------------->
 
 
@@ -69,19 +70,7 @@ include 'Modals/request_mp_modal.php';
     const load_request_form =()=>{
         $('#request_mp_form').load('../Forms/request_mp_form.php');
     }
-    // load position for request form choices -----------------------------------------------------------------------------------
-    const loadPosition =()=>{
-        $.ajax({
-            url:'../php/requestorController.php',
-            type: 'POST',
-            cache:false,
-            data:{
-                method: 'load_position'
-            },success:function(response){
-                $('#positionList').html(response);
-            }
-        });
-    }
+
     // --------------------------------------------------------------------------------------------------------------------------
     const validate_add_mp =()=>{
         if(additional_mp.checked == 1){
@@ -161,6 +150,31 @@ include 'Modals/request_mp_modal.php';
             }
         });
     }
+    const loadPosition =()=>{
+        $.ajax({
+            url:'../php/requestorController.php',
+            type: 'POST',
+            cache:false,
+            data:{
+                method: 'load_position'
+            },success:function(response){
+                $('#positionList').html(response);
+            }
+        });
+    }
+    const load_budget_source =()=>{
+        $.ajax({
+            url:'../php/requestorController.php',
+            type: 'POST',
+            cache: false,
+            data:{
+                method: 'load_dept'
+            },success:function(response){
+                document.getElementById('budget_source').innerHTML = response;
+            }
+        });
+    }
+    
 </script>
 </body>
 </html>
