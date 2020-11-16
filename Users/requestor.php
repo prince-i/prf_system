@@ -29,8 +29,7 @@ include 'Modals/request_mp_modal.php';
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
         <li class="tab"><a href="#request">My Requests</a></li>
-        <li class="tab"><a href="#approved">Approved</a></li>
-        <li class="tab"><a href="#cancel">Cancelled</a></li>
+        <li class="tab"><a href="#notif">Notification</a></li>
       </ul>
     </div>
   </nav>
@@ -46,13 +45,12 @@ include 'Modals/request_mp_modal.php';
         <a href="#" class="btn-floating btn-large red modal-trigger" data-target="request_mp_modal" onclick="load_request_form()"><b>&plus;</b></a>
     </div>
   </div>
-  <div id="elementH"></div>
+
   <!-- </MY_REQUEST> ---------------------------------------------------------------------------------------------------------->
 
 
 
-  <div id="approved" class="col s12">Test 2</div>
-  <div id="cancel" class="col s12">Test 3</div>
+  <div id="notif" class="col s12">Test 2</div>
 
 
 <!-- JS ----------------------------------------------------------------------------------------------------------------------->
