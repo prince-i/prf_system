@@ -222,10 +222,35 @@ include 'Modals/request_mp_modal.php';
                 assign_dept:assign_dept,
                 female_mp_count:female_mp_count,
                 male_mp_count:male_mp_count,
-                
-
+                additional_mp_val:additional_mp_val,
+                mp_plan_val:mp_plan_val,
+                re_org_val:re_org_val,
+                promotion_val:promotion_val,
+                retire_val:retire_val,
+                replace_val:replace_val,
+                other_val:other_val,
+                replaceName:replaceName,
+                replacePosition:replacePosition,
+                other_text:other_text,
+                contract_status:contract_status,
+                date_start:date_start,
+                date_end:date_end,
+                educational_attainment:educational_attainment,
+                certification:certification,
+                other_quali:other_quali,
+                job_duties:job_duties,
+                interview_need_stats:interview_need_stats,
+                interviewer:interviewer,
+                date_interview_set:date_interview_set,
+                time_interview_set:time_interview_set,
+                budget_source:budget_source,
+                budget_status:budget_source,
+                actual_mp_dept:actual_mp_dept,
+                plan_mp_dept:plan_mp_dept,
+                actual_mp_section:actual_mp_section,
+                plan_mp_section:plan_mp_section
             },success:function(response){
-
+                console.log(response);
             }
         });
     }
