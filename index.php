@@ -60,7 +60,7 @@
                     <option value="">-- Select Role --</option>
                     <option value="requestor">Requestor (Requesting Department)</option>
                     <option value="approver">Approver (Requesting Department)</option>
-                    <option value="verificator">Verificator (HRD)</option>
+                    <option value="verifier">Verifier(HR)</option>
                     <option value="administrator">System Administrator (IT)</option>
                 </select>
             </div>
@@ -89,7 +89,6 @@
             $('.modal').modal();
             $('.container').fadeToggle(1000);
         });
-       
     </script>
 </body>
 </html>

@@ -146,4 +146,28 @@
             </select>
         </div>
     </div>
+    <!-- MP HEADCOUNT -->
+    <h5 class="header">Manpower Headcount</h5>
+    <div class="row">
+        <div class="col s12">
+            <div class="input-field col l6 m6 s12">
+                <input type="number" name="" id="actual_mp_count_dept" min="0"><label for="">Department: Actual MP</label>
+            </div>
+            <div class="input-field col l6 m6 s12">
+                <input type="number" name="" id="plan_mp_count_dept" min="0"><label for="">Department: Plan MP</label>
+            </div>
+            <!-- SECTION -->
+            <div class="input-field col l6 m6 s12">
+                <input type="number" name="" id="actual_mp_count_section" min="0"><label for="">Section: Actual MP</label>
+            </div>
+            <div class="input-field col l6 m6 s12">
+                <input type="number" name="" id="plan_mp_count_section" min="0"><label for="">Section: Plan MP</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <button class="btn-large teal">submit request&rarr;</button>
+        </div>
+    </div>
 </div>
