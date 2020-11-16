@@ -23,10 +23,10 @@
         </div>
         <!-- GENDER -->
         <div class="input-field col s6 l2 m2">
-            <input type="number" name="" id="female_mp_count" class=""><label for="">Female Required</label>
+            <input type="number" name="" id="female_mp_count" class="" min=0><label for="">Female Required</label>
         </div>
         <div class="input-field col s6 l2 m2">
-            <input type="number" name="" id="male_mp_count" class=""><label for="">Male Required</label>
+            <input type="number" name="" id="male_mp_count" class="" min=0><label for="">Male Required</label>
         </div>
     </div>
 
@@ -34,12 +34,12 @@
     <h5 class="header">Reason for Hiring</h5>
     <div class="row col s12">
         <div class="input-field">
-            <p><label><input type="checkbox" name="" id="additional_mp" class="filled-in" onclick="validate_add_mp()"><span>Additional Manpower</span></label></p>
-            <p><label><input type="checkbox" name="" id="mp_plan" class="filled-in" onclick="validate_mp_plan()"><span>Manpower Plan</span></label></p>
-            <p><label><input type="checkbox" name="" id="re_org" class="filled-in" onclick="validate_re_org()"><span>Reorganization</span></label></p>
-            <p><label><input type="checkbox" name="" id="promotion" class="filled-in" onclick="validate_promotion()"><span>Promotion</span></label></p>
-            <p><label><input type="checkbox" name="" id="retire" class="filled-in" onclick="validate_retire()"><span>Retirement</span></label></p>
-            <p><label><input type="checkbox" name="" id="replace" class="filled-in" onclick="validate_replace()"><span>Replacement</span></label></p>
+            <p><label><input type="checkbox" name="" id="additional_mp" class="filled-in" onclick="validate_add_mp()" value="0"><span>Additional Manpower</span></label></p>
+            <p><label><input type="checkbox" name="" id="mp_plan" class="filled-in" onclick="validate_mp_plan()" value="0"><span>Manpower Plan</span></label></p>
+            <p><label><input type="checkbox" name="" id="re_org" class="filled-in" onclick="validate_re_org()" value="0"><span>Reorganization</span></label></p>
+            <p><label><input type="checkbox" name="" id="promotion" class="filled-in" onclick="validate_promotion()" value="0"><span>Promotion</span></label></p>
+            <p><label><input type="checkbox" name="" id="retire" class="filled-in" onclick="validate_retire()" value="0"><span>Retirement</span></label></p>
+            <p><label><input type="checkbox" name="" id="replace" class="filled-in" onclick="validate_replace()" value="0"><span>Replacement</span></label></p>
             <!-- INPUT FOR REPLACEMENT-->
             <div class="row" style="display:none;" id="txt_replace">
             <div class="input-field col s12 l6 m6" >
@@ -87,7 +87,7 @@
     <h5 class="header">Qualification Required</h5>
     <div class="row">
         <div class="input-field col l6 m6 s12">
-            <input type="text" id="educationAttaintment" list="educAtt" onfocus="loadEduc()">
+            <input type="text" id="educationAttainment" list="educAtt" onfocus="loadEduc()">
             <label for="">Educational Attainment</label>
             <datalist id="educAtt"></datalist>
         </div>
@@ -110,7 +110,7 @@
     <div class="row">
         <div class="input-field col l6 m6 s12">
             <b>Required for interview/validation:</b>
-            <select name="" id="" class="browser-default">
+            <select name="" id="interview_status" class="browser-default">
                 <option value="" selected disabled>--Select--</option>
                 <option value="need">Need</option>
                 <option value="noneed">No need</option>
