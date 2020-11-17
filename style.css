@@ -5,4 +5,7 @@
 body{
     font-family:ubuntu;
 }
-
+#table_requests{
+    table-layout: fixed;
+    width:100%;
+}

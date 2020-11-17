@@ -23,7 +23,7 @@
         </div>
         <!-- GENDER -->
         <div class="input-field col s6 l2 m2">
-            <input type="number" name="" id="female_mp_count" class="" min=0><label for="">Female Required</label>
+            <input type="number" name="" id="female_mp_count" class="" min=0 ><label for="">Female Required</label>
         </div>
         <div class="input-field col s6 l2 m2">
             <input type="number" name="" id="male_mp_count" class="" min=0><label for="">Male Required</label>
@@ -45,9 +45,9 @@
             <div class="input-field col s12 l6 m6" >
                 <input type="text" id="replaceName">
             </div>
-            <div class="input-field col s12 l6 m6">
+            <!-- <div class="input-field col s12 l6 m6">
               <input type="text" id="replacePosition" >
-            </div>
+            </div> -->
             </div>
            
             <p><label><input type="checkbox" name="" id="other" class="filled-in" onclick="validate_others()"><span>Others(Justify)</span></label></p>

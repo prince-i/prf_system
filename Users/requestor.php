@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Requestor Dashboard</title>
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
+    <link rel="stylesheet" href="../style.css">
     <style>
       
     </style>
@@ -38,8 +39,51 @@ include 'Modals/request_mp_modal.php';
     <li><a href="#"><?=ucwords($name);?></a></li>
   </ul>
 
-  <!-- MY_REQUEST ------------------------------------------------------------------------------------------------------------->
-  <div id="request" class="col s12">
+<!-- MY_REQUEST ------------------------------------------------------------------------------------------------------------->
+  <div id="request" class="row col s12">
+<!-- CONTENT ------------------------------------------------------------------------------------------------------------------>
+   <div class="col s12">
+        <div class="input-field col l2 m2 s12">
+            <select name="" id="dateFrom" class="browser-default z-depth-5">
+                <option value="">-- All Status--</option>
+                <option value="approved">Approve</option>
+                <option value="verified">Verified</option>
+                <option value="cancel">Cancelled</option>
+            </select>
+        </div>
+        <!-- dateFrom -->
+        <div class="input-field col l3 m3 s12">
+            <input type="text" class="datepicker"><label for="">Requested Date From:</label>
+        </div>
+        <!-- date to -->
+        <div class="input-field col l3 m3 s12">
+            <input type="text" class="datepicker"><label for="">To:</label>
+        </div>
+        <!-- search -->
+        <div class="input-field col l2 m2 s12">
+            <button class="btn-large teal col s12">search</button>
+        </div>
+        <!-- print btn -->
+        <div class="input-field col l2 m2 s12">
+            <button class="btn-large red col s12">print</button>
+        </div>
+   </div>
+<!-- ---------------------------------------------------------------------------------------------------------------------- -->
+        <div class="col s12">
+            <table class="centered" id="table_requests">
+                <thead>
+                    <th>Request ID</th>
+                    <th>Requesting Position</th>
+                    <th>Requesting Department</th>
+                    <th>Contract Status</th>
+                    <th>Requestor Email</th>
+                    <th>Approval Status</th>
+                    <th>Verification Status</th>
+                    <th>Request Date</th>
+                </thead>
+            </table>
+    </div>
+<!-- </CONTENT> --------------------------------------------------------------------------------------------------------------->
     <!-- ACTION BUTTON -->
     <div class="fixed-action-btn">
         <a href="#" class="btn-floating btn-large red modal-trigger" data-target="request_mp_modal" onclick="load_request_form()"><b>&plus;</b></a>
@@ -63,12 +107,15 @@ include 'Modals/request_mp_modal.php';
         $('.sidenav').sidenav();
         $('.modal').modal();
         $('.fixed-action-btn').floatingActionButton();
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            autoClose: true
+        });
     });
     // load modal content -------------------------------------------------------------------------------------------------------
     const load_request_form =()=>{
         $('#request_mp_form').load('../Forms/request_mp_form.php');
     }
-
     // --------------------------------------------------------------------------------------------------------------------------
     const validate_add_mp =()=>{
         if(additional_mp.checked == 1){
@@ -123,7 +170,7 @@ include 'Modals/request_mp_modal.php';
             document.getElementById('txt_others').style.display = "none";
         }
     }
-    // -------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------------------------------
     const loadEduc =()=>{
         $.ajax({
             url: '../php/requestorController.php',
@@ -172,7 +219,9 @@ include 'Modals/request_mp_modal.php';
             }
         });
     }
+    // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     const submit_prf =()=>{
+        var requestor = '<?=$name;?>';
         // POSITION
         var position = document.getElementById('position').value;
         var assign_dept = document.getElementById('assigned_dept').value;
@@ -186,9 +235,11 @@ include 'Modals/request_mp_modal.php';
         var retire_val = document.getElementById('retire').value;
         var replace_val = document.getElementById('replace').value;
         var other_val = document.getElementById('other').value;
+        var numberOfCheck = $('input:checkbox:checked').length;
+        console.log(numberOfCheck);
         // txt val
         var replaceName = document.getElementById('replaceName').value;
-        var replacePosition = document.getElementById('replacePosition').value;
+        // var replacePosition = document.getElementById('replacePosition').value;
         var other_text = document.getElementById('othersTxt').value;
         // CONTRACT STATUS
         var contract_status = document.getElementById('contract_status_val').value;
@@ -212,12 +263,50 @@ include 'Modals/request_mp_modal.php';
         var plan_mp_dept = document.getElementById('plan_mp_count_dept').value;
         var actual_mp_section = document.getElementById('actual_mp_count_section').value;
         var plan_mp_section = document.getElementById('plan_mp_count_section').value;
+        // VALIDATION --------------------------------------------------------------------------------------------------------------------------------------
+        if(position == ''){
+            swal('Warning','Please specify the rank/position you want to request!','info');
+        }else if(assign_dept == ''){
+            swal('Warning','Please select assigned department!','info');
+        }else if(numberOfCheck <= 0){
+            swal('Warning','Please choose atleast 1 (one) reason for hiring!','info');
+        }else if(contract_status == ''){
+            swal('Warning','Please select contract status!','info');
+        }else if(educational_attainment == ''){
+            swal('Warning','Please enter educational attainment!','info');
+        }else if(certification == ''){
+            swal('Warning','Please enter required license or certification!','info'); 
+        }else if(job_duties == ''){
+            swal('Warning','Please explain the description of duties!','info');
+        }else if(interview_need_stats == ''){
+            swal('Warning','Please tell us if he/she is required undergo an interview!','info');
+        }else if(interviewer == ''){
+            swal('Warning','Please enter all the interviewers!','info');
+        }else if(date_interview_set == ''){
+            swal('Warning','Please set a date for interview!','info');
+        }else if(time_interview_set == ''){
+            swal('Warning','Please set a time for interview.','info');
+        }else if(budget_source == ''){
+            swal('Warning','Please specify your budget source information.','info');
+        }else if(budget_status == ''){
+            swal('Warning','Budget status is required.','info');
+        }else if(actual_mp_dept == ''){
+            swal('Warning','Actual Manpower count of department is required.','info');
+        }else if(plan_mp_dept == ''){
+            swal('Warning','Plan manpower count of department is required.','info');
+        }else if(actual_mp_section == ''){
+            swal('Warning','Actual manpower count of section is required.','info');
+        }else if(plan_mp_section == ''){
+            swal('Warning','Plan manpower count of your section is required.','info');
+        }else{
+        document.getElementById('submitPRF').disabled = true;
         $.ajax({
             url:'../php/requestorController.php',
             type:'POST',
             cache: false,
             data:{
                 method:'submit_prf',
+                requestor:requestor,
                 position:position,
                 assign_dept:assign_dept,
                 female_mp_count:female_mp_count,
@@ -230,7 +319,6 @@ include 'Modals/request_mp_modal.php';
                 replace_val:replace_val,
                 other_val:other_val,
                 replaceName:replaceName,
-                replacePosition:replacePosition,
                 other_text:other_text,
                 contract_status:contract_status,
                 date_start:date_start,
@@ -248,12 +336,16 @@ include 'Modals/request_mp_modal.php';
                 actual_mp_dept:actual_mp_dept,
                 plan_mp_dept:plan_mp_dept,
                 actual_mp_section:actual_mp_section,
-                plan_mp_section:plan_mp_section
+                plan_mp_section:plan_mp_section,
+                email:'<?=$username;?>'
             },success:function(response){
-                console.log(response);
+                    swal('Notification',response,'success');
+                    document.getElementById('submitPRF').disabled = false;
+                    $('.modal').modal('close','#request_mp_modal');
             }
         });
     }
+}
 </script>
 </body>
 </html>
