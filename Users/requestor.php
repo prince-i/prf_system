@@ -42,9 +42,9 @@ include 'Modals/request_mp_modal.php';
 <!-- MY_REQUEST ------------------------------------------------------------------------------------------------------------->
   <div id="request" class="row col s12">
 <!-- CONTENT ------------------------------------------------------------------------------------------------------------------>
-   <div class="col s12">
+   <div class="col s12 hide-on-med-down">
         <div class="input-field col l2 m2 s12">
-            <select name="" id="dateFrom" class="browser-default z-depth-5">
+            <select name="" id="status" class="browser-default z-depth-1">
                 <option value="">-- All Status--</option>
                 <option value="approved">Approve</option>
                 <option value="verified">Verified</option>
@@ -53,19 +53,19 @@ include 'Modals/request_mp_modal.php';
         </div>
         <!-- dateFrom -->
         <div class="input-field col l3 m3 s12">
-            <input type="text" class="datepicker"><label for="">Requested Date From:</label>
+            <input type="text" class="datepicker" id="requestDateFrom"><label for="">Requested Date From:</label>
         </div>
         <!-- date to -->
         <div class="input-field col l3 m3 s12">
-            <input type="text" class="datepicker"><label for="">To:</label>
+            <input type="text" class="datepicker" id="requestDateTo"><label for="">To:</label>
         </div>
         <!-- search -->
         <div class="input-field col l2 m2 s12">
-            <button class="btn-large teal col s12">search</button>
+            <button class="btn-large teal col s12 z-depth-3" id="searchReqBtn">search</button>
         </div>
         <!-- print btn -->
         <div class="input-field col l2 m2 s12">
-            <button class="btn-large red col s12">print</button>
+            <button class="btn-large red col s12 z-depth-3" id="printBtn" disabled>print</button>
         </div>
    </div>
 <!-- ---------------------------------------------------------------------------------------------------------------------- -->
@@ -86,14 +86,10 @@ include 'Modals/request_mp_modal.php';
 <!-- </CONTENT> --------------------------------------------------------------------------------------------------------------->
     <!-- ACTION BUTTON -->
     <div class="fixed-action-btn">
-        <a href="#" class="btn-floating btn-large red modal-trigger" data-target="request_mp_modal" onclick="load_request_form()"><b>&plus;</b></a>
+        <a href="#" class="btn-floating btn-large red modal-trigger" data-target="request_mp_modal" onclick="load_request_form()"><b style="font-size:25px;">&plus;</b></a>
     </div>
   </div>
-
   <!-- </MY_REQUEST> ---------------------------------------------------------------------------------------------------------->
-
-
-
   <div id="notif" class="col s12">Test 2</div>
 
 
@@ -104,13 +100,19 @@ include 'Modals/request_mp_modal.php';
 <script>
     $(document).ready(function(){
         $('.tabs').tabs();
-        $('.sidenav').sidenav();
+        $('.sidenav').sidenav({
+            preventScrolling: true,
+            draggable: true,
+            inDuration: 500
+        });
         $('.modal').modal();
         $('.fixed-action-btn').floatingActionButton();
         $('.datepicker').datepicker({
             format: 'yyyy-mm-dd',
             autoClose: true
         });
+        $('.collapsible').collapsible();
+        load_request_list();
     });
     // load modal content -------------------------------------------------------------------------------------------------------
     const load_request_form =()=>{
@@ -265,13 +267,13 @@ include 'Modals/request_mp_modal.php';
         var plan_mp_section = document.getElementById('plan_mp_count_section').value;
         // VALIDATION --------------------------------------------------------------------------------------------------------------------------------------
         if(position == ''){
-            swal('Warning','Please specify the rank/position you want to request!','info');
+            swal('Warning','Hiring position is required.','info');
         }else if(assign_dept == ''){
-            swal('Warning','Please select assigned department!','info');
+            swal('Warning','Assigned Department must not empty.','info');
         }else if(numberOfCheck <= 0){
-            swal('Warning','Please choose atleast 1 (one) reason for hiring!','info');
+            swal('Warning','Choose atleast 1 (one) reason for hiring.','info');
         }else if(contract_status == ''){
-            swal('Warning','Please select contract status!','info');
+            swal('Warning','Contract status must not empty.','info');
         }else if(educational_attainment == ''){
             swal('Warning','Please enter educational attainment!','info');
         }else if(certification == ''){
@@ -346,6 +348,25 @@ include 'Modals/request_mp_modal.php';
         });
     }
 }
+    const load_request_list =()=>{
+        var req_status = document.getElementById('status').value;
+        var req_date_from = document.getElementById('requestDateFrom').value;
+        var req_date_to = document.getElementById('requestDateTo').value;
+        document.getElementById('searchReqBtn').disabled = true;
+        $.ajax({
+            url: '../php/requestorController.php',
+            type: 'POST',
+            cache: false,
+            data:{
+                method: 'requestor_view',
+                req_status:req_status,
+                req_date_from:req_date_from,
+                req_date_to:req_date_to
+            },success:function(response){
+                document.getElementById('searchReqBtn').disabled = false;
+            }
+        });
+    }
 </script>
 </body>
 </html>
