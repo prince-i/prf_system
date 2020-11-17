@@ -107,6 +107,11 @@
 
             }
         }
-
+        if($method == 'requestor_view'){
+            $req_stats = $_POST['req_status'];
+            $req_date_from = $_POST['req_date_from'];
+            $req_date_to = $_POST['req_date_to'];
+            // if(empty($req_stats) &&)
+        }
 ?>
 
