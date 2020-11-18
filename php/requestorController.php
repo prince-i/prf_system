@@ -35,7 +35,6 @@
     }
     if($method == 'submit_prf'){
         $id = 0;
-        $mp_req_ID =  date("Ymd").'-'.mt_rand(1000,1000000).'-'.uniqid();
         // ---------------------------------------------------------------
         $requestor = ucwords($_POST['requestor']);
         $position = $_POST['position'];
@@ -64,7 +63,7 @@
         $contractStatus = $_POST['contract_status'];
         $dateStart = $_POST['date_start'];
         $dateEnd = $_POST['date_end'];
-        $educ = $_POST['educational_attainment'];
+       echo $educ = $_POST['educational_attainment'];
         $cert = $_POST['certification'];
         $other_quali = $_POST['other_quali'];
         $job_duties = $_POST['job_duties'];
@@ -80,38 +79,46 @@
         $plan_mp_dept = $_POST['plan_mp_dept'];
         $actual_mp_section = $_POST['actual_mp_section'];
         $plan_mp_section = $_POST['plan_mp_section'];
-        //check ID 
-        $chckReqID = "SELECT mp_request_ID FROM tb_request_mp WHERE mp_request_ID = '$mp_req_ID'";
-        $stmt = $conn->prepare($chckReqID);
-        $stmt->execute();
-        $stmt->fetchALL();
-        if($stmt->rowCount() > 0){
-            $mp_req_ID =  date("Ymd").'-'.mt_rand(1000,1000000).'-'.uniqid();
+        // DATE
+        $date_now = date("Y-m-d");
+        $time_now = date("H:i:s");
+        $save_req = "INSERT INTO tb_request_mp (`id`,`requestor`,`requestor_email`,`requesting_position`,`assigned_dept`,`female_num_mp`,
+        `male_num_mp`,`total_mp`,`contract_status`,`date_start`,`date_end`,`education`,`required_license`,`other_qualification`,
+        `job_duties`,`interview_need`,`interviewers`,`availability_for_interview`,`additional_mp`,
+        `mp_plan`,`reorganization`,`promotion`,`retirement`,`replacement`,`replacement_mp_name`,`others`,
+        `budget_source`,`budget_status`,`actual_mp_dept`,`actual_mp_section`,`plan_mp_dept`,`plan_mp_section`,`request_date`,`request_time`)
+         VALUES ('$id','$requestor','$email','$position','$assign_dept','$female_mp_count','$male_mp_count','$total','$contractStatus','$dateStart','$dateEnd','$educ','$cert','$other_quali',
+        '$job_duties','$interview_stat','$interviewer','$interview_date_time','$add_mp_val','$mp_plan_val','$re_org_val','$promotion','$retirement','$replace_val','$replaceName',
+        '$other_text','$budget_source','$budget_status','$actual_mp_dept','$actual_mp_section','$plan_mp_dept','$plan_mp_section','$date_now','$time_now')";
+        $stmt = $conn->prepare($save_req);
+        if($stmt->execute()){
+            echo "Success!";
         }else{
-            // INSERT TB_REQUEST_MP
-            $date = date("Y-m-d");
-            $time = date("H:i:s");
-            $mp_request = "INSERT INTO tb_request_mp (`id`,`mp_request_ID`,`requestor`,`requestor_email`,`requesting_position`,`assigned_dept`,`female_num_mp`,`male_num_mp`,`total_mp`,
-            `contract_status`,`date_start`,`date_end`,`education`,`required_license`,`other_qualification`,`job_duties`,`interview_need`,`interviewers`,`availability_for_interview`,
-            `additional_mp`,`mp_plan`,`reorganization`,`promotion`,`retirement`,`replacement`,`replacement_mp_name`,`others`,`budget_source`,`budget_status`,`actual_mp_dept`,`actual_mp_section`,`plan_mp_dept`,
-            `plan_mp_section`,`request_date`,`request_time`) 
-            VALUES('$id','$mp_req_ID','$requestor','$email','$position','$assign_dept','$female_mp_count','$male_mp_count','$total','$contractStatus',
-            '$dateStart','$dateEnd','$educ','$cert','$other_quali','$job_duties','$interview_stat','$interviewer','$interview_date_time','$add_mp_val','$mp_plan_val','$re_org_val',
-            '$promotion','$retirement','$replace_val','$replaceName','$other_text','$budget_source','$budget_status','$actual_mp_dept','$actual_mp_section','$plan_mp_dept','$plan_mp_section','$date','$time')";
-            $stmt = $conn->prepare($mp_request);
-            if($stmt->execute()){
-                echo "Success!";
-            }else{
-                echo 'Failed!';
+            echo "Failed!";
+        }
+    }
+    elseif($method == 'requestor_view'){
+        $req_status = $_POST['req_status'];
+        $email = $_POST['email'];
+        if(empty($req_status)){
+            $query = "SELECT *FROM tb_request_mp";
+            $stmt = $conn->prepare($query);
+            $stmt->execute();
+            foreach($stmt->fetchALL() as $x){
+                echo '<tr onclick="view(&quot;'.$x['id'].'&quot;)">';
+                echo '<td>'.$x['id'].'</td>';
+                echo '<td>'.$x['requesting_position'].'</td>';
+                echo '<td>'.$x['assigned_dept'].'</td>';
+                echo '<td>'.$x['contract_status'].'</td>';
+                echo '<td>'.$x['requestor'].'</td>';
+                echo '<td>'.$x['requestor_email'].'</td>';
+                echo '<td></td>';
+                echo '<td></td>';
+                echo '<td>'.$x['request_date'].'</td>';
+                echo '</tr>';
             }
+        }
 
-            }
-        }
-        if($method == 'requestor_view'){
-            $req_stats = $_POST['req_status'];
-            $req_date_from = $_POST['req_date_from'];
-            $req_date_to = $_POST['req_date_to'];
-            // if(empty($req_stats) &&)
-        }
+    }
+        
 ?>
-

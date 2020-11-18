@@ -4,7 +4,7 @@
     <!-- POSITION -->
     <div class="col s12">
         <div class="input-field col s12 l4 m4">
-            <input type="text" list="positionList" id="position" onfocus="loadPosition()"><label for="">Rank/Position</label>
+            <input type="text" list="positionList" id="position" onfocus="loadPosition()" autocomplete="off"><label for="">Rank/Position</label>
             <datalist id="positionList"></datalist>
         </div>
         <!-- DEPT -->
@@ -87,21 +87,21 @@
     <h5 class="header">Qualification Required</h5>
     <div class="row">
         <div class="input-field col l6 m6 s12">
-            <input type="text" id="educationAttainment" list="educAtt" onfocus="loadEduc()">
+            <input type="text" id="educationAttainment" list="educAtt" onfocus="loadEduc()" autocomplete="off">
             <label for="">Educational Attainment</label>
             <datalist id="educAtt"></datalist>
         </div>
         <div class="input-field col l6 m6 s12">
-            <input type="text" id="require_license_cert" list="certList" onfocus="load_cert()">
+            <input type="text" id="require_license_cert" list="certList" onfocus="load_cert()" autocomplete="off">
             <label for="">Required License/Certification</label>
             <datalist id="certList"></datalist>
         </div>
         <div class="input-field col l6 m6 s12">
-            <input type="text" id="other_quali_val">
+            <input type="text" id="other_quali_val" autocomplete="off">
             <label for="">Others</label>
         </div>
         <div class="input-field col l6 m6 s12">
-            <input type="text" id="job_duties_val">
+            <input type="text" id="job_duties_val" autocomplete="off">
             <label for="">Brief description of duties</label>
         </div>
     </div>
@@ -133,7 +133,7 @@
     <h5 class="header">Budget Information</h5>
     <div class="row">
         <div class="input-field col l6 m6 s12">
-            <input type="text" id="budget_source_val" list="budget_source" onfocus="load_budget_source()">
+            <input type="text" id="budget_source_val" list="budget_source" onfocus="load_budget_source()" autocomplete="off">
             <label for="">Budget Source</label>
             <datalist id="budget_source"></datalist>
         </div>

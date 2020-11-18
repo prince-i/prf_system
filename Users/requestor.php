@@ -76,11 +76,13 @@ include 'Modals/request_mp_modal.php';
                     <th>Requesting Position</th>
                     <th>Requesting Department</th>
                     <th>Contract Status</th>
+                    <th>Requested By</th>
                     <th>Requestor Email</th>
                     <th>Approval Status</th>
                     <th>Verification Status</th>
                     <th>Request Date</th>
                 </thead>
+                <tbody id="request_data"></tbody>
             </table>
     </div>
 <!-- </CONTENT> --------------------------------------------------------------------------------------------------------------->
@@ -347,15 +349,14 @@ include 'Modals/request_mp_modal.php';
             },success:function(response){
                     swal('Notification',response,'success');
                     document.getElementById('submitPRF').disabled = false;
-                    $('.modal').modal('close','#request_mp_modal');
+                    // $('.modal').modal('close','#request_mp_modal');
             }
         });
     }
 }
     const load_request_list =()=>{
         var req_status = document.getElementById('status').value;
-        var req_date_from = document.getElementById('requestDateFrom').value;
-        var req_date_to = document.getElementById('requestDateTo').value;
+        var email_requestor = '<?=$username;?>';
         document.getElementById('searchReqBtn').disabled = true;
         $.ajax({
             url: '../php/requestorController.php',
@@ -364,12 +365,15 @@ include 'Modals/request_mp_modal.php';
             data:{
                 method: 'requestor_view',
                 req_status:req_status,
-                req_date_from:req_date_from,
-                req_date_to:req_date_to
+                email:email_requestor
             },success:function(response){
                 document.getElementById('searchReqBtn').disabled = false;
+                document.getElementById('request_data').innerHTML = response;
             }
         });
+    }
+    function view(id){
+        alert(id);
     }
 </script>
 </body>
