@@ -86,10 +86,10 @@
         `male_num_mp`,`total_mp`,`contract_status`,`date_start`,`date_end`,`education`,`required_license`,`other_qualification`,
         `job_duties`,`interview_need`,`interviewers`,`availability_for_interview`,`additional_mp`,
         `mp_plan`,`reorganization`,`promotion`,`retirement`,`replacement`,`replacement_mp_name`,`others`,
-        `budget_source`,`budget_status`,`actual_mp_dept`,`actual_mp_section`,`plan_mp_dept`,`plan_mp_section`,`request_date`,`request_time`)
+        `budget_source`,`budget_status`,`actual_mp_dept`,`actual_mp_section`,`plan_mp_dept`,`plan_mp_section`,`request_date`,`request_time`,`approval_status`,`verification_status`)
          VALUES ('$id','$requestor','$email','$position','$assign_dept','$female_mp_count','$male_mp_count','$total','$contractStatus','$dateStart','$dateEnd','$educ','$cert','$other_quali',
         '$job_duties','$interview_stat','$interviewer','$interview_date_time','$add_mp_val','$mp_plan_val','$re_org_val','$promotion','$retirement','$replace_val','$replaceName',
-        '$other_text','$budget_source','$budget_status','$actual_mp_dept','$actual_mp_section','$plan_mp_dept','$plan_mp_section','$date_now','$time_now')";
+        '$other_text','$budget_source','$budget_status','$actual_mp_dept','$actual_mp_section','$plan_mp_dept','$plan_mp_section','$date_now','$time_now','pending','pending')";
         $stmt = $conn->prepare($save_req);
         if($stmt->execute()){
             echo "Success!";
@@ -112,8 +112,8 @@
                 echo '<td>'.$x['contract_status'].'</td>';
                 echo '<td>'.$x['requestor'].'</td>';
                 echo '<td>'.$x['requestor_email'].'</td>';
-                echo '<td></td>';
-                echo '<td></td>';
+                echo '<td>'.$x['approval_status'].'</td>';
+                echo '<td>'.$x['verification_status'].'</td>';
                 echo '<td>'.$x['request_date'].'</td>';
                 echo '</tr>';
             }
