@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2020 at 06:38 AM
--- Server version: 10.4.13-MariaDB
--- PHP Version: 7.4.7
+-- Generation Time: Dec 09, 2020 at 03:39 AM
+-- Server version: 10.4.16-MariaDB
+-- PHP Version: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -49,17 +49,19 @@ INSERT INTO `prf_account` (`id`, `username`, `password`, `role`, `position`, `na
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_budget_info`
+-- Table structure for table `tb_approval`
 --
 
-CREATE TABLE `tb_budget_info` (
-  `mp_request_ID` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `budget_source` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `budget_status` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `actual_mp_dept` int(14) DEFAULT NULL,
-  `actual_mp_section` int(14) DEFAULT NULL,
-  `plan_mp_dept` int(14) NOT NULL,
-  `plan_mp_section` int(14) NOT NULL
+CREATE TABLE `tb_approval` (
+  `id` int(14) NOT NULL,
+  `request_id` int(14) NOT NULL,
+  `check_by` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `check_remarks` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `noted_by` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `noted_remarks` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `check_date` date DEFAULT NULL,
+  `noted_date` date DEFAULT NULL,
+  `approval_status` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -128,21 +130,17 @@ CREATE TABLE `tb_department` (
 
 INSERT INTO `tb_department` (`id`, `deptDesc`, `deptCode`) VALUES
 (1, 'Accounting Department', 'ACC'),
-(2, 'Aragon', 'Aragon'),
 (3, 'Equipment Department', 'EQD'),
 (4, 'G-Assist Team', 'G-ASSIST'),
-(5, 'Housekeeping', 'Housekeeping'),
 (6, 'Human Resource Department', 'HR'),
 (7, 'Information Technology Department', 'IT'),
 (8, 'Material Procurement Department', 'MPD'),
 (9, 'NF Kaizen Department', 'NF'),
-(10, 'Non-Falp', 'NON-FALP'),
 (11, 'Production Design Center', 'PDC'),
 (12, 'Production Engineering Department', 'PE'),
 (13, 'Production Management Department', 'PMD'),
 (14, 'Production Department', 'PROD'),
-(15, 'Quality Assurance Department', 'QA'),
-(16, 'SPE', 'SPE');
+(15, 'Quality Assurance Department', 'QA');
 
 -- --------------------------------------------------------
 
@@ -164,8 +162,8 @@ INSERT INTO `tb_education` (`id`, `educDesc`) VALUES
 (2, 'Senior Highschool Diploma'),
 (3, 'Junior Highschool (New Curriculum)'),
 (4, 'College Level'),
-(5, 'Bachelor\'s Degree'),
-(6, 'Master\'s Degree'),
+(5, 'Bachelors Degree'),
+(6, 'Masters Degree'),
 (7, 'Doctoral Degree');
 
 -- --------------------------------------------------------
@@ -197,30 +195,13 @@ INSERT INTO `tb_position` (`id`, `position`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_reason_for_hiring`
---
-
-CREATE TABLE `tb_reason_for_hiring` (
-  `mp_request_ID` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `additional_mp` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `mp_plan` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `reorganization` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `promotion` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `retirement` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `replacement` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `replacement_mp_name` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `others` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tb_request_mp`
 --
 
 CREATE TABLE `tb_request_mp` (
   `id` int(14) NOT NULL,
   `requestor` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `requestor_email` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
   `requesting_position` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `assigned_dept` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `female_num_mp` int(14) DEFAULT NULL,
@@ -229,17 +210,63 @@ CREATE TABLE `tb_request_mp` (
   `contract_status` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `date_start` date NOT NULL,
   `date_end` date NOT NULL,
-  `work_exp` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
+  `education` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
   `required_license` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
   `other_qualification` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
   `job_duties` varchar(2000) COLLATE utf8_unicode_ci NOT NULL,
   `interview_need` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `interviewers` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
   `availability_for_interview` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
-  `mp_request_ID` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `request_date` date NOT NULL,
-  `request_time` time NOT NULL
+  `additional_mp` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `mp_plan` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `reorganization` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `promotion` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `retirement` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `replacement` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `replacement_mp_name` varchar(2000) COLLATE utf8_unicode_ci NOT NULL,
+  `others` varchar(2000) COLLATE utf8_unicode_ci NOT NULL,
+  `budget_source` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `budget_status` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `actual_mp_dept` int(14) NOT NULL,
+  `actual_mp_section` int(14) NOT NULL,
+  `plan_mp_dept` int(14) NOT NULL,
+  `plan_mp_section` int(14) NOT NULL,
+  `approve_check_by` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `approve_check_remarks` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `approve_noted_by` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `approve_noted_remarks` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `check_date` date DEFAULT NULL,
+  `noted_date` date DEFAULT NULL,
+  `approval_status` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `verify_check_by` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `verify_check_remarks` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `verify_verifier_manager` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `verify_verifier_manager_remarks` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `verify_verifier_div_mgr` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `verify_verifier_div_mgr_remarks` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cancel_remarks` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `verification_status` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `request_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `tb_request_mp`
+--
+
+INSERT INTO `tb_request_mp` (`id`, `requestor`, `requestor_email`, `requesting_position`, `assigned_dept`, `female_num_mp`, `male_num_mp`, `total_mp`, `contract_status`, `date_start`, `date_end`, `education`, `required_license`, `other_qualification`, `job_duties`, `interview_need`, `interviewers`, `availability_for_interview`, `additional_mp`, `mp_plan`, `reorganization`, `promotion`, `retirement`, `replacement`, `replacement_mp_name`, `others`, `budget_source`, `budget_status`, `actual_mp_dept`, `actual_mp_section`, `plan_mp_dept`, `plan_mp_section`, `approve_check_by`, `approve_check_remarks`, `approve_noted_by`, `approve_noted_remarks`, `check_date`, `noted_date`, `approval_status`, `verify_check_by`, `verify_check_remarks`, `verify_verifier_manager`, `verify_verifier_manager_remarks`, `verify_verifier_div_mgr`, `verify_verifier_div_mgr_remarks`, `cancel_remarks`, `verification_status`, `request_date`) VALUES
+(36, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', 'Junior Highschool (New Curriculum)', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-11-18 00:00:00'),
+(37, 'Juan Dela Cruz', 'requestor@email.com', 'Associate', 'IT', 1, 1, 2, 'Full Time', '2020-12-07', '0000-00-00', 'Bachelors Degree', 'N/A', '', 'yamete', 'need', 'gem ibana', '2020-11-26 13:00', '1', '1', '0', '0', '0', '1', 'ann , aison cabusay', '', 'IT', 'IT', 35, 0, 38, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-11-18 00:00:00'),
+(38, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-11-18 00:00:00'),
+(39, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-11-18 00:00:00'),
+(40, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-11-18 00:00:00'),
+(41, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-11-18 00:00:00'),
+(42, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-11-18 00:00:00'),
+(43, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '2020-11-18 00:00:00'),
+(44, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '2020-11-18 00:00:00'),
+(45, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', ' ', '1', '1', '1', '1', '1', '1', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '2020-12-09 00:00:00'),
+(46, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '2020-12-09 00:00:00'),
+(47, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '2020-12-09 03:32:30'),
+(48, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '2020-12-09 03:36:12');
 
 --
 -- Indexes for dumped tables
@@ -249,6 +276,12 @@ CREATE TABLE `tb_request_mp` (
 -- Indexes for table `prf_account`
 --
 ALTER TABLE `prf_account`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_approval`
+--
+ALTER TABLE `tb_approval`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -298,6 +331,12 @@ ALTER TABLE `prf_account`
   MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `tb_approval`
+--
+ALTER TABLE `tb_approval`
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `tb_certification`
 --
 ALTER TABLE `tb_certification`
@@ -331,7 +370,7 @@ ALTER TABLE `tb_position`
 -- AUTO_INCREMENT for table `tb_request_mp`
 --
 ALTER TABLE `tb_request_mp`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
