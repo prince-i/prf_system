@@ -32,7 +32,7 @@ include 'Modals/request_mp_modal.php';
     </div>
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
-        <li class="tab"><a href="#request">My Requests</a></li>
+        <li class="tab"><a href="#request">Pending Requests</a></li>
         <li class="tab"><a href="#approved">Approved Request</a></li>
         <li class="tab"><a href="#verified">Verified Request</a></li>
         <li class="tab"><a href="#cancelled">Cancelled Request</a></li>
@@ -54,11 +54,11 @@ include 'Modals/request_mp_modal.php';
         </div>
         <!-- dateFrom -->
         <div class="input-field col l3 m3 s12">
-            <input type="text" class="datepicker" id="requestDateFrom"><label for="">Requested Date From:</label>
+            <input type="text" class="datepicker" id="requestDateFrom" autocomplete=off><label for="">Requested Date From:</label>
         </div>
         <!-- date to -->
         <div class="input-field col l3 m3 s12">
-            <input type="text" class="datepicker" id="requestDateTo"><label for="">To:</label>
+            <input type="text" class="datepicker" id="requestDateTo" autocomplete=off><label for="">To:</label>
         </div>
         <!-- search -->
         <div class="input-field col l2 m2 s12">

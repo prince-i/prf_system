@@ -100,7 +100,7 @@
     elseif($method == 'requestor_view'){
         $email = $_POST['email'];
         if(empty($req_status)){
-            $query = "SELECT *FROM tb_request_mp";
+            $query = "SELECT *FROM tb_request_mp WHERE approval_status = 'pending' AND verification_status = 'pending'";
             $stmt = $conn->prepare($query);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
