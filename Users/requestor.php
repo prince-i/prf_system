@@ -359,6 +359,8 @@ include 'Modals/request_mp_modal.php';
 // LOAD LIST PENDING REQUEST ONLY
     const load_request_list =()=>{
         var email_requestor = '<?=$username;?>';
+        var from = document.getElementById('requestDateFrom').value;
+        var to = document.getElementById('requestDateTo').value;
         document.getElementById('searchReqBtn').disabled = true;
         document.getElementById('printBtn').disabled = true;
         $.ajax({
@@ -367,7 +369,9 @@ include 'Modals/request_mp_modal.php';
             cache: false,
             data:{
                 method: 'requestor_view',
-                email:email_requestor
+                email:email_requestor,
+                from:from,
+                to:to
             },success:function(response){
                 document.getElementById('searchReqBtn').disabled = false;
                 document.getElementById('printBtn').disabled = false;

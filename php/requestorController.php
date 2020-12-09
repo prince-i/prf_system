@@ -97,10 +97,30 @@
             echo "Failed!";
         }
     }
+    // PENDING VIEW
     elseif($method == 'requestor_view'){
         $email = $_POST['email'];
-        if(empty($req_status)){
+        $from = $_POST['from'];
+        $to = $_POST['to'];
+        if(empty($from) && empty($to)){
             $query = "SELECT *FROM tb_request_mp WHERE approval_status = 'pending' AND verification_status = 'pending'";
+            $stmt = $conn->prepare($query);
+            $stmt->execute();
+            foreach($stmt->fetchALL() as $x){
+                echo '<tr onclick="view(&quot;'.$x['id'].'&quot;)">';
+                echo '<td>'.$x['id'].'</td>';
+                echo '<td>'.$x['requesting_position'].'</td>';
+                echo '<td>'.$x['assigned_dept'].'</td>';
+                echo '<td>'.$x['contract_status'].'</td>';
+                echo '<td>'.$x['requestor'].'</td>';
+                echo '<td>'.$x['requestor_email'].'</td>';
+                echo '<td>'.$x['approval_status'].'</td>';
+                echo '<td>'.$x['verification_status'].'</td>';
+                echo '<td>'.$x['request_date'].'</td>';
+                echo '</tr>';
+            }
+        }else{
+            $query = "SELECT *FROM tb_request_mp WHERE request_date >= '$from 00:00:00' AND request_date <= '$to 23:59:59' AND approval_status = 'pending' AND verification_status = 'pending'";
             $stmt = $conn->prepare($query);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
