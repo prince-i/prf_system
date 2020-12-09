@@ -6,6 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="../Img/logo.jpg" type="image/jpg" sizes="16x16">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Requestor Dashboard</title>
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
@@ -32,6 +33,9 @@ include 'Modals/request_mp_modal.php';
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
         <li class="tab"><a href="#request">My Requests</a></li>
+        <li class="tab"><a href="#approved">Approved Request</a></li>
+        <li class="tab"><a href="#verified">Verified Request</a></li>
+        <li class="tab"><a href="#cancelled">Cancelled Request</a></li>
         <li class="tab"><a href="#notif">Notification</a></li>
       </ul>
     </div>

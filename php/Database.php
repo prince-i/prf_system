@@ -1,4 +1,7 @@
 <?php
+// GETS SERVERTIME
+date_default_timezone_set('Asia/Manila');
+$server_date_time = date("Y-m-d H:i:s");
 $servername = 'localhost';
 $username = 'root';
 $password = '';
