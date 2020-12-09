@@ -32,7 +32,7 @@ include 'Modals/request_mp_modal.php';
     </div>
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
-        <li class="tab"><a href="#request">Pending Requests</a></li>
+        <li class="tab"><a href="#request" onclick=load_request_list()>Pending Requests</a></li>
         <li class="tab"><a href="#approved">Approved Request</a></li>
         <li class="tab"><a href="#verified">Verified Request</a></li>
         <li class="tab"><a href="#cancelled">Cancelled Request</a></li>
@@ -88,6 +88,10 @@ include 'Modals/request_mp_modal.php';
     </div>
 <!-- </CONTENT> ---------------------------------------------->
   </div>
+
+  <div id="approved">approved</div>
+  <div id="verified">verified</div>
+  <div id="cancelled">cancelled</div>
   <!-- </MY_REQUEST> ------------------------------------------>
   <div id="notif" class="col s12">Test 2</div>
 
