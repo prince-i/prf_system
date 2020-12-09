@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
     <link rel="stylesheet" href="../style.css">
     <style>
-      
+     .btn-large{
+          border-radius:30px;
+      }
     </style>
 </head>
 <body>
@@ -43,7 +45,9 @@ include 'Modals/request_mp_modal.php';
   <div id="request" class="row col s12">
 <!-- CONTENT -------------------------------------------------->
    <div class="col s12 hide-on-med-down">
-        
+        <div class="input-field col l2 m2 s12">
+        <a href="#" class="btn-large #004d40 teal darken-4 modal-trigger col s12" data-target="request_mp_modal" onclick="load_request_form()">Request New PRF &plus;</a>
+        </div>
         <!-- dateFrom -->
         <div class="input-field col l3 m3 s12">
             <input type="text" class="datepicker" id="requestDateFrom"><label for="">Requested Date From:</label>
@@ -54,11 +58,11 @@ include 'Modals/request_mp_modal.php';
         </div>
         <!-- search -->
         <div class="input-field col l2 m2 s12">
-            <button class="btn-large teal col s12 z-depth-3" id="searchReqBtn" onclick="load_request_list()">search</button>
+            <button class="btn-large   #00897b teal darken-1 col s12 z-depth-3" id="searchReqBtn" onclick="load_request_list()">search</button>
         </div>
         <!-- print btn -->
         <div class="input-field col l2 m2 s12">
-            <button class="btn-large red col s12 z-depth-3" id="printBtn">print</button>
+            <button class="btn-large #4db6ac teal lighten-2 col s12 z-depth-3 " id="printBtn">print</button>
         </div>
    </div>
 <!-- ---------------------------------------------------- -->
@@ -79,10 +83,6 @@ include 'Modals/request_mp_modal.php';
             </table>
     </div>
 <!-- </CONTENT> ---------------------------------------------->
-    <!-- ACTION BUTTON -->
-    <div class="fixed-action-btn">
-        <a href="#" class="btn-floating btn-large red modal-trigger" data-target="request_mp_modal" onclick="load_request_form()"><b style="font-size:25px;">&plus;</b></a>
-    </div>
   </div>
   <!-- </MY_REQUEST> ------------------------------------------>
   <div id="notif" class="col s12">Test 2</div>
