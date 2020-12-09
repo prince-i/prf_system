@@ -1,4 +1,9 @@
 <?php include '../php/Database.php';?>
+<style>
+    select{
+        border-radius:20px;
+    }
+</style>
 <div class="row">
     <h5 class="header">Position Requested</h5>
     <!-- POSITION -->
@@ -9,7 +14,7 @@
         </div>
         <!-- DEPT -->
         <div class="input-field col s12 l4 m4">
-            <select name="" id="assigned_dept" class="browser-default">
+            <select name="" id="assigned_dept" class="browser-default z-depth-5">
                 <option value="" selected disabled>-- Select Assigned Department/Section --</option>
                 <?php
                     $query = "SELECT *FROM tb_department";
@@ -62,7 +67,7 @@
     <h5 class="header">Contract Status</h5>
     <div class="row">
         <div class="row input-field col l12 m12 s12">
-            <select name="" id="contract_status_val" class="browser-default">
+            <select name="" id="contract_status_val" class="browser-default z-depth-5">
                 <option value="" selected disabled>-- Select Contract Status --</option>
                 <?php
                 $query = "SELECT *FROM tb_contract_status";
@@ -110,7 +115,7 @@
     <div class="row">
         <div class="input-field col l6 m6 s12">
             <b>Required for interview/validation:</b>
-            <select name="" id="interview_status" class="browser-default">
+            <select name="" id="interview_status" class="browser-default z-depth-5">
                 <option value="" selected disabled>--Select--</option>
                 <option value="need">Need</option>
                 <option value="noneed">No need</option>
@@ -138,7 +143,7 @@
             <datalist id="budget_source"></datalist>
         </div>
         <div class="input-field col l6 m6 s12">
-            <select name="" id="budget_status" class="browser-default">
+            <select name="" id="budget_status" class="browser-default z-depth-5">
                 <option value="">--SELECT BUDGET STATUS--</option>
                 <option value="on/within budget">On/within Budget</option>
                 <option value="over budget">Over Budget</option>
@@ -167,7 +172,7 @@
     </div>
     <div class="row">
         <div class="input-field col s12">
-            <button class="btn-large teal" id="submitPRF" onclick="submit_prf()">submit request&rarr;</button>
+            <button class="btn-large #004d40 teal darken-4 z-depth-5" id="submitPRF" onclick="submit_prf()">submit request&rarr;</button>
         </div>
     </div>
 </div>

@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
     <link rel="stylesheet" href="../style.css">
     <style>
-     .btn-large{
-          border-radius:30px;
-      }
+        .btn-large{
+            border-radius:30px;
+        }
     </style>
 </head>
 <body>
@@ -44,7 +44,7 @@ include 'Modals/request_mp_modal.php';
 <!-- MY_REQUEST ----------------------------------------------->
   <div id="request" class="row col s12">
 <!-- CONTENT -------------------------------------------------->
-   <div class="col s12 hide-on-med-down">
+   <div class="col s12 hide-on-med-and-down">
         <div class="input-field col l2 m2 s12">
         <a href="#" class="btn-large #004d40 teal darken-4 modal-trigger col s12" data-target="request_mp_modal" onclick="load_request_form()">Request New PRF &plus;</a>
         </div>
@@ -67,7 +67,7 @@ include 'Modals/request_mp_modal.php';
    </div>
 <!-- ---------------------------------------------------- -->
         <div class="col s12">
-            <table class="centered" id="table_requests">
+            <table class="centered z-depth-5" id="table_requests">
                 <thead>
                     <th>Request ID</th>
                     <th>Requesting Position</th>
