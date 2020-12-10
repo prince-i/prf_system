@@ -15,6 +15,9 @@
         .btn-large{
             border-radius:30px;
         }
+        #table_requests tbody tr:hover{
+            background-color:skyblue;
+        }
     </style>
 </head>
 <body>
@@ -22,7 +25,7 @@
 <?php 
 include 'Modals/request_mp_modal.php';
 ?>
-<nav class="nav-extended teal z-depth-5">
+<nav class="nav-extended #01579b light-blue darken-4 z-depth-5">
     <div class="nav-wrapper">
       <a href="#">Requestor Dashboard</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><span style="font-size:20px;font-weight:bold;">&plus;</span></a>
@@ -50,7 +53,7 @@ include 'Modals/request_mp_modal.php';
 <!-- CONTENT -------------------------------------------------->
    <div class="col s12 hide-on-med-and-down">
         <div class="input-field col l2 m2 s12">
-        <a href="#" class="btn-large #004d40 teal darken-4 modal-trigger col s12" data-target="request_mp_modal" onclick="load_request_form()">&plus; Request New PRF</a>
+        <a href="#" class="btn-large #0d47a1 blue darken-4 modal-trigger col s12" data-target="request_mp_modal" onclick="load_request_form()">&plus; Request New PRF</a>
         </div>
         <!-- dateFrom -->
         <div class="input-field col l3 m3 s12">
@@ -62,16 +65,16 @@ include 'Modals/request_mp_modal.php';
         </div>
         <!-- search -->
         <div class="input-field col l2 m2 s12">
-            <button class="btn-large   #00897b teal darken-1 col s12 z-depth-3" id="searchReqBtn" onclick="load_request_list()">search</button>
+            <button class="btn-large  #1e88e5 blue darken-1 col s12 z-depth-3" id="searchReqBtn" onclick="load_request_list()">search</button>
         </div>
         <!-- print btn -->
         <div class="input-field col l2 m2 s12">
-            <button class="btn-large #4db6ac teal lighten-2 col s12 z-depth-3 " id="printBtn">print</button>
+            <button class="btn-large #64b5f6 blue lighten-2 col s12 z-depth-3 " id="printBtn">print</button>
         </div>
    </div>
 <!-- ---------------------------------------------------- -->
         <div class="col s12">
-            <table class="centered z-depth-5" id="table_requests">
+            <table class="centered z-depth-5 responsive-table" id="table_requests">
                 <thead>
                     <th>Request ID</th>
                     <th>Requesting Position</th>

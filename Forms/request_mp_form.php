@@ -172,7 +172,7 @@
     </div>
     <div class="row">
         <div class="input-field col s12">
-            <button class="btn-large #004d40 teal darken-4 z-depth-5" id="submitPRF" onclick="submit_prf()">submit request&rarr;</button>
+            <button class="btn-large #0d47a1 blue darken-4 z-depth-5" id="submitPRF" onclick="submit_prf()">submit request&rarr;</button>
         </div>
     </div>
 </div>

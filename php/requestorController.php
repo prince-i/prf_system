@@ -107,7 +107,7 @@
             $stmt = $conn->prepare($query);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
-                echo '<tr onclick="view(&quot;'.$x['id'].'&quot;)">';
+                echo '<tr onclick="view(&quot;'.$x['id'].'&quot;)" style="cursor:pointer;">';
                 echo '<td>'.$x['id'].'</td>';
                 echo '<td>'.$x['requesting_position'].'</td>';
                 echo '<td>'.$x['assigned_dept'].'</td>';
@@ -124,7 +124,7 @@
             $stmt = $conn->prepare($query);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
-                echo '<tr onclick="view(&quot;'.$x['id'].'&quot;)">';
+                echo '<tr onclick="view(&quot;'.$x['id'].'&quot;)" style="cursor:pointer;">';
                 echo '<td>'.$x['id'].'</td>';
                 echo '<td>'.$x['requesting_position'].'</td>';
                 echo '<td>'.$x['assigned_dept'].'</td>';
