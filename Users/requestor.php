@@ -50,7 +50,7 @@ include 'Modals/request_mp_modal.php';
 <!-- CONTENT -------------------------------------------------->
    <div class="col s12 hide-on-med-and-down">
         <div class="input-field col l2 m2 s12">
-        <a href="#" class="btn-large #004d40 teal darken-4 modal-trigger col s12" data-target="request_mp_modal" onclick="load_request_form()">Request New PRF &plus;</a>
+        <a href="#" class="btn-large #004d40 teal darken-4 modal-trigger col s12" data-target="request_mp_modal" onclick="load_request_form()">&plus; Request New PRF</a>
         </div>
         <!-- dateFrom -->
         <div class="input-field col l3 m3 s12">
