@@ -103,7 +103,7 @@
         $from = $_POST['from'];
         $to = $_POST['to'];
         if(empty($from) && empty($to)){
-            $query = "SELECT *FROM tb_request_mp WHERE approval_status = 'pending' AND verification_status = 'pending'";
+            $query = "SELECT *FROM tb_request_mp WHERE approval_status = 'pending' AND verification_status = 'pending' AND requestor_email LIKE '$email%'";
             $stmt = $conn->prepare($query);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
@@ -120,7 +120,7 @@
                 echo '</tr>';
             }
         }else{
-            $query = "SELECT *FROM tb_request_mp WHERE request_date >= '$from 00:00:00' AND request_date <= '$to 23:59:59' AND approval_status = 'pending' AND verification_status = 'pending'";
+            $query = "SELECT *FROM tb_request_mp WHERE request_date >= '$from 00:00:00' AND request_date <= '$to 23:59:59' AND approval_status = 'pending' AND verification_status = 'pending' AND requestor_email LIKE '$email%'";
             $stmt = $conn->prepare($query);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
@@ -139,5 +139,14 @@
         }
 
     }
-        
+    // COUNT PENDING REQUEST BACKEND
+    elseif($method == 'count_pending_request'){
+        $email = $_POST['email'];
+        $query = "SELECT COUNT(id) as total_pending FROM tb_request_mp WHERE approval_status = 'pending' AND  verification_status = 'pending' AND requestor_email LIKE '$email%'";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $x){
+            echo $x['total_pending'];
+        }
+    }
 ?>

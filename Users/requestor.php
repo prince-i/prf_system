@@ -35,11 +35,10 @@ include 'Modals/request_mp_modal.php';
     </div>
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
-        <li class="tab"><a href="#request" onclick=load_request_list()>Pending Requests</a></li>
+        <li class="tab"><a href="#request" onclick=reload_pending()>Pending Requests<span class="new badge #64b5f6 blue lighten-2" id="pending"></a></span></li>
         <li class="tab"><a href="#approved">Approved Request</a></li>
         <li class="tab"><a href="#verified">Verified Request</a></li>
         <li class="tab"><a href="#cancelled">Cancelled Request</a></li>
-        <li class="tab"><a href="#notif">Notification</a></li>
       </ul>
     </div>
   </nav>
@@ -92,12 +91,11 @@ include 'Modals/request_mp_modal.php';
 <!-- </CONTENT> ---------------------------------------------->
   </div>
 
+  <!-- </MY_REQUEST> ------------------------------------------>
+
   <div id="approved">approved</div>
   <div id="verified">verified</div>
   <div id="cancelled">cancelled</div>
-  <!-- </MY_REQUEST> ------------------------------------------>
-  <div id="notif" class="col s12">Test 2</div>
-
 
 <!-- JS -------------------------------------------------------->
 <script src="../jquery/jquery.min.js"></script>
@@ -232,7 +230,7 @@ include 'Modals/request_mp_modal.php';
         });
     }
 // SUBMIT PRF DETAILS
-    const submit_prf =()=>{
+const submit_prf =()=>{
         var requestor = '<?=$name;?>';
 // POSITION
         var position = document.getElementById('position').value;
@@ -359,8 +357,14 @@ include 'Modals/request_mp_modal.php';
         });
     }
 }
+// RELOAD PENDING
+const reload_pending =()=>{
+    document.getElementById('requestDateFrom').value = '';
+    document.getElementById('requestDateTo').value = '';
+    load_request_list();
+}
 // LOAD LIST PENDING REQUEST ONLY
-    const load_request_list =()=>{
+const load_request_list =()=>{
         var email_requestor = '<?=$username;?>';
         var from = document.getElementById('requestDateFrom').value;
         var to = document.getElementById('requestDateTo').value;
@@ -379,12 +383,31 @@ include 'Modals/request_mp_modal.php';
                 document.getElementById('searchReqBtn').disabled = false;
                 document.getElementById('printBtn').disabled = false;
                 document.getElementById('request_data').innerHTML = response;
+                count_pending();
             }
         });
-    }
-    function view(id){
-        alert(id);
-    }
+}
+// GET ID
+function view(id){
+    alert(id);
+}
+
+// COUNT PENDING
+const count_pending =()=>{
+    var email = '<?=$username?>';
+    $.ajax({
+        url: '../php/requestorController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'count_pending_request',
+            email:email
+        },success:function(response){
+             console.log(response);
+             $('#pending').html(response);
+        }
+    });
+}
 </script>
 </body>
 </html>
