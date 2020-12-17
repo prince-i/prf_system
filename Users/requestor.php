@@ -36,7 +36,7 @@ include 'Modals/request_mp_modal.php';
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
         <li class="tab"><a href="#request" onclick=reload_pending()>Pending Requests<span class="new badge #64b5f6 blue lighten-2" id="pending"></a></span></li>
-        <li class="tab"><a href="#approved">Approved Request</a></li>
+        <li class="tab"><a href="#approved" onclick=load_approved_list()>Approved Request</a></li>
         <li class="tab"><a href="#verified">Verified Request</a></li>
         <li class="tab"><a href="#cancelled">Cancelled Request</a></li>
       </ul>
@@ -93,7 +93,9 @@ include 'Modals/request_mp_modal.php';
 
   <!-- </MY_REQUEST> ------------------------------------------>
 
-  <div id="approved">approved</div>
+  <div id="approved">
+    <?php include 'requestor_page/approve_request_page.php';?>
+  </div>
   <div id="verified">verified</div>
   <div id="cancelled">cancelled</div>
 
@@ -387,11 +389,24 @@ const load_request_list =()=>{
             }
         });
 }
+// LOAD LIST APPROVED REQUEST
+const load_approve_list =()=>{
+    email = '<?=$username?>';
+    $.ajax({
+        url: '../php/requestorController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            email:email
+        },success:function(response){
+            console.log(response);
+        }
+    })
+}
 // GET ID
 function view(id){
     alert(id);
 }
-
 // COUNT PENDING
 const count_pending =()=>{
     var email = '<?=$username?>';
@@ -403,11 +418,11 @@ const count_pending =()=>{
             method: 'count_pending_request',
             email:email
         },success:function(response){
-             console.log(response);
              $('#pending').html(response);
         }
     });
 }
+
 </script>
 </body>
 </html>
