@@ -35,10 +35,10 @@ include 'Modals/request_mp_modal.php';
     </div>
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
-        <li class="tab"><a href="#request" onclick=reload_pending()>Pending Requests<span class="new badge #64b5f6 blue lighten-2" id="pending"></a></span></li>
-        <li class="tab"><a href="#approved" onclick=load_approved_list()>Approved Request</a></li>
-        <li class="tab"><a href="#verified">Verified Request</a></li>
-        <li class="tab"><a href="#cancelled">Cancelled Request</a></li>
+        <li class="tab"><a href="#request" onclick="reload_pending()">Pending Requests<span class="new badge" id="pending"></a></span></li>
+        <li class="tab"><a href="#approved" onclick="load_approved_list()">Approved Request<span class="new badge" id="approved_notif"></span></a></li>
+        <li class="tab"><a href="#verified">Verified Request<span class="new badge" id=""></span></a></li>
+        <li class="tab"><a href="#cancelled">Cancelled Request<span class="new badge" id=""></span></a></li>
       </ul>
     </div>
   </nav>
@@ -119,6 +119,7 @@ include 'Modals/request_mp_modal.php';
         });
         $('.collapsible').collapsible();
         load_request_list();
+        count_approved();
     });
 // LOAD MODAL CONTENT
     const load_request_form =()=>{
@@ -390,16 +391,18 @@ const load_request_list =()=>{
         });
 }
 // LOAD LIST APPROVED REQUEST
-const load_approve_list =()=>{
+const load_approved_list =()=>{
     email = '<?=$username?>';
     $.ajax({
         url: '../php/requestorController.php',
         type: 'POST',
         cache: false,
         data:{
-            email:email
+            email:email,
+            method: 'fetch_approve_request_requestor'
         },success:function(response){
-            console.log(response);
+           $('#approve_data').html(response);
+           count_approved();
         }
     })
 }
@@ -419,6 +422,21 @@ const count_pending =()=>{
             email:email
         },success:function(response){
              $('#pending').html(response);
+        }
+    });
+}
+// COUNT APPROVE
+const count_approved =()=>{
+    var email = '<?=$username?>';
+    $.ajax({
+        url: '../php/requestorController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'count_approved_request',
+            email:email
+        },success:function(response){
+             $('#approved_notif').html(response);
         }
     });
 }
