@@ -24,6 +24,8 @@
     <!-- INCLUDED FILES -->
 <?php 
 include 'Modals/request_mp_modal.php';
+include 'Modals/prf_request_menu.php';
+include 'Modals/preview_request.php';
 ?>
 <nav class="nav-extended #01579b light-blue darken-4 z-depth-5">
     <div class="nav-wrapper">
@@ -263,6 +265,7 @@ const submit_prf =()=>{
         var certification = document.getElementById('require_license_cert').value;
         var other_quali = document.getElementById('other_quali_val').value;
         var job_duties = document.getElementById('job_duties_val').value;
+        var work_exp = document.getElementById('work_experience').value;
 // interview/validation
         var interview_need_stats = document.getElementById('interview_status').value;
         var interviewer = document.getElementById('interviewers').value;
@@ -287,6 +290,8 @@ const submit_prf =()=>{
             swal('Warning','Contract status must not empty.','info');
         }else if(educational_attainment == ''){
             swal('Warning','Please enter educational attainment!','info');
+        }else if(work_exp == ''){
+            swal('Warning','Please enter required work experience!','info'); 
         }else if(certification == ''){
             swal('Warning','Please enter required license or certification!','info'); 
         }else if(job_duties == ''){
@@ -338,6 +343,7 @@ const submit_prf =()=>{
                 date_end:date_end,
                 educational_attainment:educational_attainment,
                 certification:certification,
+                work_exp:work_exp,
                 other_quali:other_quali,
                 job_duties:job_duties,
                 interview_need_stats:interview_need_stats,
@@ -407,8 +413,8 @@ const load_approved_list =()=>{
     })
 }
 // GET ID
-function view(id){
-    alert(id);
+const view_pending =(id)=>{
+   
 }
 // COUNT PENDING
 const count_pending =()=>{

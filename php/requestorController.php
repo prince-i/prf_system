@@ -63,8 +63,9 @@
         $contractStatus = $_POST['contract_status'];
         $dateStart = $_POST['date_start'];
         $dateEnd = $_POST['date_end'];
-       echo $educ = $_POST['educational_attainment'];
+        $educ = $_POST['educational_attainment'];
         $cert = $_POST['certification'];
+        $work_exp = $_POST['work_exp'];
         $other_quali = $_POST['other_quali'];
         $job_duties = $_POST['job_duties'];
         $interview_stat = $_POST['interview_need_stats'];
@@ -83,11 +84,11 @@
         // $date_now = date("Y-m-d H:i:s");
         // $time_now = date("H:i:s");
         $save_req = "INSERT INTO tb_request_mp (`id`,`requestor`,`requestor_email`,`requesting_position`,`assigned_dept`,`female_num_mp`,
-        `male_num_mp`,`total_mp`,`contract_status`,`date_start`,`date_end`,`education`,`required_license`,`other_qualification`,
+        `male_num_mp`,`total_mp`,`contract_status`,`date_start`,`date_end`,`education`,`required_license`,`work_exp`,`other_qualification`,
         `job_duties`,`interview_need`,`interviewers`,`availability_for_interview`,`additional_mp`,
         `mp_plan`,`reorganization`,`promotion`,`retirement`,`replacement`,`replacement_mp_name`,`others`,
         `budget_source`,`budget_status`,`actual_mp_dept`,`actual_mp_section`,`plan_mp_dept`,`plan_mp_section`,`request_date`,`approval_status`,`verification_status`)
-         VALUES ('$id','$requestor','$email','$position','$assign_dept','$female_mp_count','$male_mp_count','$total','$contractStatus','$dateStart','$dateEnd','$educ','$cert','$other_quali',
+         VALUES ('$id','$requestor','$email','$position','$assign_dept','$female_mp_count','$male_mp_count','$total','$contractStatus','$dateStart','$dateEnd','$educ','$cert','$work_exp','$other_quali',
         '$job_duties','$interview_stat','$interviewer','$interview_date_time','$add_mp_val','$mp_plan_val','$re_org_val','$promotion','$retirement','$replace_val','$replaceName',
         '$other_text','$budget_source','$budget_status','$actual_mp_dept','$actual_mp_section','$plan_mp_dept','$plan_mp_section','$server_date_time','pending','pending')";
         $stmt = $conn->prepare($save_req);
@@ -107,7 +108,7 @@
             $stmt = $conn->prepare($query);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
-                echo '<tr onclick="view(&quot;'.$x['id'].'&quot;)" style="cursor:pointer;">';
+                echo '<tr onclick="view_pending(&quot;'.$x['id'].'&quot;)" style="cursor:pointer;" class="modal-trigger" data-target="preview_request">';
                 echo '<td>'.$x['id'].'</td>';
                 echo '<td>'.$x['requesting_position'].'</td>';
                 echo '<td>'.$x['assigned_dept'].'</td>';

@@ -102,6 +102,10 @@
             <datalist id="certList"></datalist>
         </div>
         <div class="input-field col l6 m6 s12">
+            <input type="text" id="work_experience" autocomplete="off">
+            <label for="">Work Experience</label>
+        </div>
+        <div class="input-field col l6 m6 s12">
             <input type="text" id="other_quali_val" autocomplete="off">
             <label for="">Others</label>
         </div>
