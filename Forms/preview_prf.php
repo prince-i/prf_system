@@ -22,7 +22,7 @@
             <div class="col s6">
                 <h5>PERSONAL REQUISITION FORM</h5>
                 <b>Instructions/Hiring Information</b>
-                <p>Use this form to initiate the recruitment provess for new and existing employee/s.Please complete all applicable sections of this form.</p>
+                <p>Use this form to initiate the recruitment provess for new and existing employee/s.</p>
             </div>
             <!-- COLUMN 2 -->
             <div class="col s6">
