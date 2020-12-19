@@ -183,6 +183,6 @@ elseif($method == 'count_approved_request'){
 // VIEWING  SUMMARY
 elseif($method == 'summary_prf_view'){
     $id = $_POST['id']; 
-    $sql = "SELECT "
+    $sql = "SELECT ";
 }
 ?>
