@@ -125,7 +125,7 @@
             $stmt = $conn->prepare($query);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
-                echo '<tr onclick="view_summary(&quot;'.$x['id'].'&quot;)" style="cursor:pointer;">';
+                echo '<tr onclick="view_summary(&quot;'.$x['id'].'&quot;)" style="cursor:pointer;" class="modal-trigger" data-target="preview_request">';
                 echo '<td>'.$x['id'].'</td>';
                 echo '<td>'.$x['requesting_position'].'</td>';
                 echo '<td>'.$x['assigned_dept'].'</td>';
@@ -157,7 +157,7 @@
         $stmt = $conn->prepare($query);
         $stmt->execute();
         foreach($stmt->fetchall() as $x){
-            echo '<tr onclick="view(&quot;'.$x['id'].'&quot;)" style="cursor:pointer;">';
+            echo '<tr onclick="view_summary(&quot;'.$x['id'].'&quot;)" style="cursor:pointer;" class="modal-trigger" data-target="preview_request">';
                 echo '<td>'.$x['id'].'</td>';
                 echo '<td>'.$x['requesting_position'].'</td>';
                 echo '<td>'.$x['assigned_dept'].'</td>';
@@ -183,6 +183,70 @@ elseif($method == 'count_approved_request'){
 // VIEWING  SUMMARY
 elseif($method == 'summary_prf_view'){
     $id = $_POST['id']; 
-    $sql = "SELECT ";
+    $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,contract_status,education,required_license,work_exp,job_duties,request_date FROM tb_request_mp WHERE id = '$id'";;
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    foreach($stmt->fetchALL() as $x){
+        echo '<table>';
+        // ---------------
+        echo '<tr>';
+        echo '<td>Requested By:</td>';
+        echo '<td>'.$x['requestor'].'</td>';
+        echo '</tr>';
+        // ----------------
+        echo '<tr>';
+        echo '<td>Position:</td>';
+        echo '<td>'.$x['requesting_position'].'</td>';
+        echo '</tr>';
+        // ----------------
+        echo '<tr>';
+        echo '<td>Requesting Department:</td>';
+        echo '<td>'.$x['assigned_dept'].'</td>';
+        echo '</tr>';
+        // ----------------
+        echo '<tr>';
+        echo '<td>No. of MP Need (Male):</td>';
+        echo '<td>'.$x['male_num_mp'].'</td>';
+        echo '</tr>';
+        // ----------------
+        echo '<tr>';
+        echo '<td>No. of MP Need (Female):</td>';
+        echo '<td>'.$x['female_num_mp'].'</td>';
+        echo '</tr>';
+        // ----------------
+        echo '<tr>';
+        echo '<td>Contract Status:</td>';
+        echo '<td>'.$x['contract_status'].'</td>';
+        echo '</tr>';
+        // ----------------
+        echo '<tr>';
+        echo '<td>Education Attainment:</td>';
+        echo '<td>'.$x['education'].'</td>';
+        echo '</tr>';
+        // ----------------
+        echo '<tr>';
+        echo '<td>Required License/Certification:</td>';
+        echo '<td>'.$x['required_license'].'</td>';
+        echo '</tr>';
+        // ---------------- 
+        echo '<tr>';
+        echo '<td>Work Experience:</td>';
+        echo '<td>'.$x['work_exp'].'</td>';
+        echo '</tr>';
+        // ---------------- 
+        echo '<tr>';
+        echo '<td>Requested Date:</td>';
+        echo '<td>'.$x['request_date'].'</td>';
+        echo '</tr>';
+        // ---------------- 
+        echo '</table>';
+        echo '<br>';
+
+        echo '<div class="row">';
+        echo '<div class="col s12 center">';
+        echo '<button class="btn z-depth-5 #1976d2 blue darken-2" style="border-radius:20px;">preview</button>';
+        echo '</div>';
+        echo '</div>';
+    }
 }
 ?>

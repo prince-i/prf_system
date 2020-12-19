@@ -24,7 +24,6 @@
     <!-- INCLUDED FILES -->
 <?php 
 include 'Modals/request_mp_modal.php';
-include 'Modals/prf_request_menu.php';
 include 'Modals/preview_request.php';
 ?>
 <nav class="nav-extended #01579b light-blue darken-4 z-depth-5">
@@ -414,6 +413,7 @@ const load_approved_list =()=>{
 }
 // GET ID
 const view_summary =(id)=>{
+    document.querySelector('#prf_ID').value = id;
    $.ajax({
     url: '../php/requestorController.php',
     type: 'POST',
@@ -422,7 +422,8 @@ const view_summary =(id)=>{
         method: 'summary_prf_view',
         id:id
     },success:function(response){
-        console.log(response);
+        // console.log(response);
+        document.querySelector('#prf_preview_form').innerHTML = response;
     }
    });
 }

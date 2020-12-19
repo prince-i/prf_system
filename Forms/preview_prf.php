@@ -185,8 +185,8 @@
     <!-- SIGNATORIES -->
     <div class="row">
         <div class="co s12">
-            <div class="col s6"></div>
-            <div class="col s6">
+            <div class="col s5"></div>
+            <div class="col s7">
                 <table class="centered" style="border:1px solid black;" cellpadding="0" cellspacing="0">
                     <tr class="#bdbdbd grey lighten-1">
                         <td colspan="4" style="border:1px solid black;font-weight:bold;">Verification of Request</td>
