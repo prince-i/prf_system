@@ -413,8 +413,18 @@ const load_approved_list =()=>{
     })
 }
 // GET ID
-const view_pending =(id)=>{
-   
+const view_summary =(id)=>{
+   $.ajax({
+    url: '../php/requestorController.php',
+    type: 'POST',
+    cache: false,
+    data:{
+        method: 'summary_prf_view',
+        id:id
+    },success:function(response){
+        console.log(response);
+    }
+   });
 }
 // COUNT PENDING
 const count_pending =()=>{
