@@ -22,7 +22,7 @@
         <div class="col s12">
             <!-- COLUMN 1 -->
             <div class="col s6">
-            <img src="../Img/FAS.png" alt="FAS logo" width="250">
+            <img src="../Img/FAS.png" alt="FAS logo" width="250" height="50">
                 <p><b>PERSONAL REQUISITION FORM</b></p>
                 <b>Instructions/Hiring Information</b>
                 <p>Use this form to initiate the recruitment provess for new and existing employee/s.</p>
@@ -212,6 +212,15 @@
             </div>
         </div>
     </div>
+    <button class="btn-large blue z-depth-5" id="print_btn" onclick="print_docs()" style="border-radius:30px;">Print/Save</button>
     </div>
+    <script>
+        function print_docs(){
+            var printButton = document.querySelector('#print_btn');
+            printButton.style.visibility = 'hidden';
+            window.print();
+            printButton.style.visibility = 'visible';
+        }
+    </script>
 </body>
 </html>
