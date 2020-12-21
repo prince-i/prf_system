@@ -244,7 +244,7 @@ elseif($method == 'summary_prf_view'){
 
         echo '<div class="row">';
         echo '<div class="col s12 center">';
-        echo '<button class="btn z-depth-5 #1976d2 blue darken-2" style="border-radius:20px;">preview</button>';
+        echo '<button class="btn z-depth-5 #1976d2 blue darken-2" style="border-radius:20px;" onclick="preview()">preview</button>';
         echo '</div>';
         echo '</div>';
     }

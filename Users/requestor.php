@@ -457,7 +457,11 @@ const count_approved =()=>{
         }
     });
 }
-
+// PREVIEW PRF FULL PAGE
+const preview =()=>{
+    var id = document.getElementById('prf_ID').value;
+    window.open('../Forms/preview_prf.php?id='+id);
+}
 </script>
 </body>
 </html>

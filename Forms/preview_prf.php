@@ -1,3 +1,33 @@
+<?php
+    require_once '../php/Database.php';
+    $id = $_GET['id'];
+    //DETECT IF ID WAS DELETED, DOESNT FETCHED OR REMOVE THE PRF PREVIEW WILL CLOSED
+    if(empty($id)){
+        echo '<script>window.close()</script>';
+    }else{
+        $query = "SELECT *FROM tb_request_mp WHERE id = '$id'";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $x){
+            $requestor = $x['requestor'];
+            $position = $x['requesting_position'];
+            $mp_male_required = $x['male_num_mp'];
+            $mp_female_required = $x['female_num_mp'];
+            $dept_section = $x['assigned_dept'];
+            $contract_stat = $x['contract_status'];
+            $educ = $x['education'];
+            $work_exp = $x['work_exp'];
+            $license = $x['required_license'];
+            $other_quali = $x['other_qualification'];
+            $duty = $x['job_duties'];
+            $interview_req = $x['interview_need'];
+            $interviewers = $x['interviewers'];
+            $availability_interview = $x['availability_for_interview'];
+            $request_date = $x['request_date'];
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +42,10 @@
         } 
         td{
             font-size:10px;
+        }
+        u{
+            font-weight:bold;
+            
         }
     </style>
 </head>
@@ -39,7 +73,7 @@
                         <td style="border:1.5px solid black;font-weight:bold;">Noted By:</td>
                     </tr>
                     <tr>
-                        <td style="border:1.5px solid black;"></td>
+                        <td style="border:1.5px solid black;"><?=$requestor;?></td>
                         <td style="border:1.5px solid black;"></td>
                         <td style="border:1.5px solid black;"></td>
                     </tr>
@@ -50,7 +84,7 @@
                         <td style="border:1.5px solid black;">Dept. Mngr./Div Mngr.</td>
                     </tr>
                 </table>
-                <p>DATE OF REQUEST: </p>
+                <p>DATE OF REQUEST: <u><?=$request_date;?></u></p>
             </div>
         </div>
         <!-- HORIZONTAL LINE -->
@@ -66,27 +100,28 @@
         <div class="col s12">
             <!-- COLUMN 1 -->
             <div class="col s6">
-                <p>Rank/Position:</p>
-                <p style="margin-top:-2%;">No. of Manpower required (Male):</p>
+                <p>Rank/Position: <u><?=$position;?></u></p>
+                <p style="margin-top:-2%;">No. of Manpower required (Male): <u><?=$mp_male_required;?></u></p>
             </div>
             <!-- COLUMN 2 -->
             <div class="col s6">
-                <p>Assigned Department/Section:</p>
-                <p style="margin-top:-2%;">No. of Manpower required (Female):</p>
-                <p style="margin-top:-2%;">Total Manpower required:</p>
+                <p>Assigned Department/Section: <u><?=$dept_section;?></u></p>
+                <p style="margin-top:-2%;">No. of Manpower required (Female): <u><?=$mp_female_required;?></u></p>
+                <p style="margin-top:-2%;">Total Manpower required: <u><?=$mp_male_required + $mp_female_required;?></u></p>
             </div>
         </div> 
         <!-- REASON FOR HIRING -->
         <div class="col s12"><b>Reason for Hiring:</b></div>
         <div class="col s12">
             <!-- REASON FOR HIRING VALUES-->
+
         </div>
 
         <!-- CONTRACT STATUS -->
         <div class="row">
             <div class="col s12"><b>Contract Status</b></div>
             <div class="col s6">
-                Sample data
+                &nbsp;&nbsp;&nbsp;<u><?=$contract_stat?></u>
             </div>
             <div class="col s6">
                 <b>Date Start:</b> 0000-00-00 <b> &nbsp; Date End:</b> 0000-00-00
@@ -99,27 +134,27 @@
         <!--  -->
         <div class="col s12">
            <div class="col s6">Educational Attainment:</div>
-           <div class="col s6">--</div>
+           <div class="col s6"><u><?=$educ;?></u></div>
         </div>
         <!--  -->
         <div class="col s12">
            <div class="col s6">Work Experience:</div>
-           <div class="col s6">--</div>
+           <div class="col s6"><u><?=$work_exp; ?></u></div>
         </div>
         <!--  -->
         <div class="col s12">
            <div class="col s6">Required License/Certifications:</div>
-           <div class="col s6">--</div>
+           <div class="col s6"><u><?=$license;?></u></div>
         </div>
         <!--  -->
         <div class="col s12">
            <div class="col s6">Others:</div>
-           <div class="col s6">--</div>
+           <div class="col s6"><u><?=$other_quali;?></u></div>
         </div>
         <!--  -->
         <div class="col s12">
            <div class="col s6">Brief description of duties:</div>
-           <div class="col s6">--</div>
+           <div class="col s6"><u><?=$duty;?></u></div>
         </div>
     </div>
 
@@ -132,17 +167,17 @@
         <!-- REQUIRED -->
         <div class="col s12">
            <div class="col s6">Required for interview/validation:</div>
-           <div class="col s6">--</div>
+           <div class="col s6"><u><?=$interview_req;?></u></div>
         </div>
         <!-- INTERVIEWERS -->
         <div class="col s12">
            <div class="col s6">Interviewer/s:</div>
-           <div class="col s6">--</div>
+           <div class="col s6"><u><?=$interviewers;?></u></div>
         </div>
         <!-- AVAILABILITY -->
         <div class="col s12">
            <div class="col s6">Day/Time available for interview/validation:</div>
-           <div class="col s6">--</div>
+           <div class="col s6"><u><?=$availability_interview;?></u></div>
         </div>
         </div>
 
