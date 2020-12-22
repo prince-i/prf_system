@@ -24,6 +24,12 @@
             $interviewers = $x['interviewers'];
             $availability_interview = $x['availability_for_interview'];
             $request_date = $x['request_date'];
+            $budget_source = $x['budget_source'];
+            $budget_status = $x['budget_status'];
+            $actual_dept = $x['actual_mp_dept'];
+            $actual_section = $x['actual_mp_section'];
+            $plan_mp_dept = $x['plan_mp_dept'];
+            $plan_mp_section = $x['plan_mp_section'];
         }
     }
 ?>
@@ -188,13 +194,13 @@
         <!-- BUDGET SOURCE -->
         <div class="col s12">
            <div class="col s6">Budget Source:</div>
-           <div class="col s6">--</div>
+           <div class="col s6"><u><?=$budget_source;?></u></div>
         </div>
         <!-- BUDGET -->
         
         <div class="col s12">
            <div class="col s6">Budget:</div>
-           <div class="col s6">--</div>
+           <div class="col s6"><u><?=$budget_status;?></u></div>
         </div>
         <!-- MP HEADCOUNT -->
         <div class="col s12">
@@ -205,15 +211,15 @@
         <div class="col s12">
             <div class="col s2"></div>
             <div class="col s3">Department:</div>
-            <div class="col s3">Actual = MP</div>
-            <div class="col s4">Plan = MP</div>
+            <div class="col s3">Actual = <u><?=$actual_dept;?> MP</u></div>
+            <div class="col s4">Plan = <u><?=$plan_mp_dept;?> MP</u></div>
         </div>
         <!-- SECTION -->
         <div class="col s12">
             <div class="col s2"></div>
             <div class="col s3">Section:</div>
-            <div class="col s3">Actual = MP</div>
-            <div class="col s4">Plan = MP</div>
+            <div class="col s3">Actual = <u><?=$actual_section;?> MP</u></div>
+            <div class="col s4">Plan = <u><?=$plan_mp_section;?> MP</u></div>
         </div>
     </div>
     
