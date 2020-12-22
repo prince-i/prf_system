@@ -187,59 +187,63 @@ elseif($method == 'summary_prf_view'){
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     foreach($stmt->fetchALL() as $x){
-        echo '<table>';
-        // ---------------
-        echo '<tr>';
-        echo '<td>Requested By:</td>';
-        echo '<td>'.$x['requestor'].'</td>';
-        echo '</tr>';
-        // ----------------
-        echo '<tr>';
-        echo '<td>Position:</td>';
-        echo '<td>'.$x['requesting_position'].'</td>';
-        echo '</tr>';
-        // ----------------
-        echo '<tr>';
-        echo '<td>Requesting Department:</td>';
-        echo '<td>'.$x['assigned_dept'].'</td>';
-        echo '</tr>';
-        // ----------------
-        echo '<tr>';
-        echo '<td>No. of MP Need (Male):</td>';
-        echo '<td>'.$x['male_num_mp'].'</td>';
-        echo '</tr>';
-        // ----------------
-        echo '<tr>';
-        echo '<td>No. of MP Need (Female):</td>';
-        echo '<td>'.$x['female_num_mp'].'</td>';
-        echo '</tr>';
-        // ----------------
-        echo '<tr>';
-        echo '<td>Contract Status:</td>';
-        echo '<td>'.$x['contract_status'].'</td>';
-        echo '</tr>';
-        // ----------------
-        echo '<tr>';
-        echo '<td>Education Attainment:</td>';
-        echo '<td>'.$x['education'].'</td>';
-        echo '</tr>';
-        // ----------------
-        echo '<tr>';
-        echo '<td>Required License/Certification:</td>';
-        echo '<td>'.$x['required_license'].'</td>';
-        echo '</tr>';
-        // ---------------- 
-        echo '<tr>';
-        echo '<td>Work Experience:</td>';
-        echo '<td>'.$x['work_exp'].'</td>';
-        echo '</tr>';
-        // ---------------- 
-        echo '<tr>';
-        echo '<td>Requested Date:</td>';
-        echo '<td>'.$x['request_date'].'</td>';
-        echo '</tr>';
-        // ---------------- 
-        echo '</table>';
+        echo '<div class="row">';
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Requested By:</div>';
+        echo '<div class="col s6">'.$x['requestor'].'</div>';
+        echo '</div>';
+        // -----------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Position:</div>';
+        echo '<div class="col s6">'.$x['requesting_position'].'</div>';
+        echo '</div>';
+        // ---------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Requesting Department:</div>';
+        echo '<div class="col s6">'.$x['assigned_dept'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Requested By:</div>';
+        echo '<div class="col s6">'.$x['requestor'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">No. of MP Need(Male):</div>';
+        echo '<div class="col s6">'.$x['male_num_mp'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">No. of MP Need(Female):</div>';
+        echo '<div class="col s6">'.$x['female_num_mp'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Contract Status:</div>';
+        echo '<div class="col s6">'.$x['contract_status'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Education Attainment:</div>';
+        echo '<div class="col s6">'.$x['education'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Required License/Certification:</div>';
+        echo '<div class="col s6">'.$x['required_license'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Work Experience:</div>';
+        echo '<div class="col s6">'.$x['work_exp'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Requested Date:</div>';
+        echo '<div class="col s6">'.$x['request_date'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '</div>';
         echo '<br>';
 
         echo '<div class="row">';
