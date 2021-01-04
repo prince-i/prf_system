@@ -15,7 +15,7 @@
         .btn-large{
             border-radius:30px;
         }
-        #table_requests tbody tr:hover{
+        tbody tr:hover{
             background-color:skyblue;
         }
     </style>
@@ -31,7 +31,7 @@ include 'Modals/preview_request.php';
       <a href="#">Requestor Dashboard</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><span style="font-size:20px;font-weight:bold;">&plus;</span></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="#"><?=ucwords($name);?></a></li>
+        <li><a href="#" data-target="acct_option" class="dropdown-trigger"><?=ucwords($name);?></a></li>
       </ul>
     </div>
     <div class="nav-content">
@@ -47,6 +47,8 @@ include 'Modals/preview_request.php';
   <ul class="sidenav" id="mobile-demo">
     <li><a href="#"><?=ucwords($name);?></a></li>
   </ul>
+<!-- ACCT MENU -->
+<?php include 'Modals/account_menu.php';?>
 
 <!-- MY_REQUEST ----------------------------------------------->
   <div id="request" class="row col s12">
@@ -117,6 +119,9 @@ include 'Modals/preview_request.php';
             autoClose: true
         });
         $('.collapsible').collapsible();
+        $('.dropdown-trigger').dropdown({
+            constrainWidth: false
+        });
         load_request_list();
         count_approved();
         count_verified();
@@ -493,7 +498,7 @@ const load_verified_list =()=>{
         }
     });
 }
-
+// CANCEL COUNT
 const count_cancel_request =()=>{
     var email = '<?=$username?>';
     $.ajax({
@@ -508,7 +513,7 @@ const count_cancel_request =()=>{
         }
 });
 }
-
+// CANCELLED LIST
 const load_cancelled_list =()=>{
     email = '<?=$username?>';
     $.ajax({
