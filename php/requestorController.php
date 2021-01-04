@@ -153,7 +153,7 @@
 // LOADING APPROVED PRF REQUESTOR VIEW
     elseif($method == 'fetch_approve_request_requestor'){
         $mail = $_POST['email'];
-        $query = "SELECT id,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE approval_status = 'approved' AND verification_status = 'pending' ORDER BY request_date ASC";
+        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE approval_status = 'approved' AND verification_status = 'pending' ORDER BY request_date ASC";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         foreach($stmt->fetchall() as $x){
@@ -174,6 +174,16 @@
 elseif($method == 'count_approved_request'){
     $email = $_POST['email'];
     $query = "SELECT COUNT(id) as total_approved FROM tb_request_mp WHERE approval_status = 'approved' AND  verification_status = 'pending' AND requestor_email LIKE '$email%'";
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    foreach($stmt->fetchALL() as $x){
+        echo $x['total_approved'];
+    }
+}
+// COUNT VERIFIED
+elseif($method == 'count_verified_request'){
+    $email = $_POST['email'];
+    $query = "SELECT COUNT(id) as total_approved FROM tb_request_mp WHERE approval_status = 'approved' AND  verification_status = 'verified' AND requestor_email LIKE '$email%'";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     foreach($stmt->fetchALL() as $x){
@@ -252,5 +262,24 @@ elseif($method == 'summary_prf_view'){
         echo '</div>';
         echo '</div>';
     }
+}
+elseif($method == 'load_verify_requestor_view'){
+        $mail = $_POST['email'];
+        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE approval_status = 'approved' AND verification_status = 'verified' ORDER BY request_date ASC";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        foreach($stmt->fetchall() as $x){
+            echo '<tr onclick="view_summary(&quot;'.$x['id'].'&quot;)" style="cursor:pointer;" class="modal-trigger" data-target="preview_request">';
+                echo '<td>'.$x['id'].'</td>';
+                echo '<td>'.$x['requesting_position'].'</td>';
+                echo '<td>'.$x['assigned_dept'].'</td>';
+                echo '<td>'.$x['contract_status'].'</td>';
+                echo '<td>'.$x['requestor'].'</td>';
+                echo '<td>'.$x['requestor_email'].'</td>';
+                echo '<td>'.$x['approval_status'].'</td>';
+                echo '<td>'.$x['verification_status'].'</td>';
+                echo '<td>'.$x['request_date'].'</td>';
+                echo '</tr>';
+}
 }
 ?>

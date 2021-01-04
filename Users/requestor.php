@@ -38,7 +38,7 @@ include 'Modals/preview_request.php';
       <ul class="tabs tabs-transparent">
         <li class="tab"><a href="#request" onclick="reload_pending()">Pending Requests<span class="new badge" id="pending"></a></span></li>
         <li class="tab"><a href="#approved" onclick="load_approved_list()">Approved Request<span class="new badge" id="approved_notif"></span></a></li>
-        <li class="tab"><a href="#verified">Verified Request<span class="new badge" id=""></span></a></li>
+        <li class="tab"><a href="#verified" onclick="load_verified_list()">Verified Request<span class="new badge" id="verified_notif"></span></a></li>
         <li class="tab"><a href="#cancelled">Cancelled Request<span class="new badge" id=""></span></a></li>
       </ul>
     </div>
@@ -94,10 +94,8 @@ include 'Modals/preview_request.php';
 
   <!-- </MY_REQUEST> ------------------------------------------>
 
-  <div id="approved">
-    <?php include 'requestor_page/approve_request_page.php';?>
-  </div>
-  <div id="verified">verified</div>
+  <div id="approved"><?php include 'requestor_page/approve_request_page.php';?></div>
+  <div id="verified"><?php include 'requestor_page/verified_request_page.php';?></div>
   <div id="cancelled">cancelled</div>
 
 <!-- JS -------------------------------------------------------->
@@ -121,6 +119,7 @@ include 'Modals/preview_request.php';
         $('.collapsible').collapsible();
         load_request_list();
         count_approved();
+        count_verified();
     });
 // LOAD MODAL CONTENT
     const load_request_form =()=>{
@@ -457,10 +456,41 @@ const count_approved =()=>{
         }
     });
 }
+// COUNT VERIFIED 
+const count_verified =()=>{
+    var email = '<?=$username?>';
+    $.ajax({
+        url: '../php/requestorController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'count_verified_request',
+            email:email
+        },success:function(response){
+             $('#verified_notif').html(response);
+        }
+});
+}
 // PREVIEW PRF FULL PAGE
 const preview =()=>{
     var id = document.getElementById('prf_ID').value;
     window.open('../Forms/preview_prf.php?id='+id);
+}
+// LOAD VERIFIED
+const load_verified_list =()=>{
+    email = '<?=$username?>';
+    $.ajax({
+        url: '../php/requestorController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'load_verify_requestor_view',
+            email:email
+        },success:function(response){
+            document.getElementById('verified_data').innerHTML = response;
+            count_verified();
+        }
+    });
 }
 </script>
 </body>
