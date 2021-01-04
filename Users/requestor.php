@@ -39,7 +39,7 @@ include 'Modals/preview_request.php';
         <li class="tab"><a href="#request" onclick="reload_pending()">Pending Requests<span class="new badge" id="pending"></a></span></li>
         <li class="tab"><a href="#approved" onclick="load_approved_list()">Approved Request<span class="new badge" id="approved_notif"></span></a></li>
         <li class="tab"><a href="#verified" onclick="load_verified_list()">Verified Request<span class="new badge" id="verified_notif"></span></a></li>
-        <li class="tab"><a href="#cancelled">Cancelled Request<span class="new badge" id=""></span></a></li>
+        <li class="tab"><a href="#cancelled" onclick="load_cancelled_list()">Cancelled Request<span class="new badge" id="cancel_notif"></span></a></li>
       </ul>
     </div>
   </nav>
@@ -96,7 +96,7 @@ include 'Modals/preview_request.php';
 
   <div id="approved"><?php include 'requestor_page/approve_request_page.php';?></div>
   <div id="verified"><?php include 'requestor_page/verified_request_page.php';?></div>
-  <div id="cancelled">cancelled</div>
+  <div id="cancelled"><?php include 'requestor_page/cancel_request_page.php';?></div>
 
 <!-- JS -------------------------------------------------------->
 <script src="../jquery/jquery.min.js"></script>
@@ -120,6 +120,7 @@ include 'Modals/preview_request.php';
         load_request_list();
         count_approved();
         count_verified();
+        count_cancel_request();
     });
 // LOAD MODAL CONTENT
     const load_request_form =()=>{
@@ -489,6 +490,37 @@ const load_verified_list =()=>{
         },success:function(response){
             document.getElementById('verified_data').innerHTML = response;
             count_verified();
+        }
+    });
+}
+
+const count_cancel_request =()=>{
+    var email = '<?=$username?>';
+    $.ajax({
+        url: '../php/requestorController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'count_cancel_request',
+            email:email
+        },success:function(response){
+             $('#cancel_notif').html(response);
+        }
+});
+}
+
+const load_cancelled_list =()=>{
+    email = '<?=$username?>';
+    $.ajax({
+        url: '../php/requestorController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'load_cancel_request',
+            email:email
+        },success:function(response){
+            document.getElementById('cancel_data').innerHTML = response;
+            count_cancel_request();
         }
     });
 }

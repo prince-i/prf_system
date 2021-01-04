@@ -146,8 +146,12 @@
         $query = "SELECT COUNT(id) as total_pending FROM tb_request_mp WHERE approval_status = 'pending' AND  verification_status = 'pending' AND requestor_email LIKE '$email%'";
         $stmt = $conn->prepare($query);
         $stmt->execute();
-        foreach($stmt->fetchALL() as $x){
-            echo $x['total_pending'];
+        if($stmt->rowCount() > 0){
+            foreach($stmt->fetchALL() as $x){
+                echo $x['total_pending'];
+            }
+        }else{
+            echo '0';
         }
     }
 // LOADING APPROVED PRF REQUESTOR VIEW
@@ -176,18 +180,26 @@ elseif($method == 'count_approved_request'){
     $query = "SELECT COUNT(id) as total_approved FROM tb_request_mp WHERE approval_status = 'approved' AND  verification_status = 'pending' AND requestor_email LIKE '$email%'";
     $stmt = $conn->prepare($query);
     $stmt->execute();
-    foreach($stmt->fetchALL() as $x){
-        echo $x['total_approved'];
+    if($stmt->rowCount() > 0){
+        foreach($stmt->fetchALL() as $x){
+            echo $x['total_approved'];
+        }
+    }else{
+        echo '0';
     }
 }
 // COUNT VERIFIED
 elseif($method == 'count_verified_request'){
     $email = $_POST['email'];
-    $query = "SELECT COUNT(id) as total_approved FROM tb_request_mp WHERE approval_status = 'approved' AND  verification_status = 'verified' AND requestor_email LIKE '$email%'";
+    $query = "SELECT COUNT(id) as total_verified FROM tb_request_mp WHERE approval_status = 'approved' AND  verification_status = 'verified' AND requestor_email LIKE '$email%'";
     $stmt = $conn->prepare($query);
     $stmt->execute();
-    foreach($stmt->fetchALL() as $x){
-        echo $x['total_approved'];
+    if($stmt->rowCount()>0){
+        foreach($stmt->fetchALL() as $x){
+            echo $x['total_verified'];
+        }
+    }else{
+        echo '0';
     }
 }
 // VIEWING  SUMMARY
@@ -266,6 +278,38 @@ elseif($method == 'summary_prf_view'){
 elseif($method == 'load_verify_requestor_view'){
         $mail = $_POST['email'];
         $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE approval_status = 'approved' AND verification_status = 'verified' ORDER BY request_date ASC";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        foreach($stmt->fetchall() as $x){
+            echo '<tr onclick="view_summary(&quot;'.$x['id'].'&quot;)" style="cursor:pointer;" class="modal-trigger" data-target="preview_request">';
+                echo '<td>'.$x['id'].'</td>';
+                echo '<td>'.$x['requesting_position'].'</td>';
+                echo '<td>'.$x['assigned_dept'].'</td>';
+                echo '<td>'.$x['contract_status'].'</td>';
+                echo '<td>'.$x['requestor'].'</td>';
+                echo '<td>'.$x['requestor_email'].'</td>';
+                echo '<td>'.$x['approval_status'].'</td>';
+                echo '<td>'.$x['verification_status'].'</td>';
+                echo '<td>'.$x['request_date'].'</td>';
+                echo '</tr>';
+}
+}
+elseif($method=='count_cancel_request'){
+    $email = $_POST['email'];
+    $query = "SELECT COUNT(id) as total_verified FROM tb_request_mp WHERE approval_status = 'cancelled' OR  verification_status = 'cancelled' AND requestor_email LIKE '$email%'";
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    if($stmt->rowCount()>0){
+        foreach($stmt->fetchALL() as $x){
+            echo $x['total_verified'];
+        }
+    }else{
+        echo '0';
+    }
+}
+elseif($method == 'load_cancel_request'){
+    $mail = $_POST['email'];
+        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE approval_status = 'cancelled' OR verification_status = 'cancelled' ORDER BY request_date ASC";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         foreach($stmt->fetchall() as $x){
