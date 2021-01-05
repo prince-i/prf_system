@@ -3,7 +3,7 @@
     <li><a href="#" class="modal-trigger" data-target="logout_form">Signout</a></li>
   </ul>
 
-  <div class="modal" id="logout_form" style="width:30vw;border-radius:30px;">
+  <div class="modal" id="logout_form" style="border-radius:30px;">
     <div class="modal-content">
         <h6 class="center grey-text">CONFIRM SIGNOUT...</h6>
         <div class="divider"></div>

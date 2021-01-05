@@ -20,6 +20,11 @@
                 $_SESSION['role'] = $role;
                 header('location: Users/requestor.php');
             }
+            elseif($role ==='approver'){
+                $_SESSION['username'] = $username;
+                $_SESSION['role'] = $role;
+                header('location: Users/approver.php');
+            }
         }else{
             echo "<center>Invalid Username or Password</center>";
         }

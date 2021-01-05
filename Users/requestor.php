@@ -45,7 +45,7 @@ include 'Modals/preview_request.php';
   </nav>
 
   <ul class="sidenav" id="mobile-demo">
-    <li><a href="#"><?=ucwords($name);?></a></li>
+  <li><a href="#" class="modal-trigger" data-target="logout_form"><?=ucwords($name);?></a></li>
   </ul>
 <!-- ACCT MENU -->
 <?php include 'Modals/account_menu.php';?>
