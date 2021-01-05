@@ -43,6 +43,7 @@
             }
         }
     }
+
 ?>
 
 <!DOCTYPE html>
@@ -158,7 +159,7 @@
             ?>
             <div class="row">
             <div class="col s12">
-                <div class="col s4">Others (Justify)</div>
+                <div class="col s4">&bullet;Others (Justify)</div>
                 <div class="col s8"><u><?=$other_reason;?></u></div>
             </div>
             </div>
