@@ -30,6 +30,17 @@
             $actual_section = $x['actual_mp_section'];
             $plan_mp_dept = $x['plan_mp_dept'];
             $plan_mp_section = $x['plan_mp_section'];
+            $additional_mp = $x['additional_mp'];
+            $mp_plan = $x['mp_plan'];
+            $reorganization = $x['reorganization'];
+            $promotion = $x['promotion'];
+            $retirement = $x['retirement'];
+            $replacement = $x['replacement'];
+            $replacement_name = $x['replacement_mp_name'];
+            $other_reason = $x['others'];
+            if($other_reason == ''){
+                $other_reason = 'N/A';
+            }
         }
     }
 ?>
@@ -44,7 +55,7 @@
     <style>
         body{
             font-family:arial;
-            font-size:12px;
+            font-size:11px;
         } 
         td{
             font-size:10px;
@@ -96,7 +107,7 @@
         <!-- HORIZONTAL LINE -->
         <div class="col s12" style="margin-top:-2%;">
             <!-- <div class="divider"></div> -->
-            <hr style="border:2px solid black;">
+            <hr style="border:1px solid black;">
         </div>
   
         <div class="col s12">
@@ -120,7 +131,39 @@
         <div class="col s12"><b>Reason for Hiring:</b></div>
         <div class="col s12">
             <!-- REASON FOR HIRING VALUES-->
-
+            <?php
+                if($additional_mp == 1){
+                    echo '<div class="col s4">&check; Additional Manpower</div>';
+                }
+                if($mp_plan == 1){
+                    echo '<div class="col s4">&check; Manpower Plan</div>';
+                }
+                if($reorganization == 1){
+                    echo '<div class="col s4">&check; Reorganization</div>';
+                }
+                if($promotion == 1){
+                    echo '<div class="col s4">&check; Promotion</div>';
+                }
+                if($retirement == 1){
+                    echo '<div class="col s4">&check; Retirement</div>';
+                }
+                if($replacement == 1){
+                    echo '<div class="row">';
+                    echo '<div class="col s12">';
+                    echo '<div class="col s4">&check; Replacement</div>';
+                    echo '<div class="col s8"><u>'.$replacement_name.'</u></div>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+            ?>
+            <div class="row">
+            <div class="col s12">
+                <div class="col s4">Others (Justify)</div>
+                <div class="col s8"><u><?=$other_reason;?></u></div>
+            </div>
+            </div>
+            
+ 
         </div>
 
         <!-- CONTRACT STATUS -->
@@ -163,9 +206,6 @@
            <div class="col s6"><u><?=$duty;?></u></div>
         </div>
     </div>
-
-
-
 
     <!-- INTERVIEW/Validation -->
         <div class="row">
