@@ -1,6 +1,5 @@
 <?php
     include_once "../php/session.php";
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +16,7 @@
         }
         tbody tr:hover{
             background-color:skyblue;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -26,9 +26,9 @@
 include 'Modals/request_mp_modal.php';
 include 'Modals/preview_request.php';
 ?>
-<nav class="nav-extended #01579b light-blue darken-4 z-depth-5">
+<nav class="nav-extended #d32f2f red darken-2 z-depth-5">
     <div class="nav-wrapper">
-      <a href="#">Requestor Dashboard</a>
+      <a href="#">Approver Dashboard</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><span style="font-size:20px;font-weight:bold;">&plus;</span></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="#" data-target="acct_option" class="dropdown-trigger"><?=ucwords($name);?></a></li>
@@ -36,10 +36,10 @@ include 'Modals/preview_request.php';
     </div>
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
-        <li class="tab"><a href="#request" onclick="">For Approval<span class="new badge" id="pending"></a></span></li>
-        <li class="tab"><a href="#approved" onclick="">Approved Request<span class="new badge" id="approved_notif"></span></a></li>
-        <li class="tab"><a href="#verified" onclick="">Verified Request<span class="new badge" id="verified_notif"></span></a></li>
-        <li class="tab"><a href="#cancelled" onclick="">Cancelled Request<span class="new badge" id="cancel_notif"></span></a></li>
+        <li class="tab"><a href="#request" onclick="load_for_approval()">For Approval<span class="new badge #ef9a9a red lighten-3" id="pending"></a></span></li>
+        <li class="tab"><a href="#approved" onclick="">Approved Request<span class="new badge #ef9a9a red lighten-3" id="approved_notif"></span></a></li>
+        <li class="tab"><a href="#verified" onclick="">Verified Request<span class="new badge #ef9a9a red lighten-3" id="verified_notif"></span></a></li>
+        <li class="tab"><a href="#cancelled" onclick="">Cancelled Request<span class="new badge #ef9a9a red lighten-3" id="cancel_notif"></span></a></li>
       </ul>
     </div>
   </nav>
@@ -50,30 +50,58 @@ include 'Modals/preview_request.php';
 <!-- ACCT MENU -->
 <?php include 'Modals/account_menu.php';?>
 
+<!-- TAB CONTENTS -->
+<div id="request"><?php include 'approver_page/for_approval.php';?></div>
+<div id="approved"></div>
+<div id="verified"></div>
+<div id="cancelled"></div>
+
 
 <!-- JS -->
 <script src="../jquery/jquery.min.js"></script>
 <script src="../node_modules/materialize-css/dist/js/materialize.min.js"></script>
 <script src="../node_modules/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-    $(document).ready(function(){
-        $('.tabs').tabs();
-        $('.sidenav').sidenav({
-            preventScrolling: true,
-            draggable: true,
-            inDuration: 500
-        });
-        $('.modal').modal();
-        $('.fixed-action-btn').floatingActionButton();
-        $('.datepicker').datepicker({
+$(document).ready(function(){
+    $('.tabs').tabs();
+    $('.sidenav').sidenav({
+        preventScrolling: true,
+        draggable: true,
+        inDuration: 500
+    });
+    $('.modal').modal();
+    $('.fixed-action-btn').floatingActionButton();
+    $('.datepicker').datepicker({
             format: 'yyyy-mm-dd',
             autoClose: true
-        });
-        $('.collapsible').collapsible();
-        $('.dropdown-trigger').dropdown({
-            constrainWidth: false
-        });
     });
+    $('.collapsible').collapsible();
+    $('.dropdown-trigger').dropdown({
+            constrainWidth: false
+    });
+    load_for_approval();
+});
+
+const load_for_approval =()=>{
+    department = '<?=$department;?>';
+    $.ajax({
+        url: '../php/approverController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'load_for_approval',
+            department: department
+        },success:function(response){
+            document.getElementById('for_approval_data').innerHTML = response;
+            count_for_approval();
+        }
+    });
+}
+const count_for_approval =()=>{
+    var rowCount = $('#for_approval_data tr').length;
+    var count = parseInt(rowCount);
+    document.getElementById('pending').innerHTML = count;
+}
 </script>
 </body>
 </html>

@@ -36,10 +36,10 @@ include 'Modals/preview_request.php';
     </div>
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
-        <li class="tab"><a href="#request" onclick="reload_pending()">Pending Requests<span class="new badge" id="pending"></a></span></li>
-        <li class="tab"><a href="#approved" onclick="load_approved_list()">Approved Request<span class="new badge" id="approved_notif"></span></a></li>
-        <li class="tab"><a href="#verified" onclick="load_verified_list()">Verified Request<span class="new badge" id="verified_notif"></span></a></li>
-        <li class="tab"><a href="#cancelled" onclick="load_cancelled_list()">Cancelled Request<span class="new badge" id="cancel_notif"></span></a></li>
+        <li class="tab"><a href="#request" onclick="reload_pending()">Pending Requests<span class="new badge #64b5f6 blue lighten-2" id="pending"></a></span></li>
+        <li class="tab"><a href="#approved" onclick="load_approved_list()">Approved Request<span class="new badge #64b5f6 blue lighten-2" id="approved_notif"></span></a></li>
+        <li class="tab"><a href="#verified" onclick="load_verified_list()">Verified Request<span class="new badge #64b5f6 blue lighten-2" id="verified_notif"></span></a></li>
+        <li class="tab"><a href="#cancelled" onclick="load_cancelled_list()">Cancelled Request<span class="new badge #64b5f6 blue lighten-2" id="cancel_notif"></span></a></li>
       </ul>
     </div>
   </nav>
@@ -434,18 +434,9 @@ const view_summary =(id)=>{
 }
 // COUNT PENDING
 const count_pending =()=>{
-    var email = '<?=$username?>';
-    $.ajax({
-        url: '../php/requestorController.php',
-        type: 'POST',
-        cache: false,
-        data:{
-            method: 'count_pending_request',
-            email:email
-        },success:function(response){
-             $('#pending').html(response);
-        }
-    });
+    var rowCount = $('#request_data tr').length;
+    var count = parseInt(rowCount);
+    document.getElementById('pending').innerHTML = count;
 }
 // COUNT APPROVE
 const count_approved =()=>{

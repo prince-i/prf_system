@@ -163,8 +163,6 @@
                 <div class="col s8"><u><?=$other_reason;?></u></div>
             </div>
             </div>
-            
- 
         </div>
 
         <!-- CONTRACT STATUS -->

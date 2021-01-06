@@ -156,8 +156,8 @@
     }
 // LOADING APPROVED PRF REQUESTOR VIEW
     elseif($method == 'fetch_approve_request_requestor'){
-        $mail = $_POST['email'];
-        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE approval_status = 'approved' AND verification_status = 'pending' ORDER BY request_date ASC";
+        $email = $_POST['email'];
+        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE approval_status = 'approved' AND verification_status = 'pending' AND requestor_email LIKE '$email%' ORDER BY request_date ASC";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         foreach($stmt->fetchall() as $x){
@@ -276,8 +276,8 @@ elseif($method == 'summary_prf_view'){
     }
 }
 elseif($method == 'load_verify_requestor_view'){
-        $mail = $_POST['email'];
-        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE approval_status = 'approved' AND verification_status = 'verified' ORDER BY request_date ASC";
+        $email = $_POST['email'];
+        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE approval_status = 'approved' AND verification_status = 'verified' AND requestor_email LIKE '$email%' ORDER BY request_date ASC";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         foreach($stmt->fetchall() as $x){
@@ -308,8 +308,8 @@ elseif($method=='count_cancel_request'){
     }
 }
 elseif($method == 'load_cancel_request'){
-    $mail = $_POST['email'];
-        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE approval_status = 'cancelled' OR verification_status = 'cancelled' ORDER BY request_date ASC";
+    $email = $_POST['email'];
+        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE approval_status = 'cancelled' OR verification_status = 'cancelled' AND requestor_email LIKE '$email%' ORDER BY request_date ASC";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         foreach($stmt->fetchall() as $x){

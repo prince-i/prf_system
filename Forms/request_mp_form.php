@@ -17,11 +17,11 @@
             <select name="" id="assigned_dept" class="browser-default z-depth-5">
                 <option value="" selected disabled>-- Select Assigned Department/Section --</option>
                 <?php
-                    $query = "SELECT *FROM tb_department";
+                    $query = "SELECT deptDesc, deptCode,section_name FROM tb_department LEFT JOIN tb_section ON  tb_section.department = tb_department.deptCode";
                     $stmt = $conn->prepare($query);
                     $stmt->execute();
                     foreach($stmt->fetchALL() as $x){
-                        echo '<option value="'.$x['deptCode'].'">'.$x['deptDesc'].'</option>';
+                        echo '<option value="'.$x['deptCode'].'">'.$x['deptDesc'].'-'.$x['section_name'].'</option>';
                     }
                 ?>
             </select>

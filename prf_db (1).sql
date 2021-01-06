@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 05, 2021 at 06:54 AM
+-- Generation Time: Jan 06, 2021 at 05:00 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.13
 
@@ -44,7 +44,110 @@ CREATE TABLE `prf_account` (
 
 INSERT INTO `prf_account` (`id`, `username`, `password`, `role`, `position`, `name`, `department`, `account_verification`) VALUES
 (1, 'admin@admin.com', 'admin', 'administrator', 'staff', 'prince arce', 'IT', 'approved'),
-(2, 'requestor@email.com', 'test', 'requestor', 'staff', 'juan dela cruz', 'IT', 'approved');
+(2, 'requestor@email.com', 'test', 'requestor', 'staff', 'juan dela cruz', 'IT', 'approved'),
+(3, 'approver@email.com', 'test', 'approver', 'staff', 'mj', 'IT', 'approved');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `section_prf`
+--
+
+CREATE TABLE `section_prf` (
+  `COL 1` varchar(2) DEFAULT NULL,
+  `COL 2` varchar(12) DEFAULT NULL,
+  `COL 3` varchar(35) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `section_prf`
+--
+
+INSERT INTO `section_prf` (`COL 1`, `COL 2`, `COL 3`) VALUES
+('id', 'EQD', 'Management'),
+('', 'EQD', 'Equipment Management'),
+('', 'EQD', 'Equipment Engineering'),
+('', 'EQD', 'Facilities'),
+('', 'ACC', 'Accounting and Taxation'),
+('', 'Housekeeping', 'Housekeeping'),
+('', 'HR', 'Recruitment and Training'),
+('', 'HR', 'Human Resource'),
+('', 'HR', 'General Affairs'),
+('', 'IT', 'Support Group'),
+('', 'IT', 'System Group'),
+('', 'IT', 'CAD Group'),
+('', 'MPD', 'Material Management'),
+('', 'MPD', 'Procurement'),
+('', 'MPD', 'FG Preparation'),
+('', 'NF', 'NF Kaizen'),
+('', 'EQD', 'Machine Data'),
+('', 'EQD', 'EM Initial (Corrective Maintenance)'),
+('', 'EQD', 'Fabrication'),
+('', 'EQD', 'EM Final (Corrective Maintenance)'),
+('', 'EQD', 'Spareparts'),
+('', 'EQD', 'Machinery Center'),
+('', 'EQD', 'EM Initial (Preventive Maintenance)'),
+('', 'EQD', 'EM Final (Preventive Maintenance)'),
+('', 'EQD', 'Calibration'),
+('', 'EQD', 'ISO/Document Control'),
+('', 'EQD', 'PCO'),
+('', 'EQD', 'N/A'),
+('', 'HR', 'Non-PD Technical Training'),
+('', 'HR', 'PD Technical Training'),
+('', 'MPD ', 'MH (WHSE)'),
+('', 'PE', 'AME'),
+('', 'PE', 'MPPD'),
+('', 'PE', 'PEC'),
+('', 'QA', 'Quality Control'),
+('', 'QA', 'Quality Assurance'),
+('', 'QA', 'Quality Management'),
+('', 'G-ASSIST', 'G-Assists'),
+('', 'PDC', 'PDC'),
+('', 'PMD', 'Production Control'),
+('', 'PMD', 'IMPEX'),
+('', 'PD1', 'Battery Final'),
+('', 'PD1', 'Battery Initial'),
+('', 'PD1', 'Distributor'),
+('', 'PD1', 'PPET'),
+('', 'PD1', 'Repair Person'),
+('', 'PD1', 'PD1 Clerk'),
+('', 'PD1', 'SWAT Final'),
+('', 'PD1', 'SWAT Initial'),
+('', 'PD1', 'Tube Cutting'),
+('', 'PD1', 'Tube Making'),
+('', 'PD1', 'VS Laminating'),
+('', 'PD2', 'D01L Final'),
+('', 'PD2', 'D01L Initial'),
+('', 'PD2', 'D54L Final'),
+('', 'PD2', 'D54L Initial'),
+('', 'PD2', 'Daihatsu Final'),
+('', 'PD2', 'Daihatsu Initial'),
+('', 'PD2', 'Nissan Final'),
+('', 'PD2', 'Nissan Initial'),
+('', 'PD2', 'PD2 Clerk'),
+('', 'PD2', 'PPET'),
+('', 'PD3', 'Mazda J12 Final'),
+('', 'PD3', 'Mazda J12 Initial'),
+('', 'PD3', 'Mazda Merge Final'),
+('', 'PD3', 'Mazda Merge Initial'),
+('', 'PD3', 'PD3 Clerk'),
+('', 'PD3', 'PPET'),
+('', 'PD4', 'PD4 Clerk'),
+('', 'PD4', 'Suzuki Final'),
+('', 'PD4', 'Suzuki Initial'),
+('', 'PD4', 'Toyota Final'),
+('', 'PD4', 'Toyota Initial'),
+('', 'PD4', 'Y2R Final'),
+('', 'PD4', 'Y2R Initial'),
+('', 'PD4', 'PPET'),
+('', 'PD5', 'Honda Final'),
+('', 'PD5', 'Honda Initial'),
+('', 'PD5', 'PD5 Clerk'),
+('', 'PD5', 'Subaru Final'),
+('', 'PD5', 'Subaru Initial'),
+('', 'PD5', 'TKRA Final'),
+('', 'PD5', 'TKRA Initial'),
+('', 'PD5', 'PPET');
 
 -- --------------------------------------------------------
 
@@ -129,18 +232,23 @@ CREATE TABLE `tb_department` (
 --
 
 INSERT INTO `tb_department` (`id`, `deptDesc`, `deptCode`) VALUES
-(1, 'Accounting Department', 'ACC'),
+(2, 'Accounting Department', 'ACC'),
 (3, 'Equipment Department', 'EQD'),
 (4, 'G-Assist Team', 'G-ASSIST'),
-(6, 'Human Resource Department', 'HR'),
-(7, 'Information Technology Department', 'IT'),
-(8, 'Material Procurement Department', 'MPD'),
-(9, 'NF Kaizen Department', 'NF'),
-(11, 'Production Design Center', 'PDC'),
-(12, 'Production Engineering Department', 'PE'),
-(13, 'Production Management Department', 'PMD'),
-(14, 'Production Department', 'PROD'),
-(15, 'Quality Assurance Department', 'QA');
+(5, 'Human Resource Department', 'HR'),
+(6, 'Information Technology Department', 'IT'),
+(7, 'Material Procurement Department', 'MPD'),
+(8, 'NF Kaizen Department', 'NF'),
+(9, 'Production Design Center', 'PDC'),
+(10, 'Production Engineering Department', 'PE'),
+(11, 'Production Management Department', 'PMD'),
+(13, 'Quality Assurance Department', 'QA'),
+(14, 'Housekeeping', 'HouseKeeping'),
+(15, 'Production 1', 'PD1'),
+(16, 'Production 2', 'PD2'),
+(17, 'Production 3', 'PD3'),
+(18, 'Production 4', 'PD4'),
+(19, 'Production 5', 'PD5');
 
 -- --------------------------------------------------------
 
@@ -368,6 +476,108 @@ INSERT INTO `tb_request_mp` (`id`, `requestor`, `requestor_email`, `requesting_p
 (148, 'Juan Dela Cruz', 'requestor@email.com', 'Associate', 'EQD', 2, 0, 2, 'Fulltime', '0000-00-00', '0000-00-00', 'College', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '0', '0', '0', '0', '0', '0', 'AISON', 'N/A', 'EQD', 'On Budget', 0, 0, 0, 0, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '2020-11-22 00:00:00'),
 (149, 'Juan Dela Cruz', 'requestor@email.com', 'Associate', 'EQD', 2, 0, 2, 'Fulltime', '0000-00-00', '0000-00-00', 'College', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '0', '0', '0', '0', '0', '0', 'AISON', 'N/A', 'EQD', 'On Budget', 0, 0, 0, 0, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '2020-11-23 00:00:00');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_section`
+--
+
+CREATE TABLE `tb_section` (
+  `id` int(14) NOT NULL,
+  `department` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `section_name` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `tb_section`
+--
+
+INSERT INTO `tb_section` (`id`, `department`, `section_name`) VALUES
+(1, 'EQD', 'Management'),
+(2, 'EQD', 'Equipment Management'),
+(3, 'EQD', 'Equipment Engineering'),
+(4, 'EQD', 'Facilities'),
+(5, 'ACC', 'Accounting and Taxation'),
+(6, 'Housekeeping', 'Housekeeping'),
+(7, 'HR', 'Recruitment and Training'),
+(8, 'HR', 'Human Resource'),
+(9, 'HR', 'General Affairs'),
+(10, 'IT', 'Support Group'),
+(11, 'IT', 'System Group'),
+(12, 'IT', 'CAD Group'),
+(13, 'MPD', 'Material Management'),
+(14, 'MPD', 'Procurement'),
+(15, 'MPD', 'FG Preparation'),
+(16, 'NF', 'NF Kaizen'),
+(17, 'EQD', 'Machine Data'),
+(18, 'EQD', 'EM Initial (Corrective Maintenance)'),
+(19, 'EQD', 'Fabrication'),
+(20, 'EQD', 'EM Final (Corrective Maintenance)'),
+(21, 'EQD', 'Spareparts'),
+(22, 'EQD', 'Machinery Center'),
+(23, 'EQD', 'EM Initial (Preventive Maintenance)'),
+(24, 'EQD', 'EM Final (Preventive Maintenance)'),
+(25, 'EQD', 'Calibration'),
+(26, 'EQD', 'ISO/Document Control'),
+(27, 'EQD', 'PCO'),
+(28, 'EQD', 'N/A'),
+(29, 'HR', 'Non-PD Technical Training'),
+(30, 'HR', 'PD Technical Training'),
+(31, 'MPD ', 'MH (WHSE)'),
+(32, 'PE', 'AME'),
+(33, 'PE', 'MPPD'),
+(34, 'PE', 'PEC'),
+(35, 'QA', 'Quality Control'),
+(36, 'QA', 'Quality Assurance'),
+(37, 'QA', 'Quality Management'),
+(38, 'G-ASSIST', 'G-Assists'),
+(39, 'PDC', 'PDC'),
+(40, 'PMD', 'Production Control'),
+(41, 'PMD', 'IMPEX'),
+(42, 'PD1', 'Battery Final'),
+(43, 'PD1', 'Battery Initial'),
+(44, 'PD1', 'Distributor'),
+(45, 'PD1', 'PPET'),
+(46, 'PD1', 'Repair Person'),
+(47, 'PD1', 'PD1 Clerk'),
+(48, 'PD1', 'SWAT Final'),
+(49, 'PD1', 'SWAT Initial'),
+(50, 'PD1', 'Tube Cutting'),
+(51, 'PD1', 'Tube Making'),
+(52, 'PD1', 'VS Laminating'),
+(53, 'PD2', 'D01L Final'),
+(54, 'PD2', 'D01L Initial'),
+(55, 'PD2', 'D54L Final'),
+(56, 'PD2', 'D54L Initial'),
+(57, 'PD2', 'Daihatsu Final'),
+(58, 'PD2', 'Daihatsu Initial'),
+(59, 'PD2', 'Nissan Final'),
+(60, 'PD2', 'Nissan Initial'),
+(61, 'PD2', 'PD2 Clerk'),
+(62, 'PD2', 'PPET'),
+(63, 'PD3', 'Mazda J12 Final'),
+(64, 'PD3', 'Mazda J12 Initial'),
+(65, 'PD3', 'Mazda Merge Final'),
+(66, 'PD3', 'Mazda Merge Initial'),
+(67, 'PD3', 'PD3 Clerk'),
+(68, 'PD3', 'PPET'),
+(69, 'PD4', 'PD4 Clerk'),
+(70, 'PD4', 'Suzuki Final'),
+(71, 'PD4', 'Suzuki Initial'),
+(72, 'PD4', 'Toyota Final'),
+(73, 'PD4', 'Toyota Initial'),
+(74, 'PD4', 'Y2R Final'),
+(75, 'PD4', 'Y2R Initial'),
+(76, 'PD4', 'PPET'),
+(77, 'PD5', 'Honda Final'),
+(78, 'PD5', 'Honda Initial'),
+(79, 'PD5', 'PD5 Clerk'),
+(80, 'PD5', 'Subaru Final'),
+(81, 'PD5', 'Subaru Initial'),
+(82, 'PD5', 'TKRA Final'),
+(83, 'PD5', 'TKRA Initial'),
+(84, 'PD5', 'PPET');
+
 --
 -- Indexes for dumped tables
 --
@@ -421,6 +631,12 @@ ALTER TABLE `tb_request_mp`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tb_section`
+--
+ALTER TABLE `tb_section`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -428,7 +644,7 @@ ALTER TABLE `tb_request_mp`
 -- AUTO_INCREMENT for table `prf_account`
 --
 ALTER TABLE `prf_account`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_approval`
@@ -452,7 +668,7 @@ ALTER TABLE `tb_contract_status`
 -- AUTO_INCREMENT for table `tb_department`
 --
 ALTER TABLE `tb_department`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tb_education`
@@ -471,6 +687,12 @@ ALTER TABLE `tb_position`
 --
 ALTER TABLE `tb_request_mp`
   MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
+
+--
+-- AUTO_INCREMENT for table `tb_section`
+--
+ALTER TABLE `tb_section`
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
