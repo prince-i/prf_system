@@ -36,7 +36,8 @@ include 'Modals/preview_request.php';
     </div>
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
-        <li class="tab"><a href="#request" onclick="load_for_approval()">For Approval<span class="new badge #ef9a9a red lighten-3" id="pending"></a></span></li>
+        <li class="tab"><a href="#request" onclick="load_for_approval()">For Approval Check<span class="new badge #ef9a9a red lighten-3" id="pending"></a></span></li>
+        <li class="tab"><a href="#note" onclick="">For Approval Note<span class="new badge #ef9a9a red lighten-3" id="pending"></a></span></li>
         <li class="tab"><a href="#approved" onclick="">Approved Request<span class="new badge #ef9a9a red lighten-3" id="approved_notif"></span></a></li>
         <li class="tab"><a href="#verified" onclick="">Verified Request<span class="new badge #ef9a9a red lighten-3" id="verified_notif"></span></a></li>
         <li class="tab"><a href="#cancelled" onclick="">Cancelled Request<span class="new badge #ef9a9a red lighten-3" id="cancel_notif"></span></a></li>
@@ -49,9 +50,10 @@ include 'Modals/preview_request.php';
   </ul>
 <!-- ACCT MENU -->
 <?php include 'Modals/account_menu.php';?>
-
+<?php include 'Modals/approver_preview_request.php';?>
 <!-- TAB CONTENTS -->
 <div id="request"><?php include 'approver_page/for_approval.php';?></div>
+<div id="note"></div>
 <div id="approved"></div>
 <div id="verified"></div>
 <div id="cancelled"></div>
@@ -101,6 +103,21 @@ const count_for_approval =()=>{
     var rowCount = $('#for_approval_data tr').length;
     var count = parseInt(rowCount);
     document.getElementById('pending').innerHTML = count;
+}
+const preview_approver_summary =(id)=>{
+    // document.getElementById('prf_ID').value = id;
+    $.ajax({
+        url: '../php/approverController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'preview_summary',
+            id:id
+        },success:function(response){
+            $('#prf_preview_form').html(response);
+        }
+    });
+
 }
 </script>
 </body>

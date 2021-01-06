@@ -12,6 +12,7 @@
             $position = $x['position'];
             $role = $x['role'];
             $department = $x['department'];
+            $level = $x['acct_level'];
         }
     }else{
         session_unset();

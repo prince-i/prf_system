@@ -87,10 +87,10 @@
         `male_num_mp`,`total_mp`,`contract_status`,`date_start`,`date_end`,`education`,`required_license`,`work_exp`,`other_qualification`,
         `job_duties`,`interview_need`,`interviewers`,`availability_for_interview`,`additional_mp`,
         `mp_plan`,`reorganization`,`promotion`,`retirement`,`replacement`,`replacement_mp_name`,`others`,
-        `budget_source`,`budget_status`,`actual_mp_dept`,`actual_mp_section`,`plan_mp_dept`,`plan_mp_section`,`request_date`,`approval_status`,`verification_status`)
+        `budget_source`,`budget_status`,`actual_mp_dept`,`actual_mp_section`,`plan_mp_dept`,`plan_mp_section`,`request_date`,`approval_status`,`verification_status`,`step`)
          VALUES ('$id','$requestor','$email','$position','$assign_dept','$female_mp_count','$male_mp_count','$total','$contractStatus','$dateStart','$dateEnd','$educ','$cert','$work_exp','$other_quali',
         '$job_duties','$interview_stat','$interviewer','$interview_date_time','$add_mp_val','$mp_plan_val','$re_org_val','$promotion','$retirement','$replace_val','$replaceName',
-        '$other_text','$budget_source','$budget_status','$actual_mp_dept','$actual_mp_section','$plan_mp_dept','$plan_mp_section','$server_date_time','pending','pending')";
+        '$other_text','$budget_source','$budget_status','$actual_mp_dept','$actual_mp_section','$plan_mp_dept','$plan_mp_section','$server_date_time','pending','pending','for_checking')";
         $stmt = $conn->prepare($save_req);
         if($stmt->execute()){
             echo "Success!";
@@ -104,7 +104,7 @@
         $from = $_POST['from'];
         $to = $_POST['to'];
         if(empty($from) && empty($to)){
-            $query = "SELECT *FROM tb_request_mp WHERE approval_status = 'pending' AND verification_status = 'pending' AND requestor_email LIKE '$email%'";
+            $query = "SELECT *FROM tb_request_mp WHERE step = '1' AND requestor_email LIKE '$email%'";
             $stmt = $conn->prepare($query);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
@@ -121,7 +121,7 @@
                 echo '</tr>';
             }
         }else{
-            $query = "SELECT *FROM tb_request_mp WHERE request_date >= '$from 00:00:00' AND request_date <= '$to 23:59:59' AND approval_status = 'pending' AND verification_status = 'pending' AND requestor_email LIKE '$email%'";
+            $query = "SELECT *FROM tb_request_mp WHERE request_date >= '$from 00:00:00' AND request_date <= '$to 23:59:59' AND step ='1' AND requestor_email LIKE '$email%'";
             $stmt = $conn->prepare($query);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
@@ -140,24 +140,11 @@
         }
 
     }
-    // COUNT PENDING REQUEST BACKEND
-    elseif($method == 'count_pending_request'){
-        $email = $_POST['email'];
-        $query = "SELECT COUNT(id) as total_pending FROM tb_request_mp WHERE approval_status = 'pending' AND  verification_status = 'pending' AND requestor_email LIKE '$email%'";
-        $stmt = $conn->prepare($query);
-        $stmt->execute();
-        if($stmt->rowCount() > 0){
-            foreach($stmt->fetchALL() as $x){
-                echo $x['total_pending'];
-            }
-        }else{
-            echo '0';
-        }
-    }
+
 // LOADING APPROVED PRF REQUESTOR VIEW
     elseif($method == 'fetch_approve_request_requestor'){
         $email = $_POST['email'];
-        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE approval_status = 'approved' AND verification_status = 'pending' AND requestor_email LIKE '$email%' ORDER BY request_date ASC";
+        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE step = 'for_verification' AND requestor_email LIKE '$email%' ORDER BY request_date ASC";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         foreach($stmt->fetchall() as $x){
@@ -177,7 +164,7 @@
 // COUNT APPROVE REQUEST
 elseif($method == 'count_approved_request'){
     $email = $_POST['email'];
-    $query = "SELECT COUNT(id) as total_approved FROM tb_request_mp WHERE approval_status = 'approved' AND  verification_status = 'pending' AND requestor_email LIKE '$email%'";
+    $query = "SELECT COUNT(id) as total_approved FROM tb_request_mp WHERE step = 'for_verification' AND requestor_email LIKE '$email%'";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     if($stmt->rowCount() > 0){
