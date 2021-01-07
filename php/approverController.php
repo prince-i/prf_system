@@ -89,9 +89,56 @@
     
             echo '<div class="row">';
             echo '<div class="col s12 center">';
+            echo '<div class="input-field col s4">';
             echo '<button class="btn z-depth-5 #1976d2 blue darken-2" style="border-radius:20px;" onclick="preview()">preview</button>';
             echo '</div>';
+            echo '<div class="input-field col s4">';
+            echo '<button class="btn z-depth-5 green" style="border-radius:20px;">approve</button>';
             echo '</div>';
+            // decline
+            echo '<div class="input-field col s4">';
+            echo '<button class="btn z-depth-5 red" style="border-radius:20px;">decline</button>';
+            echo '</div>';
+            // 
+            echo '</div>';
+            echo '</div>';
+        }
+    }
+
+    // LOAD FOR APPROVAL NOTE
+    elseif($method == 'load_for_approval_note'){
+        $department = $_POST['department'];
+        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE approval_status = 'pending' AND step ='2' AND verification_status = 'pending' AND assigned_dept LIKE '$department%' ORDER BY request_date ASC";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            foreach($stmt->fetchAll() as $x){
+                echo '<tr class="modal-trigger" data-target="preview_request" onclick="preview_approver_summary(&quot;'.$x['id'].'&quot;)">';
+                echo '<td>'.$x['id'].'</td>';
+                echo '<td>'.$x['requesting_position'].'</td>';
+                echo '<td>'.$x['assigned_dept'].'</td>';
+                echo '<td>'.$x['contract_status'].'</td>';
+                echo '<td>'.$x['requestor'].'</td>';
+                echo '<td>'.$x['requestor_email'].'</td>';
+                echo '<td>'.$x['approval_status'].'</td>';
+                echo '<td>'.$x['verification_status'].'</td>';
+                echo '<td>'.$x['request_date'].'</td>';
+                echo '</tr>';
+            }
+    }
+    }
+    // COUNT APPROVAL NOTE
+    elseif($method == 'count_for_approval_note'){
+        $department = $_POST['department'];
+        $query = "SELECT COUNT(id) as total_for_note FROM tb_request_mp WHERE step = '2' AND assigned_dept LIKE '$department%'";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        if($stmt->rowCount()>0){
+            foreach($stmt->fetchALL() as $x){
+                echo $x['total_for_note'];
+            }
+        }else{
+            echo '0';
         }
     }
 ?>

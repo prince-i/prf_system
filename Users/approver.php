@@ -31,13 +31,13 @@ include 'Modals/preview_request.php';
       <a href="#">Approver Dashboard</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><span style="font-size:20px;font-weight:bold;">&plus;</span></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="#" data-target="acct_option" class="dropdown-trigger"><?=ucwords($name);?></a></li>
+        <li><a href="#" data-target="acct_option" class="dropdown-trigger"><?=ucwords($name);?>-<?=ucwords($position);?></a></li>
       </ul>
     </div>
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
         <li class="tab"><a href="#request" onclick="load_for_approval()">For Approval Check<span class="new badge #ef9a9a red lighten-3" id="pending"></a></span></li>
-        <li class="tab"><a href="#note" onclick="">For Approval Note<span class="new badge #ef9a9a red lighten-3" id="pending"></a></span></li>
+        <li class="tab"><a href="#note" onclick="load_for_approval_note()">For Approval Note<span class="new badge #ef9a9a red lighten-3" id="pending"></a></span></li>
         <li class="tab"><a href="#approved" onclick="">Approved Request<span class="new badge #ef9a9a red lighten-3" id="approved_notif"></span></a></li>
         <li class="tab"><a href="#verified" onclick="">Verified Request<span class="new badge #ef9a9a red lighten-3" id="verified_notif"></span></a></li>
         <li class="tab"><a href="#cancelled" onclick="">Cancelled Request<span class="new badge #ef9a9a red lighten-3" id="cancel_notif"></span></a></li>
@@ -53,7 +53,7 @@ include 'Modals/preview_request.php';
 <?php include 'Modals/approver_preview_request.php';?>
 <!-- TAB CONTENTS -->
 <div id="request"><?php include 'approver_page/for_approval.php';?></div>
-<div id="note"></div>
+<div id="note"><?php include 'approver_page/for_approval_note.php';?></div>
 <div id="approved"></div>
 <div id="verified"></div>
 <div id="cancelled"></div>
@@ -82,6 +82,7 @@ $(document).ready(function(){
             constrainWidth: false
     });
     load_for_approval();
+    count_for_note();
 });
 
 const load_for_approval =()=>{
@@ -105,7 +106,7 @@ const count_for_approval =()=>{
     document.getElementById('pending').innerHTML = count;
 }
 const preview_approver_summary =(id)=>{
-    // document.getElementById('prf_ID').value = id;
+    $('#prf_ID').val(id);
     $.ajax({
         url: '../php/approverController.php',
         type: 'POST',
@@ -118,6 +119,40 @@ const preview_approver_summary =(id)=>{
         }
     });
 
+}
+function preview(){
+    var id = document.getElementById('prf_ID').value;
+    window.open('../Forms/preview_prf.php?id='+id);
+}
+
+const load_for_approval_note =()=>{
+    department = '<?=$department;?>';
+    $.ajax({
+        url: '../php/approverController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'load_for_approval_note',
+            department: department
+        },success:function(response){
+            document.getElementById('for_approval_note_data').innerHTML = response;
+        }
+    });
+}
+
+const count_for_note =()=>{
+    department = '<?=$department;?>';
+    $.ajax({
+        url: '../php/approverController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'count_for_approval_note',
+            department: department
+        },success:function(response){
+            console.log(response);
+        }
+    });
 }
 </script>
 </body>
