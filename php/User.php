@@ -26,7 +26,7 @@
                 header('location: Users/approver.php');
             }
         }else{
-            echo "<center>Invalid Username or Password</center>";
+            echo "<script>alert('Invalid Username or Password')</script>";
         }
     }
 

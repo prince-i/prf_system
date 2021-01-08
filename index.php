@@ -117,6 +117,50 @@
                 }
            });
        }
+    //    REGISTRATION
+    const sendRegistration =()=>{
+        name = $('#name').val();
+        email = $('#email_username').val();
+        new_password = $('#register_password').val();
+        new_dept = $('#dept_view').val();
+        role = $('#role_select').val();
+        position = $('#position_select').val();
+        approval_level = $('#approval_level_select').val();
+        if(name == ''){
+            M.toast({html:'Please input your complete name!', classes:'rounded'});
+        }else if(email == ''){
+            M.toast({html:'Please input your email, it will serve as your username!', classes:'rounded'});
+        }else if(new_password == ''){
+            M.toast({html:'Please input your password!', classes:'rounded'});
+        }else if(new_dept == ''){
+            M.toast({html:'Please select department/section you have associated!', classes:'rounded'});
+        }else if(role == ''){
+            M.toast({html:'Please select role!', classes:'rounded'});
+        }else if(position == ''){
+            M.toast({html:'Please select your position!', classes:'rounded'});
+        }else if(approval_level == ''){
+            M.toast({html:'Please select your approval level!', classes:'rounded'});
+        }else{
+            // AJAX
+            $.ajax({
+                url : 'php/account_mngt.php',
+                type:'POST',
+                cache: false,
+                data:{
+                    method: 'register_account',
+                    name:name,
+                    email:email,
+                    new_password:new_password,
+                    new_dept:new_dept,
+                    role:role,
+                    position:position,
+                    approval_level:approval_level
+                },success:function(response){
+                    console.log(response);
+                }
+            });
+        }
+    }
     </script>
 </body>
 </html>

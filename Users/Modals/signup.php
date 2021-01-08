@@ -1,9 +1,14 @@
-<div class="modal" id="signUp">
+<div class="modal bottom-sheet" id="signUp" style="min-height:100vh;">
+<button class="btn-flat waves-effect modal-close right red-text">Close</button>
     <div class="modal-content">
+    
         <div class="row">
             <div class="col s12">
+                <div class="input-field col s12"><input type="text" name="" id="name"><label for="">Complete Name</label></div>
+            </div>
+            <div class="col s12">
                 <div class="input-field col s6">
-                    <input type="text" name="" id="email_usename"><label for="">Email</label>
+                    <input type="text" name="" id="email_username"><label for="">Email</label>
                 </div>
                 <div class="input-field col s6">
                     <input type="text" name="" id="register_password"><label for="">Password</label>
@@ -32,7 +37,26 @@
                         <!-- AJAX SUPPLY DATA HERE -->
                     </select>
                 </div>
+                <!-- SIGNATORY LEVEL -->
+                <div class="input-field col s6">
+                    <select name="" id="approval_level_select" class="browser-default z-depth-5">
+                        <option value="" disabled selected>--SELECT APPROVAL LEVEL--</option>
+                        <?php
+                            for($x = 1; $x<=7;$x++){
+                                echo '<option value="'.$x.'">'.$x.'</option>';
+                            }
+                        ?>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <div class="input-field col s12">
+                    <button class="btn-large blue z-depth-5" style="border-radius:30px;" onclick="sendRegistration()">submit</button>
+                </div>
             </div>
         </div>
     </div>
+
 </div>
