@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php define('title','PRF System');?>
+<?php include 'php/User.php';?>
 <html lang="en">
 <head>
     <link rel="icon" href="Img/logo.jpg" type="image/jpg" sizes="16x16">
@@ -68,7 +69,7 @@
                <input type="submit" class="btn" name="loginBtn" value="login">
            </div>
            <div class="row">
-               <?php include 'php/User.php';?>
+               
            </div>
             </form>
            <!-- SIGN UP -->
@@ -88,10 +89,34 @@
         $(document).ready(function(){
             $('.modal').modal();
             $('.container').fadeToggle(1000);
+            load_dept();
+            load_position();
         });
-        const submit_prf =()=>{
-            
-        }
+
+       const load_dept =()=>{
+           $.ajax({
+                url: 'php/load_dept_section.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'load_dept'
+                },success:function(response){
+                    $('#dept_view').html(response);
+                }
+           });
+       }
+       const load_position =()=>{
+        $.ajax({
+                url: 'php/load_dept_section.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'load_position'
+                },success:function(response){
+                    $('#position_select').html(response);
+                }
+           });
+       }
     </script>
 </body>
 </html>
