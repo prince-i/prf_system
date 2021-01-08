@@ -56,7 +56,7 @@
                     <label for="">Password</label>
             </div>
             <div class="input-field">
-                <select  id="role"  name="role" class="browser-default">
+                <select  id="role"  name="role" class="browser-default z-depth-5">
                     <option value="">-- Select Role --</option>
                     <option value="requestor">Requestor (Requesting Department)</option>
                     <option value="approver">Approver (Requesting Department)</option>
