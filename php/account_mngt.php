@@ -2,6 +2,7 @@
     include 'Database.php';
     $method = $_POST['method'];
     if($method == 'register_account'){
+        $id = 0;
         $name = $_POST['name'];
         $email = $_POST['email'];
         $password = $_POST['new_password'];
@@ -19,6 +20,12 @@
             echo 'exist';
         }else{
             // REGISTRATION QUERY
+            $regQL = "INSERT INTO prf_account (`id`,`username`,`password`,`role`,`position`,`name`,`department`,`account_verification`,`acct_level`) 
+            VALUES ('$id','$email','$password','$role','$position','$name','$dept','approved','$approval_level')";
+            $stmt = $conn->prepare($regQL);
+            if($stmt->execute()){
+                echo 'success';
+            }
         }
     }
 ?>

@@ -104,7 +104,7 @@
         $from = $_POST['from'];
         $to = $_POST['to'];
         if(empty($from) && empty($to)){
-            $query = "SELECT *FROM tb_request_mp WHERE step = '1' AND requestor_email LIKE '$email%'";
+            $query = "SELECT *FROM tb_request_mp WHERE step = '1' AND approval_status = 'pending' AND verification_status ='pending' AND requestor_email LIKE '$email%'";
             $stmt = $conn->prepare($query);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
@@ -121,7 +121,7 @@
                 echo '</tr>';
             }
         }else{
-            $query = "SELECT *FROM tb_request_mp WHERE request_date >= '$from 00:00:00' AND request_date <= '$to 23:59:59' AND step ='1' AND requestor_email LIKE '$email%'";
+            $query = "SELECT *FROM tb_request_mp WHERE request_date >= '$from 00:00:00' AND request_date <= '$to 23:59:59' AND step ='1' AND requestor_email LIKE '$email%' AND approval_status = 'pending' AND verification_status ='pending'";
             $stmt = $conn->prepare($query);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
@@ -144,7 +144,7 @@
 // LOADING APPROVED PRF REQUESTOR VIEW
     elseif($method == 'fetch_approve_request_requestor'){
         $email = $_POST['email'];
-        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE step = 'for_verification' AND requestor_email LIKE '$email%' ORDER BY request_date ASC";
+        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE step = '3' AND requestor_email LIKE '$email%'  ORDER BY request_date ASC";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         foreach($stmt->fetchall() as $x){
@@ -164,7 +164,7 @@
 // COUNT APPROVE REQUEST
 elseif($method == 'count_approved_request'){
     $email = $_POST['email'];
-    $query = "SELECT COUNT(id) as total_approved FROM tb_request_mp WHERE step = 'for_verification' AND requestor_email LIKE '$email%'";
+    $query = "SELECT COUNT(id) as total_approved FROM tb_request_mp WHERE step = '3' AND requestor_email LIKE '$email%'";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     if($stmt->rowCount() > 0){
@@ -178,7 +178,7 @@ elseif($method == 'count_approved_request'){
 // COUNT VERIFIED
 elseif($method == 'count_verified_request'){
     $email = $_POST['email'];
-    $query = "SELECT COUNT(id) as total_verified FROM tb_request_mp WHERE approval_status = 'approved' AND  verification_status = 'verified' AND requestor_email LIKE '$email%'";
+    $query = "SELECT COUNT(id) as total_verified FROM tb_request_mp WHERE step = '7' AND requestor_email LIKE '$email%'";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     if($stmt->rowCount()>0){
@@ -264,7 +264,7 @@ elseif($method == 'summary_prf_view'){
 }
 elseif($method == 'load_verify_requestor_view'){
         $email = $_POST['email'];
-        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE approval_status = 'approved' AND verification_status = 'verified' AND requestor_email LIKE '$email%' ORDER BY request_date ASC";
+        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE step ='7' AND requestor_email LIKE '$email%' ORDER BY request_date ASC";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         foreach($stmt->fetchall() as $x){
@@ -283,7 +283,7 @@ elseif($method == 'load_verify_requestor_view'){
 }
 elseif($method=='count_cancel_request'){
     $email = $_POST['email'];
-    $query = "SELECT COUNT(id) as total_verified FROM tb_request_mp WHERE approval_status = 'cancelled' OR  verification_status = 'cancelled' AND requestor_email LIKE '$email%'";
+    $query = "SELECT COUNT(id) as total_verified FROM tb_request_mp WHERE step = '0' AND requestor_email LIKE '$email%'";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     if($stmt->rowCount()>0){
@@ -296,7 +296,7 @@ elseif($method=='count_cancel_request'){
 }
 elseif($method == 'load_cancel_request'){
     $email = $_POST['email'];
-        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE approval_status = 'cancelled' OR verification_status = 'cancelled' AND requestor_email LIKE '$email%' ORDER BY request_date ASC";
+        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE step ='0' AND requestor_email LIKE '$email%' ORDER BY request_date ASC";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         foreach($stmt->fetchall() as $x){

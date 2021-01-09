@@ -157,6 +157,9 @@
                     approval_level:approval_level
                 },success:function(response){
                     console.log(response);
+                    if(response == 'success'){
+                        swal('Nofitication','Successfully registered!','success');;
+                    }
                 }
             });
         }
