@@ -26,7 +26,7 @@
 include 'Modals/request_mp_modal.php';
 include 'Modals/preview_request.php';
 ?>
-<nav class="nav-extended #d32f2f red darken-2 z-depth-5">
+<nav class="nav-extended #01579b light-blue darken-4 z-depth-5">
     <div class="nav-wrapper">
       <a href="#">Approver Dashboard</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><span style="font-size:20px;font-weight:bold;">&plus;</span></a>
@@ -36,11 +36,11 @@ include 'Modals/preview_request.php';
     </div>
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
-        <li class="tab"><a href="#request" onclick="load_for_approval()">For Approval Check<span class="new badge #ef9a9a red lighten-3" id="pending"></a></span></li>
-        <li class="tab"><a href="#note" onclick="load_for_approval_note()">For Approval Note<span class="new badge #ef9a9a red lighten-3" id="pending"></a></span></li>
-        <li class="tab"><a href="#approved" onclick="">Approved Request<span class="new badge #ef9a9a red lighten-3" id="approved_notif"></span></a></li>
-        <li class="tab"><a href="#verified" onclick="">Verified Request<span class="new badge #ef9a9a red lighten-3" id="verified_notif"></span></a></li>
-        <li class="tab"><a href="#cancelled" onclick="">Cancelled Request<span class="new badge #ef9a9a red lighten-3" id="cancel_notif"></span></a></li>
+        <li class="tab"><a href="#request" onclick="load_for_approval()">For Approval Check<span class="new badge #64b5f6 blue lighten-2" id="pending"></a></span></li>
+        <li class="tab"><a href="#note" onclick="load_for_approval_note()">For Approval Note<span class="new badge #64b5f6 blue lighten-2" id="pending"></a></span></li>
+        <li class="tab"><a href="#approved" onclick="">Approved Request<span class="new badge #64b5f6 blue lighten-2" id="approved_notif"></span></a></li>
+        <li class="tab"><a href="#verified" onclick="">Verified Request<span class="new badge #64b5f6 blue lighten-2" id="verified_notif"></span></a></li>
+        <li class="tab"><a href="#cancelled" onclick="">Cancelled Request<span class="new badge #64b5f6 blue lighten-2" id="cancel_notif"></span></a></li>
       </ul>
     </div>
   </nav>
@@ -139,7 +139,7 @@ const load_for_approval_note =()=>{
         }
     });
 }
-
+// COUNT FOR APPROVAL NOTE
 const count_for_note =()=>{
     department = '<?=$department;?>';
     $.ajax({
@@ -153,6 +153,47 @@ const count_for_note =()=>{
             console.log(response);
         }
     });
+}
+// CHECK REQUEST
+const check_request =()=>{
+    var id = document.querySelector('#prf_ID').value;
+    var name = '<?=$name;?>';
+    var signatoryLevel = '<?=$level;?>';
+    var x = confirm('You are going to approve this request, click OK to proceed!');
+    // ENTER APPROVING TO STEP 2 PROCESS
+    if(x == true){
+        $.ajax({
+        url:'../php/approverController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method:'approval_check_func',
+            id:id,
+            name:name,
+            level:signatoryLevel
+        },success:function(response){
+            console.log(response);
+            if(response == 'true'){
+                load_for_approval();
+                M.toast({html:'Approved successfully!',classes:'rounded'});
+                $('.modal').modal('close','#preview_summary');
+            }else if(response == 'false'){
+                M.toast({html:'Error!',classes:'rounded'});
+            }
+            else{
+                M.toast({html:'Unauthorized person to approve!',classes:'rounded'});
+            }
+        }
+    });
+    }else{
+        // DECLINE
+        console.log('no');
+    }
+    
+
+
+    
+
 }
 </script>
 </body>

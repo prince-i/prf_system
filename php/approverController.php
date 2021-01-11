@@ -3,7 +3,7 @@
     $method = $_POST['method'];
     if($method == 'load_for_approval'){
         $department = $_POST['department'];
-            $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE approval_status = 'pending' AND step ='1' AND verification_status = 'pending' AND assigned_dept LIKE '$department%' ORDER BY request_date ASC";
+            $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='1'  AND assigned_dept LIKE '$department%' ORDER BY request_date ASC";
             $stmt = $conn->prepare($query);
             $stmt->execute();
             if($stmt->rowCount() > 0){
@@ -93,7 +93,7 @@
             echo '<button class="btn z-depth-5 #1976d2 blue darken-2" style="border-radius:20px;" onclick="preview()">preview</button>';
             echo '</div>';
             echo '<div class="input-field col s4">';
-            echo '<button class="btn z-depth-5 green" style="border-radius:20px;">approve</button>';
+            echo '<button class="btn z-depth-5 green" style="border-radius:20px;" onclick="check_request()">approve</button>';
             echo '</div>';
             // decline
             echo '<div class="input-field col s4">';
@@ -108,7 +108,7 @@
     // LOAD FOR APPROVAL NOTE
     elseif($method == 'load_for_approval_note'){
         $department = $_POST['department'];
-        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE approval_status = 'pending' AND step ='2' AND verification_status = 'pending' AND assigned_dept LIKE '$department%' ORDER BY request_date ASC";
+        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE step ='2' AND assigned_dept LIKE '$department%' ORDER BY request_date ASC";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         if($stmt->rowCount() > 0){
@@ -140,5 +140,31 @@
         }else{
             echo '0';
         }
+    }
+    // STEP 2 APPROVAL
+    elseif($method == 'approval_check_func'){
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+        $level = $_POST['level'];
+        // CHECK REQUEST LEVEL 
+        $check_level_req = "SELECT step FROM tb_request_mp WHERE id = '$id'";
+        $stmt =$conn->prepare($check_level_req);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $x){
+            $step = $x['step'];
+        }
+            $compatible = $step + 1;
+            if($compatible == $level){
+                $step_two_appr = "UPDATE tb_request_mp SET step = '2',approve_check_by = '$name',approve_check_remarks = 'APPROVED',approval_status = 'FOR SIGNATORY OF DEPT. MNGR./SECTION MNGR.' WHERE id = '$id'";
+                $stmt = $conn->prepare($step_two_appr);
+                if($stmt->execute()){
+                    echo 'true';
+                }else{
+                    echo 'false';
+                }
+            }else{
+                echo 'unauthorized';
+            }
+        
     }
 ?>

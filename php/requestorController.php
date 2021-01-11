@@ -90,7 +90,7 @@
         `budget_source`,`budget_status`,`actual_mp_dept`,`actual_mp_section`,`plan_mp_dept`,`plan_mp_section`,`request_date`,`approval_status`,`verification_status`,`step`)
          VALUES ('$id','$requestor','$email','$position','$assign_dept','$female_mp_count','$male_mp_count','$total','$contractStatus','$dateStart','$dateEnd','$educ','$cert','$work_exp','$other_quali',
         '$job_duties','$interview_stat','$interviewer','$interview_date_time','$add_mp_val','$mp_plan_val','$re_org_val','$promotion','$retirement','$replace_val','$replaceName',
-        '$other_text','$budget_source','$budget_status','$actual_mp_dept','$actual_mp_section','$plan_mp_dept','$plan_mp_section','$server_date_time','pending','pending','for_checking')";
+        '$other_text','$budget_source','$budget_status','$actual_mp_dept','$actual_mp_section','$plan_mp_dept','$plan_mp_section','$server_date_time','FOR SIGNATORY OF ASST. MNGR/SECTION MNGR.','PENDING','for_checking')";
         $stmt = $conn->prepare($save_req);
         if($stmt->execute()){
             echo "Success!";
@@ -104,7 +104,7 @@
         $from = $_POST['from'];
         $to = $_POST['to'];
         if(empty($from) && empty($to)){
-            $query = "SELECT *FROM tb_request_mp WHERE step = '1' AND approval_status = 'pending' AND verification_status ='pending' AND requestor_email LIKE '$email%'";
+            $query = "SELECT *FROM tb_request_mp WHERE step < 3  AND requestor_email LIKE '$email%' ORDER BY id DESC";
             $stmt = $conn->prepare($query);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
@@ -121,7 +121,7 @@
                 echo '</tr>';
             }
         }else{
-            $query = "SELECT *FROM tb_request_mp WHERE request_date >= '$from 00:00:00' AND request_date <= '$to 23:59:59' AND step ='1' AND requestor_email LIKE '$email%' AND approval_status = 'pending' AND verification_status ='pending'";
+            $query = "SELECT *FROM tb_request_mp WHERE request_date >= '$from 00:00:00' AND request_date <= '$to 23:59:59' AND step ='1' AND requestor_email LIKE '$email%' ORDER BY id DESC";
             $stmt = $conn->prepare($query);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){

@@ -41,6 +41,8 @@
             if($other_reason == ''){
                 $other_reason = 'N/A';
             }
+            $checker = $x['approve_check_by'];
+            $apprNote = $x['approve_noted_by'];
         }
     }
 
@@ -92,8 +94,8 @@
                     </tr>
                     <tr>
                         <td style="border:1.5px solid black;"><?=$requestor;?></td>
-                        <td style="border:1.5px solid black;"></td>
-                        <td style="border:1.5px solid black;"></td>
+                        <td style="border:1.5px solid black;"><?=$checker;?></td>
+                        <td style="border:1.5px solid black;"><?=$apprNote;?></td>
                     </tr>
                     <!-- POSITIONS -->
                     <tr style="font-size:10px;">
