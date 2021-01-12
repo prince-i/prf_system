@@ -38,7 +38,7 @@ include 'Modals/preview_request.php';
       <ul class="tabs tabs-transparent">
         <li class="tab"><a href="#request" onclick="load_for_approval()">For Approval Check<span class="new badge #64b5f6 blue lighten-2" id="pending"></a></span></li>
         <li class="tab"><a href="#note" onclick="load_for_approval_note()">For Approval Note<span class="new badge #64b5f6 blue lighten-2" id="pending"></a></span></li>
-        <li class="tab"><a href="#approved" onclick="">Approved Request<span class="new badge #64b5f6 blue lighten-2" id="approved_notif"></span></a></li>
+        <li class="tab"><a href="#approved" onclick="load_approve_req()">Approved Request<span class="new badge #64b5f6 blue lighten-2" id="approved_notif"></span></a></li>
         <li class="tab"><a href="#verified" onclick="">Verified Request<span class="new badge #64b5f6 blue lighten-2" id="verified_notif"></span></a></li>
         <li class="tab"><a href="#cancelled" onclick="">Cancelled Request<span class="new badge #64b5f6 blue lighten-2" id="cancel_notif"></span></a></li>
       </ul>
@@ -54,7 +54,7 @@ include 'Modals/preview_request.php';
 <!-- TAB CONTENTS -->
 <div id="request"><?php include 'approver_page/for_approval.php';?></div>
 <div id="note"><?php include 'approver_page/for_approval_note.php';?></div>
-<div id="approved"></div>
+<div id="approved"><?php include 'approver_page/approved_request.php';?></div>
 <div id="verified"></div>
 <div id="cancelled"></div>
 
@@ -120,6 +120,23 @@ const preview_approver_summary =(id)=>{
     });
 
 }
+
+const preview_approver_note =(id)=>{
+    $('#prf_ID').val(id);
+    $.ajax({
+        url: '../php/approverController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'preview_note',
+            id:id
+        },success:function(response){
+            $('#prf_preview_form').html(response);
+        }
+    });
+}
+
+
 function preview(){
     var id = document.getElementById('prf_ID').value;
     window.open('../Forms/preview_prf.php?id='+id);
@@ -181,7 +198,7 @@ const check_request =()=>{
                 M.toast({html:'Error!',classes:'rounded'});
             }
             else{
-                M.toast({html:'Unauthorized person to approve!',classes:'rounded'});
+                M.toast({html:'Unauthorized person!',classes:'rounded'});
             }
         }
     });
@@ -189,11 +206,59 @@ const check_request =()=>{
         // DECLINE
         console.log('no');
     }
-    
+}
+// NOTE REQUEST
+const note_request =()=>{
+    var id = document.querySelector('#prf_ID').value;
+    var name = '<?=$name;?>';
+    var signatoryLevel = '<?=$level;?>';
+    var x = confirm('You are going to approve this request, click OK to proceed!');
+    // ENTER APPROVING TO STEP 2 PROCESS
+    if(x == true){
+        $.ajax({
+        url:'../php/approverController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method:'approval_note_func',
+            id:id,
+            name:name,
+            level:signatoryLevel
+        },success:function(response){
+            console.log(response);
+            if(response == 'true'){
+                load_for_approval();
+                M.toast({html:'Approved successfully!',classes:'rounded'});
+                $('.modal').modal('close','#preview_summary');
+                load_for_approval_note();
+            }else if(response == 'false'){
+                M.toast({html:'Error!',classes:'rounded'});
+            }
+            else{
+                M.toast({html:'Unauthorized person!',classes:'rounded'});
+            }
+        }
+    });
+    }else{
+        // DECLINE
+        console.log('no');
+    }
+}
 
-
-    
-
+// LOAD APPROVED REQ
+const load_approve_req=()=>{
+    var department = '<?=$department;?>';
+    $.ajax({
+        url: '../php/approverController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'load_approved',
+            department: department
+        },success:function(response){
+            document.getElementById('approved_data').innerHTML = response;
+        }
+    });
 }
 </script>
 </body>

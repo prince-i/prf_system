@@ -1,7 +1,7 @@
+<!-- SIGNUP MODAL -->
 <div class="modal bottom-sheet" id="signUp" style="min-height:100vh;">
 <button class="btn-flat waves-effect modal-close right red-text">Close</button>
     <div class="modal-content">
-    
         <div class="row">
             <div class="col s12">
                 <div class="input-field col s12"><input type="text" name="" id="name"><label for="">Complete Name</label></div>

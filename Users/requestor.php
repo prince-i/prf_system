@@ -359,7 +359,7 @@ const submit_prf =()=>{
                 plan_mp_dept:plan_mp_dept,
                 actual_mp_section:actual_mp_section,
                 plan_mp_section:plan_mp_section,
-                email:'<?=$username;?>'
+                email:'<?=$username;?>',
             },success:function(response){
                     swal('Notification',response,'success');
                     document.getElementById('submitPRF').disabled = false;
@@ -518,6 +518,18 @@ const load_cancelled_list =()=>{
             count_cancel_request();
         }
     });
+}
+// DETECT CONTRACT
+const detect_contract =()=>{
+    var status = document.querySelector('#contract_status_val').value;
+    if(status == 'On-the-Job Training'){
+       $('#date_range_ojt').show(300);
+    }else if(status == 'Special Project Employee'){
+        $('#date_range_ojt').show(300);
+    }
+    else{
+        $('#date_range_ojt').hide(300);
+    }
 }
 </script>
 </body>

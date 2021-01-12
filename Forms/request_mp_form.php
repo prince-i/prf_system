@@ -21,7 +21,7 @@
                     $stmt = $conn->prepare($query);
                     $stmt->execute();
                     foreach($stmt->fetchALL() as $x){
-                        echo '<option value="'.$x['deptCode'].'">'.$x['deptDesc'].'-'.$x['section_name'].'</option>';
+                        echo '<option value="'.$x['deptCode'].'-'.$x['section_name'].'">'.$x['deptDesc'].'-'.$x['section_name'].'</option>';
                     }
                 ?>
             </select>
@@ -67,7 +67,7 @@
     <h5 class="header">Contract Status</h5>
     <div class="row">
         <div class="row input-field col l12 m12 s12">
-            <select name="" id="contract_status_val" class="browser-default z-depth-5">
+            <select name="" id="contract_status_val" class="browser-default z-depth-5" onchange="detect_contract()">
                 <option value="" selected disabled>-- Select Contract Status --</option>
                 <?php
                 $query = "SELECT *FROM tb_contract_status";
@@ -79,7 +79,7 @@
                 ?>
             </select>
         </div>
-        <div class="row">
+        <div class="row" style="display:none;" id="date_range_ojt">
             <div class="input-field col l6 m6 s6">
                 <input type="date" id="date_start"><label for="">Date Start</label>
             </div>

@@ -158,7 +158,8 @@
                 },success:function(response){
                     console.log(response);
                     if(response == 'success'){
-                        swal('Nofitication','Successfully registered!','success');;
+                        swal('Nofitication','Successfully registered!','success');
+                        $('.modal').modal('close','#signUp');
                     }
                 }
             });

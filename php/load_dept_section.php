@@ -7,7 +7,7 @@
         $stmt = $conn->prepare($query);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){
-        echo '<option value="'.$x['deptCode'].'">'.$x['deptDesc'].'-'.$x['section_name'].'</option>';
+        echo '<option value="'.$x['deptDesc'].'">'.$x['deptDesc'].'-'.$x['section_name'].'</option>';
         }
     }
     if($method == 'load_position'){
@@ -16,7 +16,8 @@
         $stmt = $conn->prepare($query);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){
-        echo '<option value="'.$x['position'].'">'.$x['position'].'</option>';
+            if($x['position'] == 'Coordinator' || $x['position'] == 'Associate')continue;
+            echo '<option value="'.$x['position'].'">'.$x['position'].'</option>';
         }
     }
 ?>
