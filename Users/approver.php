@@ -37,7 +37,7 @@ include 'Modals/preview_request.php';
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
         <li class="tab"><a href="#request" onclick="load_for_approval()">For Approval Check<span class="new badge #64b5f6 blue lighten-2" id="pending"></a></span></li>
-        <li class="tab"><a href="#note" onclick="load_for_approval_note()">For Approval Note<span class="new badge #64b5f6 blue lighten-2" id="pending"></a></span></li>
+        <li class="tab"><a href="#note" onclick="load_for_approval_note()">For Approval Note<span class="new badge #64b5f6 blue lighten-2" id="pending_note"></a></span></li>
         <li class="tab"><a href="#approved" onclick="load_approve_req()">Approved Request<span class="new badge #64b5f6 blue lighten-2" id="approved_notif"></span></a></li>
         <li class="tab"><a href="#verified" onclick="">Verified Request<span class="new badge #64b5f6 blue lighten-2" id="verified_notif"></span></a></li>
         <li class="tab"><a href="#cancelled" onclick="">Cancelled Request<span class="new badge #64b5f6 blue lighten-2" id="cancel_notif"></span></a></li>
@@ -167,7 +167,7 @@ const count_for_note =()=>{
             method: 'count_for_approval_note',
             department: department
         },success:function(response){
-            console.log(response);
+            $('#pending_note').html(response);
         }
     });
 }
@@ -244,7 +244,6 @@ const note_request =()=>{
         console.log('no');
     }
 }
-
 // LOAD APPROVED REQ
 const load_approve_req=()=>{
     var department = '<?=$department;?>';
@@ -257,6 +256,21 @@ const load_approve_req=()=>{
             department: department
         },success:function(response){
             document.getElementById('approved_data').innerHTML = response;
+        }
+    });
+}
+// PREVIEW APPROVED
+const preview_approved_req =(id)=>{
+    $('#prf_ID').val(id);
+    $.ajax({
+        url: '../php/approverController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'preview_approved',
+            id:id
+        },success:function(response){
+            $('#prf_preview_form').html(response);
         }
     });
 }

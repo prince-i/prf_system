@@ -43,6 +43,9 @@
             }
             $checker = $x['approve_check_by'];
             $apprNote = $x['approve_noted_by'];
+            $verify_check = $x['verify_check_by'];
+            $verify_manager = $x['verify_verifier_manager'];
+            $verify_div_mgr = $x['verify_verifier_div_mgr'];
         }
     }
 
@@ -53,7 +56,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRF Document</title>
+    <title>PRF Document REQ-<?=$id;?></title>
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
     <style>
         body{
@@ -83,7 +86,7 @@
             </div>
             <!-- COLUMN 2 -->
             <div class="col s6">
-                <table class="centered" style="border:1.5px solid black;" cellpadding="0"> 
+                <table class="centered" style="border:1.5px solid black;" cellpadding="0" height=""> 
                     <tr style="border:1.5px solid black;" class="#bdbdbd grey lighten-1">
                         <td colspan="3" style="font-weight:bold;font-size:10px;">Approval of Requesting Department</td>
                     </tr>
@@ -294,14 +297,14 @@
             </div>
         </div>
     </div>
-    <button class="btn-large blue z-depth-5" id="print_btn" onclick="print_docs()" style="border-radius:30px;">Print/Save</button>
+    <button class="btn-small blue z-depth-5" id="print_btn" onclick="print_docs()" style="border-radius:30px;">Print/Save</button>
     </div>
     <script>
         function print_docs(){
             var printButton = document.querySelector('#print_btn');
-            printButton.style.visibility = 'hidden';
+            printButton.style.display = 'none';
             window.print();
-            printButton.style.visibility = 'visible';
+            printButton.style.display = 'block';
         }
     </script>
 </body>
