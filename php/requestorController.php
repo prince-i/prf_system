@@ -283,12 +283,12 @@ elseif($method == 'load_verify_requestor_view'){
 }
 elseif($method=='count_cancel_request'){
     $email = $_POST['email'];
-    $query = "SELECT COUNT(id) as total_verified FROM tb_request_mp WHERE step = '0' AND requestor_email LIKE '$email%'";
+    $query = "SELECT COUNT(id) as total_cancel FROM tb_request_mp WHERE step = '0' AND requestor_email LIKE '$email%'";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     if($stmt->rowCount()>0){
         foreach($stmt->fetchALL() as $x){
-            echo $x['total_verified'];
+            echo $x['total_cancel'];
         }
     }else{
         echo '0';

@@ -380,4 +380,40 @@ elseif($method == 'count_approved_prf'){
         echo '0';
     }
 }
+// COUNT VERIFIED
+elseif($method == 'count_verify'){
+    $department = $_POST['department'];
+    $query = "SELECT COUNT(id) as verify FROM tb_request_mp WHERE step = '7' AND assigned_dept LIKE '$department%'";
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    if($stmt->rowCount()>0){
+        foreach($stmt->fetchALL() as $x){
+            echo $x['verify'];
+        }
+    }else{
+        echo '0';
+    }
+}
+// LOAD VERIFIED VIEW
+elseif($method == 'load_verified_view'){
+        $department = $_POST['department'];
+        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE step ='7' AND assigned_dept LIKE '$department%' ORDER BY id ASC";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            foreach($stmt->fetchAll() as $x){
+                echo '<tr class="modal-trigger" data-target="preview_request" onclick="preview_approved_req(&quot;'.$x['id'].'&quot;)">';
+                echo '<td>'.$x['id'].'</td>';
+                echo '<td>'.$x['requesting_position'].'</td>';
+                echo '<td>'.$x['assigned_dept'].'</td>';
+                echo '<td>'.$x['contract_status'].'</td>';
+                echo '<td>'.$x['requestor'].'</td>';
+                echo '<td>'.$x['requestor_email'].'</td>';
+                echo '<td>'.$x['approval_status'].'</td>';
+                echo '<td>'.$x['verification_status'].'</td>';
+                echo '<td>'.$x['request_date'].'</td>';
+                echo '</tr>';
+            }
+        }
+}
 ?>

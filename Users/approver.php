@@ -39,7 +39,7 @@ include 'Modals/preview_request.php';
         <li class="tab"><a href="#request" onclick="load_for_approval()">For Approval Check<span class="new badge #64b5f6 blue lighten-2" id="pending"></a></span></li>
         <li class="tab"><a href="#note" onclick="load_for_approval_note()">For Approval Note<span class="new badge #64b5f6 blue lighten-2" id="pending_note"></a></span></li>
         <li class="tab"><a href="#approved" onclick="load_approve_req()">Approved Request<span class="new badge #64b5f6 blue lighten-2" id="approved_notif"></span></a></li>
-        <li class="tab"><a href="#verified" onclick="">Verified Request<span class="new badge #64b5f6 blue lighten-2" id="verified_notif"></span></a></li>
+        <li class="tab"><a href="#verified" onclick="verifiedView()">Verified Request<span class="new badge #64b5f6 blue lighten-2" id="verified_notif"></span></a></li>
         <li class="tab"><a href="#cancelled" onclick="">Cancelled Request<span class="new badge #64b5f6 blue lighten-2" id="cancel_notif"></span></a></li>
       </ul>
     </div>
@@ -55,7 +55,7 @@ include 'Modals/preview_request.php';
 <div id="request"><?php include 'approver_page/for_approval.php';?></div>
 <div id="note"><?php include 'approver_page/for_approval_note.php';?></div>
 <div id="approved"><?php include 'approver_page/approved_request.php';?></div>
-<div id="verified"></div>
+<div id="verified"><?php include 'approver_page/verified_request.php';?></div>
 <div id="cancelled"></div>
 
 
@@ -84,6 +84,7 @@ $(document).ready(function(){
     load_for_approval();
     count_for_note();
     count_approve_prf();
+    count_verified();
 });
 
 const load_for_approval =()=>{
@@ -287,6 +288,37 @@ const count_approve_prf =()=>{
             department: department
         },success:function(response){
             $('#approved_notif').html(response);
+        }
+    });
+}
+// COUNT VERIFIED REQUEST
+const count_verified =()=>{
+    department = '<?=$department;?>';
+    $.ajax({
+        url: '../php/approverController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'count_verify',
+            department: department
+        },success:function(response){
+            $('#verified_notif').html(response);
+        }
+    });
+}
+
+// LOAD VERIFIED
+const verifiedView =()=>{
+    department = '<?=$department;?>';
+    $.ajax({
+        url: '../php/approverController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'load_verified_view',
+            department: department
+        },success:function(response){
+            document.getElementById('verified_data').innerHTML = response;
         }
     });
 }

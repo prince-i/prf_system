@@ -30,7 +30,7 @@ include 'Modals/preview_request.php';
       <a href="#">Requestor Dashboard</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><span style="font-size:20px;font-weight:bold;">&plus;</span></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="#" data-target="acct_option" class="dropdown-trigger"><?=ucwords($name);?></a></li>
+        <li><a href="#" data-target="acct_option" class="dropdown-trigger"><?=ucwords($name)."-".ucwords($position);?></a></li>
       </ul>
     </div>
     <div class="nav-content">
@@ -531,6 +531,7 @@ const detect_contract =()=>{
         $('#date_range_ojt').hide(300);
     }
 }
+
 </script>
 </body>
 </html>
