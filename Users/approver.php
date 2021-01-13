@@ -40,7 +40,7 @@ include 'Modals/preview_request.php';
         <li class="tab"><a href="#note" onclick="load_for_approval_note()">For Approval Note<span class="new badge #64b5f6 blue lighten-2" id="pending_note"></a></span></li>
         <li class="tab"><a href="#approved" onclick="load_approve_req()">Approved Request<span class="new badge #64b5f6 blue lighten-2" id="approved_notif"></span></a></li>
         <li class="tab"><a href="#verified" onclick="verifiedView()">Verified Request<span class="new badge #64b5f6 blue lighten-2" id="verified_notif"></span></a></li>
-        <li class="tab"><a href="#cancelled" onclick="">Cancelled Request<span class="new badge #64b5f6 blue lighten-2" id="cancel_notif"></span></a></li>
+        <li class="tab"><a href="#cancelled" onclick="cancelView()">Cancelled Request<span class="new badge #64b5f6 blue lighten-2" id="cancel_notif"></span></a></li>
       </ul>
     </div>
   </nav>
@@ -56,7 +56,7 @@ include 'Modals/preview_request.php';
 <div id="note"><?php include 'approver_page/for_approval_note.php';?></div>
 <div id="approved"><?php include 'approver_page/approved_request.php';?></div>
 <div id="verified"><?php include 'approver_page/verified_request.php';?></div>
-<div id="cancelled"></div>
+<div id="cancelled"><?php include 'approver_page/cancel_request.php';?></div>
 
 
 <!-- JS -->
@@ -85,6 +85,7 @@ $(document).ready(function(){
     count_for_note();
     count_approve_prf();
     count_verified();
+    countCancel();
 });
 
 const load_for_approval =()=>{
@@ -155,6 +156,7 @@ const load_for_approval_note =()=>{
             department: department
         },success:function(response){
             document.getElementById('for_approval_note_data').innerHTML = response;
+            count_for_note();
         }
     });
 }
@@ -258,6 +260,7 @@ const load_approve_req=()=>{
             department: department
         },success:function(response){
             document.getElementById('approved_data').innerHTML = response;
+            count_approve_prf();
         }
     });
 }
@@ -319,6 +322,53 @@ const verifiedView =()=>{
             department: department
         },success:function(response){
             document.getElementById('verified_data').innerHTML = response;
+            count_verified();
+        }
+    });
+}
+// LOAD CANCEL REQUEST
+const cancelView =()=>{
+    department = '<?=$department;?>';
+    $.ajax({
+        url: '../php/approverController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'cancel_view',
+            department: department
+        },success:function(response){
+            document.getElementById('cancelled_data').innerHTML = response;
+            countCancel();
+        }
+    });
+}
+// COUNT CANCELLED
+const countCancel =()=>{
+    department = '<?=$department;?>';
+    $.ajax({
+        url: '../php/approverController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'count_cancel',
+            department: department
+        },success:function(response){
+            document.querySelector('#cancel_notif').innerHTML = response;
+        }
+    });
+}
+// PREVIEW CANCELLED
+const preview_canceled_req =(id)=>{
+    $('#prf_ID').val(id);
+    $.ajax({
+        url: '../php/approverController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'preview_canceled',
+            id:id
+        },success:function(response){
+            $('#prf_preview_form').html(response);
         }
     });
 }
