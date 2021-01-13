@@ -59,7 +59,7 @@
         $other_val = $_POST['other_val'];
         $replaceName = $_POST['replaceName'];
         $other_text = $_POST['other_text'];
-        // contract
+        // contract ---------------------------------------------
         $contractStatus = $_POST['contract_status'];
         $dateStart = $_POST['date_start'];
         $dateEnd = $_POST['date_end'];
@@ -73,7 +73,7 @@
         $interview_date = $_POST['date_interview_set'];
         $interview_time = $_POST['time_interview_set'];
         $interview_date_time = $interview_date." ".$interview_time;
-        // BUDGET
+        // BUDGET -----------------------------------------------------------
         $budget_source = $_POST['budget_source'];
         $budget_status = $_POST['budget_status'];
         $actual_mp_dept = $_POST['actual_mp_dept'];

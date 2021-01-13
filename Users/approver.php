@@ -83,6 +83,7 @@ $(document).ready(function(){
     });
     load_for_approval();
     count_for_note();
+    count_approve_prf();
 });
 
 const load_for_approval =()=>{
@@ -271,6 +272,21 @@ const preview_approved_req =(id)=>{
             id:id
         },success:function(response){
             $('#prf_preview_form').html(response);
+        }
+    });
+}
+// COUNT APPROVED 
+const count_approve_prf =()=>{
+    department = '<?=$department;?>';
+    $.ajax({
+        url: '../php/approverController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'count_approved_prf',
+            department: department
+        },success:function(response){
+            $('#approved_notif').html(response);
         }
     });
 }

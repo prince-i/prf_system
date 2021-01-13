@@ -366,4 +366,18 @@
             echo '</div>';
         }
     }
+// COUNT APPROVED PRF LEVEL 3
+elseif($method == 'count_approved_prf'){
+    $department = $_POST['department'];
+    $query = "SELECT COUNT(id) as approved FROM tb_request_mp WHERE step = '3' AND assigned_dept LIKE '$department%'";
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    if($stmt->rowCount()>0){
+        foreach($stmt->fetchALL() as $x){
+            echo $x['approved'];
+        }
+    }else{
+        echo '0';
+    }
+}
 ?>
