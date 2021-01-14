@@ -426,7 +426,6 @@ const view_summary =(id)=>{
         method: 'summary_prf_view',
         id:id
     },success:function(response){
-        // console.log(response);
         document.querySelector('#prf_preview_form').innerHTML = response;
     }
    });

@@ -25,6 +25,7 @@
 <?php 
 include 'Modals/request_mp_modal.php';
 include 'Modals/preview_request.php';
+include 'Modals/declineCheckModal.php';
 ?>
 <nav class="nav-extended #01579b light-blue darken-4 z-depth-5">
     <div class="nav-wrapper">
@@ -79,7 +80,7 @@ $(document).ready(function(){
     });
     $('.collapsible').collapsible();
     $('.dropdown-trigger').dropdown({
-            constrainWidth: false
+        constrainWidth: false
     });
     load_for_approval();
     count_for_note();
@@ -371,6 +372,45 @@ const preview_canceled_req =(id)=>{
             $('#prf_preview_form').html(response);
         }
     });
+}
+// GET ID TO DECLINE BY CHECKER
+const get_id_check_decline =(id)=>{
+    // console.log(id);
+    document.querySelector('#ref_id_check').value = id;
+    $('.modal').modal('close','#preview_request');
+
+}
+
+// DECLINE CHECKER FUNCTION
+const decline_checker =()=>{
+    var id = document.querySelector('#ref_id_check').value;
+    console.log(id);
+    var x = confirm('Are you sure to decline this request? Click OK to proceed.');
+    if(x == true){
+        $.ajax({
+            url: '../php/approverController.php',
+            type: 'POST',
+            cache: false,
+            data:{
+                method: 'decline_checker_func',
+                id:id,
+                level: '<?=$level;?>'
+            },success:function(response){
+                // console.log(response);
+                
+                if(response =='unauthorized'){
+                    M.toast({html:'Unauthorized personnel!',classes:'rounded'});
+                }else{
+                    $('.modal').modal('close','#declineCheckModal');
+                    load_for_approval();
+                    M.toast({html:'Success!',classes:'rounded'});
+                }
+            }
+        });
+    }else{
+        console.log('DECLINE NOT SET');
+    }
+
 }
 </script>
 </body>

@@ -192,7 +192,7 @@ elseif($method == 'count_verified_request'){
 // VIEWING  SUMMARY
 elseif($method == 'summary_prf_view'){
     $id = $_POST['id']; 
-    $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,contract_status,education,required_license,work_exp,job_duties,request_date FROM tb_request_mp WHERE id = '$id'";;
+    $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,contract_status,education,required_license,work_exp,job_duties,request_date,cancel_remarks FROM tb_request_mp WHERE id = '$id'";;
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     foreach($stmt->fetchALL() as $x){
@@ -250,6 +250,11 @@ elseif($method == 'summary_prf_view'){
         echo '<div class="col s12">';
         echo '<div class="col s6">Requested Date:</div>';
         echo '<div class="col s6">'.$x['request_date'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6"><b>Cancel Remarks:</b></div>';
+        echo '<div class="col s6"><b>'.$x['cancel_remarks'].'</b></div>';
         echo '</div>';
         // ------------------
         echo '</div>';

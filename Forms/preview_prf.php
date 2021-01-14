@@ -46,6 +46,7 @@
             $verify_check = $x['verify_check_by'];
             $verify_manager = $x['verify_verifier_manager'];
             $verify_div_mgr = $x['verify_verifier_div_mgr'];
+            $step = $x['step'];
         }
     }
 
@@ -70,10 +71,15 @@
             font-weight:bold;
             
         }
+        #form{
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <div class="row container">
+    <img src="../Img/cancel.png" alt="" id="watermark" style="position:absolute;opacity:0.5;width:100%;margin-top:15%;display:none;">
+    <!--  PRF FORM -->
+    <div class="row container" id="form">
         <br>
     <!-- TITLE ROW -->
         <div class="col s12">
@@ -82,7 +88,7 @@
             <img src="../Img/FAS.png" alt="FAS logo" width="250" height="50">
                 <p><b>PERSONAL REQUISITION FORM</b></p>
                 <b>Instructions/Hiring Information</b>
-                <p>Use this form to initiate the recruitment provess for new and existing employee/s.</p>
+                <p>Use this form to initiate the recruitment provess for new and existing employee/s. Please complete all applicable sections of this form.</p>
             </div>
             <!-- COLUMN 2 -->
             <div class="col s6">
@@ -299,12 +305,26 @@
     </div>
     <button class="btn-small blue z-depth-5" id="print_btn" onclick="print_docs()" style="border-radius:30px;">Print/Save</button>
     </div>
+
+    <script src="../jquery/jquery.min.js"></script>
     <script>
+        $(document).ready(function(){
+            $('#form').fadeIn(500);
+        });
         function print_docs(){
             var printButton = document.querySelector('#print_btn');
             printButton.style.display = 'none';
             window.print();
             printButton.style.display = 'block';
+        }
+        detectCancellation();
+        function detectCancellation(){
+            var status = '<?=$step?>';
+            if(status == '0'){
+               document.getElementById('watermark').style.display = "block";
+            }else{
+                document.getElementById('watermark').style.display = "none";
+            }
         }
     </script>
 </body>

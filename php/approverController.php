@@ -28,6 +28,7 @@
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){
+            echo '<h5 class="center" style="margin-top:-15%;">FOR APPROVAL CHECKING</h5>';
             echo '<div class="row">';
             echo '<div class="col s12">';
             echo '<div class="col s6">Requested By:</div>';
@@ -97,7 +98,7 @@
             echo '</div>';
             // decline
             echo '<div class="input-field col s4">';
-            echo '<button class="btn z-depth-5 red" style="border-radius:20px;">decline</button>';
+            echo '<button class="btn z-depth-5 red modal-trigger" style="border-radius:20px;" data-target="declineCheckModal" onclick="get_id_check_decline(&quot;'.$id.'&quot;)">decline</button>';
             echo '</div>';
             // 
             echo '</div>';
@@ -179,7 +180,7 @@
             echo '</div>';
             // decline
             echo '<div class="input-field col s4">';
-            echo '<button class="btn z-depth-5 red" style="border-radius:20px;">decline</button>';
+            echo '<button class="btn z-depth-5 red" style="border-radius:20px;" onclick="decline_note(&quot;'.$id.'&quot;)">decline</button>';
             echo '</div>';
             // 
             echo '</div>';
@@ -249,7 +250,7 @@
         
     }
     // STEP 3 APPROVAL
-    elseif($method == 'approval_note_func'){
+elseif($method == 'approval_note_func'){
         $id = $_POST['id'];
         $name = ucwords($_POST['name']);
         $level = $_POST['level'];
@@ -455,11 +456,11 @@ elseif($method == 'count_cancel'){
 // PREVIEW CANCELLED
 elseif($method == 'preview_canceled'){
     $id = $_POST['id']; 
-        $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,contract_status,education,required_license,work_exp,job_duties,request_date,approve_check_remarks,approve_noted_remarks,verify_check_remarks,verify_verifier_manager_remarks,verify_verifier_div_mgr_remarks,president_remarks FROM tb_request_mp WHERE id = '$id'";;
+        $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,contract_status,education,required_license,work_exp,job_duties,request_date,approve_check_remarks,approve_noted_remarks,verify_check_remarks,verify_verifier_manager_remarks,verify_verifier_div_mgr_remarks,cancel_remarks FROM tb_request_mp WHERE id = '$id'";;
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){
-            echo '<h5 class="center" style="margin-top:-30px;">Canceled PRF</h5>';
+            echo '<h5 class="center" style="margin-top:-30px;">Cancelled PRF</h5>';
             echo '<div class="row">';
             echo '<div class="col s12">';
             echo '<div class="col s6">Requested By:</div>';
@@ -515,8 +516,10 @@ elseif($method == 'preview_canceled'){
             echo '<div class="col s6">Requested Date:</div>';
             echo '<div class="col s6">'.$x['request_date'].'</div>';
             echo '</div>';
+            echo '</div>';
             // ---------------------------------z
             // ------------------
+            echo '<div class="row">';
             echo '<div class="col s12">';
             echo '<div class="col s6"><b>Asst.Mngr./Section Mngr. Remarks</b></div>';
             echo '<div class="col s6">'.$x['approve_check_remarks'].'</div>';
@@ -544,7 +547,7 @@ elseif($method == 'preview_canceled'){
             // -------------------------
             echo '<div class="col s12">';
             echo '<div class="col s6"><b>President Remarks</b></div>';
-            echo '<div class="col s6">'.$x['president_remarks'].'</div>';
+            echo '<div class="col s6">'.$x['cancel_remarks'].'</div>';
             echo '</div>';
             // -------------------------
             echo '</div>';
@@ -555,5 +558,30 @@ elseif($method == 'preview_canceled'){
             echo '</div>';
             echo '</div>';
         }
+}
+// DECLINE BY CHECK APPROVER
+elseif($method == 'decline_checker_func'){
+    $id = $_POST['id'];
+    $level = $_POST['level'];
+    // CHECK LEVEL
+    $check_level_req = "SELECT step FROM tb_request_mp WHERE id = '$id'";
+    $stmt =$conn->prepare($check_level_req);
+    $stmt->execute();
+    foreach($stmt->fetchALL() as $x){
+        $step = $x['step'];
+    }
+        $compatible = $step + 1;
+        if($compatible == $level){
+            // echo 'authorized';
+            $decline_apprCheck = "UPDATE tb_request_mp SET step = '0', approve_check_remarks = 'DECLINED' WHERE id = '$id'";
+            $stmt = $conn->prepare($decline_apprCheck);
+            $stmt->execute();
+            echo 'success';
+        }else{
+            echo 'unauthorized';
+        }
+
+
+   
 }
 ?>
