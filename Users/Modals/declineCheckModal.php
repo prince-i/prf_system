@@ -13,6 +13,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn red" onclick="decline_checker()">confirm decline</button>
+        <button class="btn red waves-effect" onclick="decline_checker()">confirm decline</button>
+        <button class="btn-flat modal-close waves-effect">close</button>
     </div>
 </div>
