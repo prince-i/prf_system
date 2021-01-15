@@ -104,7 +104,7 @@
         $from = $_POST['from'];
         $to = $_POST['to'];
         if(empty($from) && empty($to)){
-            $query = "SELECT *FROM tb_request_mp WHERE step < 3  AND requestor_email LIKE '$email%' ORDER BY id DESC";
+            $query = "SELECT *FROM tb_request_mp WHERE step <= 2  AND requestor_email LIKE '$email%' ORDER BY id DESC";
             $stmt = $conn->prepare($query);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){

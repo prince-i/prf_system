@@ -14,7 +14,7 @@
         .btn-large{
             border-radius:30px;
         }
-        tbody tr:hover{
+        #table_requests tbody tr:hover{
             background-color:skyblue;
         }
     </style>

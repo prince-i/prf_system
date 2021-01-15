@@ -47,6 +47,9 @@
             $verify_manager = $x['verify_verifier_manager'];
             $verify_div_mgr = $x['verify_verifier_div_mgr'];
             $step = $x['step'];
+            if(!empty($checker)){
+                $checker_sig = 'APPROVED';
+            }
         }
     }
 
@@ -77,7 +80,7 @@
     </style>
 </head>
 <body>
-    <img src="../Img/cancel.png" alt="" id="watermark" style="position:absolute;opacity:0.5;width:100%;margin-top:15%;display:none;">
+    <img src="../Img/cancel.png" alt="" id="watermark" style="position:absolute;opacity:0.15;width:100%;margin-top:15%;display:none;">
     <!--  PRF FORM -->
     <div class="row container" id="form">
         <br>

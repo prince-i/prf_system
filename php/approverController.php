@@ -180,7 +180,7 @@
             echo '</div>';
             // decline
             echo '<div class="input-field col s4">';
-            echo '<button class="btn z-depth-5 red" style="border-radius:20px;" onclick="decline_note(&quot;'.$id.'&quot;)">decline</button>';
+            echo '<button class="btn z-depth-5 red modal-trigger" data-target="declineNoteModal" style="border-radius:20px;" onclick="get_id_note(&quot;'.$id.'&quot;)">decline</button>';
             echo '</div>';
             // 
             echo '</div>';
@@ -563,6 +563,7 @@ elseif($method == 'preview_canceled'){
 elseif($method == 'decline_checker_func'){
     $id = $_POST['id'];
     $level = $_POST['level'];
+    $remarks = $_POST['remarks'];
     // CHECK LEVEL
     $check_level_req = "SELECT step FROM tb_request_mp WHERE id = '$id'";
     $stmt =$conn->prepare($check_level_req);
@@ -573,7 +574,7 @@ elseif($method == 'decline_checker_func'){
         $compatible = $step + 1;
         if($compatible == $level){
             // echo 'authorized';
-            $decline_apprCheck = "UPDATE tb_request_mp SET step = '0', approve_check_remarks = 'DECLINED' WHERE id = '$id'";
+            $decline_apprCheck = "UPDATE tb_request_mp SET step = '0', approve_check_remarks = '$remarks',approval_status = 'DISAPPROVED', verification_status = 'DISAPPROVED' WHERE id = '$id'";
             $stmt = $conn->prepare($decline_apprCheck);
             $stmt->execute();
             echo 'success';
@@ -581,7 +582,28 @@ elseif($method == 'decline_checker_func'){
             echo 'unauthorized';
         }
 
-
-   
+}
+// DECLINE NOTE
+elseif($method == 'decline_note_func'){
+    $id = $_POST['id'];
+    $level = $_POST['level'];
+    $remarks = $_POST['remarks'];
+    // CHECK LEVEL
+    $check_level_req = "SELECT step FROM tb_request_mp WHERE id = '$id'";
+    $stmt =$conn->prepare($check_level_req);
+    $stmt->execute();
+    foreach($stmt->fetchALL() as $x){
+        $step = $x['step'];
+    }
+        $compatible = $step + 1;
+        if($compatible == $level){
+            // echo 'authorized';
+            $decline_apprNote = "UPDATE tb_request_mp SET step = '0', approve_noted_remarks = '$remarks',approval_status = 'DISAPPROVED',verification_status = 'DISAPPROVED' WHERE id = '$id'";
+            $stmt = $conn->prepare($decline_apprNote);
+            $stmt->execute();
+            echo 'success';
+        }else{
+            echo 'unauthorized';
+        }
 }
 ?>

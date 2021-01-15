@@ -18,6 +18,67 @@
             background-color:skyblue;
             cursor: pointer;
         }
+        nav, table{
+            display:none;
+        }
+        .loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+  color: #0f65f0;
+  font-size: 10px;
+  margin: 80px auto;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+.loader:before {
+  left: -3.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 3.5em;
+}
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+
     </style>
 </head>
 <body>
@@ -26,7 +87,9 @@
 include 'Modals/request_mp_modal.php';
 include 'Modals/preview_request.php';
 include 'Modals/declineCheckModal.php';
+include 'Modals/declineNoteModal.php';
 ?>
+<div class="loader">Loading...</div>
 <nav class="nav-extended #01579b light-blue darken-4 z-depth-5">
     <div class="nav-wrapper">
       <a href="#">Approver Dashboard</a>
@@ -66,6 +129,9 @@ include 'Modals/declineCheckModal.php';
 <script src="../node_modules/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 $(document).ready(function(){
+    $('.loader').css('display','none');
+    $('nav, table').fadeIn();
+    
     $('.tabs').tabs();
     $('.sidenav').sidenav({
         preventScrolling: true,
@@ -381,20 +447,28 @@ const get_id_check_decline =(id)=>{
 
 }
 
+const get_id_note =(id)=>{
+    document.querySelector('#ref_id_note').value = id;
+}
 // DECLINE CHECKER FUNCTION
 const decline_checker =()=>{
     var id = document.querySelector('#ref_id_check').value;
+    var remarks = document.querySelector('#cancel_remarks_check').value;
     console.log(id);
     var x = confirm('Are you sure to decline this request? Click OK to proceed.');
     if(x == true){
-        $.ajax({
+        if(remarks == ''){
+            swal('Notification','Please include your cancel remarks!','info');
+        }else{
+            $.ajax({
             url: '../php/approverController.php',
             type: 'POST',
             cache: false,
             data:{
                 method: 'decline_checker_func',
                 id:id,
-                level: '<?=$level;?>'
+                level: '<?=$level;?>',
+                remarks:remarks
             },success:function(response){
                 // console.log(response);
                 
@@ -403,15 +477,54 @@ const decline_checker =()=>{
                 }else{
                     $('.modal').modal('close','#declineCheckModal');
                     load_for_approval();
+                    $('#cancel_remarks_check').val('');
                     M.toast({html:'Success!',classes:'rounded'});
                 }
             }
         });
+        }
     }else{
         console.log('DECLINE NOT SET');
     }
 
 }
+// ?DECLINE NOTE
+const decline_note =()=>{
+    var id = document.querySelector('#ref_id_note').value;
+    var remarks = document.querySelector('#cancel_remarks_note').value;
+    console.log(id);
+    var x = confirm('Are you sure to decline this request? Click OK to proceed.');
+    if(x == true){
+        if(remarks == ''){
+            swal('Notification','Please include your cancel remarks!','info');
+        }else{
+            $.ajax({
+            url: '../php/approverController.php',
+            type: 'POST',
+            cache: false,
+            data:{
+                method: 'decline_note_func',
+                id:id,
+                level: '<?=$level;?>',
+                remarks:remarks
+            },success:function(response){
+                // console.log(response);
+                if(response =='unauthorized'){
+                    M.toast({html:'Unauthorized personnel!',classes:'rounded'});
+                }else{
+                    $('.modal').modal('close','#declineCheckModal');
+                    load_for_approval();
+                    $('#cancel_remarks_check').val('');
+                    M.toast({html:'Success!',classes:'rounded'});
+                }
+            }
+        });
+        }
+    }else{
+        console.log('DECLINE NOT SET');
+    }
+}
+
 </script>
 </body>
 </html>
