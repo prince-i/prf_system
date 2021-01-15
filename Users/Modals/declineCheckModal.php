@@ -1,4 +1,4 @@
-<div class="modal modal-fixed-footer" id="declineCheckModal">
+<div class="modal modal-fixed-footer" id="declineCheckModal" style="border-radius:30px;width:400px;">
     <div class="modal-content">
     <h5 class="center">CANCEL REQUEST</h5>
         <div class="row">

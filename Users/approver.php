@@ -18,70 +18,10 @@
             background-color:skyblue;
             cursor: pointer;
         }
-        nav, table{
-            display:none;
-        }
-        .loader,
-.loader:before,
-.loader:after {
-  border-radius: 50%;
-  width: 2.5em;
-  height: 2.5em;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-animation: load7 1.8s infinite ease-in-out;
-  animation: load7 1.8s infinite ease-in-out;
-}
-.loader {
-  color: #0f65f0;
-  font-size: 10px;
-  margin: 80px auto;
-  position: relative;
-  text-indent: -9999em;
-  -webkit-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-animation-delay: -0.16s;
-  animation-delay: -0.16s;
-}
-.loader:before,
-.loader:after {
-  content: '';
-  position: absolute;
-  top: 0;
-}
-.loader:before {
-  left: -3.5em;
-  -webkit-animation-delay: -0.32s;
-  animation-delay: -0.32s;
-}
-.loader:after {
-  left: 3.5em;
-}
-@-webkit-keyframes load7 {
-  0%,
-  80%,
-  100% {
-    box-shadow: 0 2.5em 0 -1.3em;
-  }
-  40% {
-    box-shadow: 0 2.5em 0 0;
-  }
-}
-@keyframes load7 {
-  0%,
-  80%,
-  100% {
-    box-shadow: 0 2.5em 0 -1.3em;
-  }
-  40% {
-    box-shadow: 0 2.5em 0 0;
-  }
-}
 
     </style>
 </head>
-<body>
+<body style="display:none;">
     <!-- INCLUDED FILES -->
 <?php 
 include 'Modals/request_mp_modal.php';
@@ -89,7 +29,6 @@ include 'Modals/preview_request.php';
 include 'Modals/declineCheckModal.php';
 include 'Modals/declineNoteModal.php';
 ?>
-<div class="loader">Loading...</div>
 <nav class="nav-extended #01579b light-blue darken-4 z-depth-5">
     <div class="nav-wrapper">
       <a href="#">Approver Dashboard</a>
@@ -129,9 +68,7 @@ include 'Modals/declineNoteModal.php';
 <script src="../node_modules/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 $(document).ready(function(){
-    $('.loader').css('display','none');
-    $('nav, table').fadeIn();
-    
+    $('body').fadeIn(500);
     $('.tabs').tabs();
     $('.sidenav').sidenav({
         preventScrolling: true,
@@ -490,6 +427,7 @@ const decline_checker =()=>{
 }
 // ?DECLINE NOTE
 const decline_note =()=>{
+    $('.modal').modal('close','#')
     var id = document.querySelector('#ref_id_note').value;
     var remarks = document.querySelector('#cancel_remarks_note').value;
     console.log(id);

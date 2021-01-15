@@ -1,9 +1,11 @@
 <?php include '../php/Database.php';?>
+<?php include_once "../php/session.php";?>
 <style>
     select{
         border-radius:20px;
     }
 </style>
+    
 <div class="row">
     <h5 class="header">Position Requested</h5>
     <!-- POSITION -->
@@ -17,7 +19,8 @@
             <select name="" id="assigned_dept" class="browser-default z-depth-5">
                 <option value="" selected disabled>-- Select Assigned Department/Section --</option>
                 <?php
-                    $query = "SELECT deptDesc, deptCode,section_name FROM tb_department LEFT JOIN tb_section ON  tb_section.department = tb_department.deptCode";
+                
+                    $query = "SELECT deptDesc, deptCode,section_name FROM tb_department LEFT JOIN tb_section ON  tb_section.department = tb_department.deptCode WHERE deptCode = '$department'";
                     $stmt = $conn->prepare($query);
                     $stmt->execute();
                     foreach($stmt->fetchALL() as $x){

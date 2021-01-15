@@ -17,9 +17,10 @@
         #table_requests tbody tr:hover{
             background-color:skyblue;
         }
+
     </style>
 </head>
-<body>
+<body style="display:none;">
     <!-- INCLUDED FILES -->
 <?php 
 include 'Modals/request_mp_modal.php';
@@ -105,6 +106,7 @@ include 'Modals/preview_request.php';
 <script src="../node_modules/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     $(document).ready(function(){
+        $('body').fadeIn(400);
         $('.tabs').tabs();
         $('.sidenav').sidenav({
             preventScrolling: true,
