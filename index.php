@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="style.css">
     <style>
         body{
-            background-image: url('Img/BG.jpg');
+            /* background-image: url('Img/BG.jpg'); */
             background-size:cover;
             background-repeat: no-repeat;
             background-origin: content-box;
@@ -56,7 +56,7 @@
                 <input type="password" id="password" name="password">
                     <label for="">Password</label>
             </div>
-            <div class="input-field">
+            <!-- <div class="input-field">
                 <select  id="role"  name="role" class="browser-default z-depth-5">
                     <option value="">-- Select Role --</option>
                     <option value="requestor">Requestor (Requesting Department)</option>
@@ -64,7 +64,7 @@
                     <option value="verifier">Verifier(HR)</option>
                     <option value="administrator">System Administrator (IT)</option>
                 </select>
-            </div>
+            </div> -->
            <div class="input-field">
                <input type="submit" class="btn" name="loginBtn" value="login">
            </div>

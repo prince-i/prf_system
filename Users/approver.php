@@ -428,7 +428,7 @@ const decline_checker =()=>{
 }
 // ?DECLINE NOTE
 const decline_note =()=>{
-    $('.modal').modal('close','#')
+    $('.modal').modal('close','#declineNoteModal')
     var id = document.querySelector('#ref_id_note').value;
     var remarks = document.querySelector('#cancel_remarks_note').value;
     console.log(id);

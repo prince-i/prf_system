@@ -28,6 +28,7 @@ include 'Modals/preview_request.php';
 ?>
 <nav class="nav-extended #01579b light-blue darken-4 z-depth-5">
     <div class="nav-wrapper">
+    <a href="#" class="brand-logo center"><img src="../Img/logo.png" alt="" class="responsive-img" style="width:50px;"></a>
       <a href="#">Requestor Dashboard</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><span style="font-size:20px;font-weight:bold;">&plus;</span></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">

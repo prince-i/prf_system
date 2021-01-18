@@ -12,7 +12,7 @@
                 <th>Verification Status</th>
                 <th>Request Date</th>
             </thead>
-            <tbody id="for_rt_approval"></tbody>
+            <tbody id="pending_view"></tbody>
         </table>
    </div>
 </div>
