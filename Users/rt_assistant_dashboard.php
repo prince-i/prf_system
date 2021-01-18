@@ -142,6 +142,22 @@ const preview =()=>{
   var id = document.getElementById('prf_ID').value;
   window.open('../Forms/preview_prf.php?id='+id);
 }
+// LOAD VERIFIED
+const load_verified =()=>{
+  department = '<?=$department;?>';
+    $.ajax({
+        url: '../php/rtController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'verified_view',
+            department: department
+        },success:function(response){
+            document.getElementById('').innerHTML = response;
+            console.log(response);
+        }
+    });
+}
 </script>
 </body>
 </html>
