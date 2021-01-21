@@ -20,10 +20,11 @@
         }
     </style>
 </head>
-<body>
+<body style="display:none;">
 <!-- MODAL -->
 <?php
   include 'Modals/rt_verify_check_modal.php';
+  include 'Modals/rt_preview_pending.php';
 ?>
 <!-- /MODAL -->
 <nav class="nav-extended #212121 grey darken-4 z-depth-5">
@@ -39,8 +40,8 @@
       <ul class="tabs tabs-transparent">
         <li class="tab"><a href="#request" onclick="load_for_rt_appr()">For Verify Check<span class="new badge #616161 grey darken-2" id="check_notif"></a></span></li>
         <li class="tab"><a href="#pending_above" onclick="load_pending()">Pending<span class="new badge #616161 grey darken-2" id="pending_note"></a></span></li>
-        <li class="tab"><a href="#verified" onclick="">Verified Request<span class="new badge #616161 grey darken-2" id="verified_notif"></span></a></li>
-        <li class="tab"><a href="#cancelled" onclick="">Cancelled Request<span class="new badge #616161 grey darken-2" id="cancel_notif"></span></a></li>
+        <li class="tab"><a href="#verified" onclick="load_verified()">Verified Request<span class="new badge #616161 grey darken-2" id="verified_notif"></span></a></li>
+        <li class="tab"><a href="#cancelled" onclick="load_cancelled()">Cancelled Request<span class="new badge #616161 grey darken-2" id="cancel_notif"></span></a></li>
       </ul>
     </div>
   </nav>
@@ -53,8 +54,8 @@
 <!-- TAB CONTENTS -->
 <div id="request"><?php include 'rt_page/rtForChecking.php';?></div>
 <div id="pending_above"><?php include 'rt_page/rt_pending.php';?></div>
-<div id="verified"></div>
-<div id="cancelled"></div>
+<div id="verified"><?php include 'rt_page/verified_request.php';?></div>
+<div id="cancelled"><?php include 'rt_page/cancel_request.php';?></div>
 
 <!-- JS -->
 <script src="../jquery/jquery.min.js"></script>
@@ -86,13 +87,15 @@
   // AJAX
   const load_for_rt_appr =()=>{
     department = '<?=$department;?>';
+    filter = document.querySelector('#deptFilter').value;
     $.ajax({
         url: '../php/rtController.php',
         type: 'POST',
         cache: false,
         data:{
             method: 'load_for_approval_rt',
-            department: department
+            department: department,
+            filter:filter
         },success:function(response){
             document.getElementById('for_rt_approval').innerHTML = response;
             count_for_approval();
@@ -103,13 +106,15 @@
 // LOAD PENDING
 const load_pending =()=>{
   department = '<?=$department;?>';
+  filter = document.querySelector('#deptFilterPending').value;
     $.ajax({
         url: '../php/rtController.php',
         type: 'POST',
         cache: false,
         data:{
             method: 'pending_view',
-            department: department
+            department: department,
+            filter:filter
         },success:function(response){
             document.getElementById('pending_view').innerHTML = response;
         }
@@ -142,21 +147,81 @@ const preview =()=>{
   var id = document.getElementById('prf_ID').value;
   window.open('../Forms/preview_prf.php?id='+id);
 }
+// preview 2nd function
+const preview_only =()=>{
+  var id = document.getElementById('reference').value;
+  window.open('../Forms/preview_prf.php?id='+id);
+}
 // LOAD VERIFIED
 const load_verified =()=>{
   department = '<?=$department;?>';
+  filter = document.querySelector('#deptFilterVerified').value;
     $.ajax({
         url: '../php/rtController.php',
         type: 'POST',
         cache: false,
         data:{
             method: 'verified_view',
-            department: department
+            department: department,
+            filter:filter
         },success:function(response){
-            document.getElementById('').innerHTML = response;
-            console.log(response);
+            document.getElementById('verified_table').innerHTML = response;
         }
     });
+}
+// -----------------------------------------
+const rt_preview_pending =(id)=>{
+  document.querySelector('#reference').value = id;
+  $.ajax({
+    url: '../php/rtController.php',
+    type: 'POST',
+    cache: false,
+    data:{
+      method: 'preview_pending_form',
+      id:id
+    },success:function(response){
+      document.querySelector('#prf_form_rt_pending').innerHTML = response;
+    }
+  });
+}
+// LOAD CANCELLED
+const load_cancelled =()=>{
+  department = '<?=$department;?>';
+  filter = document.querySelector('#deptFilterCancel').value;
+    $.ajax({
+        url: '../php/rtController.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'cancel_view',
+            department: department,
+            filter:filter
+        },success:function(response){
+            document.getElementById('cancel_table').innerHTML = response;
+        }
+    });
+}
+// APPROVE BY RT
+const approve =()=>{
+  var id = document.querySelector('#prf_ID').value;
+  var name = '<?=$name;?>';
+  var signatoryLevel = '<?=$level;?>';
+  var x = confirm('You are going to approve this request, click OK to confirm.');
+  if(x == true){
+    $.ajax({
+      url: '../php/rtController.php',
+      type: 'POST',
+      cache: false,
+      data:{
+        method: 'approve_rt',
+        id:id,
+        name:name,
+        signatoryLevel:signatoryLevel
+      },success:function(response){
+        console.log(response);
+      }
+    });
+  }
 }
 </script>
 </body>

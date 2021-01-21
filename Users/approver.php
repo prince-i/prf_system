@@ -126,7 +126,6 @@ const preview_approver_summary =(id)=>{
             $('#prf_preview_form').html(response);
         }
     });
-
 }
 
 const preview_approver_note =(id)=>{

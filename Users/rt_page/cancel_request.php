@@ -2,7 +2,7 @@
 <div class="col s12">
     <div class="col s6">
         <div class="input-field col 12">
-            <select name="" id="deptFilterPending" class="browser-default z-depth-5" onchange="load_pending()">
+            <select name="" id="deptFilterCancel" class="browser-default z-depth-5" onchange="load_cancelled()">
                 <option value="">--All Department--</option>
                 <?php
                     $fetchQL = "SELECT deptCode,deptDesc FROM tb_department ORDER BY id ASC";
@@ -29,7 +29,7 @@
                 <th>Verification Status</th>
                 <th>Request Date</th>
             </thead>
-            <tbody id="pending_view"></tbody>
+            <tbody id="cancel_table"></tbody>
         </table>
    </div>
 </div>
