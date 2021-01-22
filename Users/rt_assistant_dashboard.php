@@ -87,7 +87,6 @@
 
   // AJAX
   const load_for_rt_appr =()=>{
-    department = '<?=$department;?>';
     filter = document.querySelector('#deptFilter').value;
     $.ajax({
         url: '../php/rtController.php',
@@ -95,7 +94,6 @@
         cache: false,
         data:{
             method: 'load_for_approval_rt',
-            department: department,
             filter:filter
         },success:function(response){
             document.getElementById('for_rt_approval').innerHTML = response;

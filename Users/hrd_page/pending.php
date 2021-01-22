@@ -2,7 +2,7 @@
 <div class="col s12">
     <div class="col s6">
         <div class="input-field col 12">
-            <select name="" id="deptFilter" class="browser-default z-depth-5" onchange="load_for_rt_appr()">
+            <select name="" id="deptFilterPending" class="browser-default z-depth-5" onchange="load_pending()">
                 <option value="">--All Department--</option>
                 <?php
                     $fetchQL = "SELECT deptCode,deptDesc FROM tb_department ORDER BY id ASC";

@@ -37,8 +37,8 @@
     </div>
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
-        <li class="tab"><a href="#request" onclick="load_for_rt_appr()">For Verify Check<span class="new badge #616161 grey darken-2" id="check_notif"></a></span></li>
-        <li class="tab"><a href="#pending_above" onclick="load_pending()">Pending<span class="new badge #616161 grey darken-2" id="pending_note"></a></span></li>
+        <li class="tab"><a href="#request" onclick="for_approval()">For Approval<span class="new badge #616161 grey darken-2" id="check_notif"></a></span></li>
+        <li class="tab"><a href="#pending_above" onclick="load_pending()">Pending PRF<span class="new badge #616161 grey darken-2" id="pending_note"></a></span></li>
         <li class="tab"><a href="#verified" onclick="load_verified()">Verified Request<span class="new badge #616161 grey darken-2" id="verified_notif"></span></a></li>
         <li class="tab"><a href="#cancelled" onclick="load_cancelled()">Cancelled Request<span class="new badge #616161 grey darken-2" id="cancel_notif"></span></a></li>
       </ul>
@@ -80,23 +80,21 @@
         constrainWidth: false
     });
     // FUNCTIONS
-    load_for_rt_appr();
+    for_approval();
 });
 
   // AJAX
-  const load_for_rt_appr =()=>{
-    department = '<?=$department;?>';
+  const for_approval =()=>{
     filter = document.querySelector('#deptFilter').value;
     $.ajax({
-        url: '../php/rtController.php',
+        url: '../php/hrmgrController.php',
         type: 'POST',
         cache: false,
         data:{
-            method: 'load_for_approval_rt',
-            department: department,
+            method: 'for_approval',
             filter:filter
         },success:function(response){
-            document.getElementById('for_rt_approval').innerHTML = response;
+            document.getElementById('for_hrd_approval').innerHTML = response;
             count_for_approval();
         }
     });
@@ -104,24 +102,22 @@
   
 // LOAD PENDING
 const load_pending =()=>{
-  department = '<?=$department;?>';
   filter = document.querySelector('#deptFilterPending').value;
     $.ajax({
-        url: '../php/rtController.php',
+        url: '../php/hrmgrController.php',
         type: 'POST',
         cache: false,
         data:{
             method: 'pending_view',
-            department: department,
             filter:filter
         },success:function(response){
-            document.getElementById('pending_view').innerHTML = response;
+            document.getElementById('pending').innerHTML = response;
         }
     });
 }
 // COUNT FOR VERIFY CHECK
 const count_for_approval =()=>{
-    var rowCount = $('#for_rt_approval tr').length;
+    var rowCount = $('#for_hrd_approval tr').length;
     var count = parseInt(rowCount);
     document.getElementById('check_notif').innerHTML = count;
 }
@@ -153,15 +149,13 @@ const preview_only =()=>{
 }
 // LOAD VERIFIED
 const load_verified =()=>{
-  department = '<?=$department;?>';
   filter = document.querySelector('#deptFilterVerified').value;
     $.ajax({
-        url: '../php/rtController.php',
+        url: '../php/hrmgrController.php',
         type: 'POST',
         cache: false,
         data:{
             method: 'verified_view',
-            department: department,
             filter:filter
         },success:function(response){
             document.getElementById('verified_table').innerHTML = response;
@@ -188,7 +182,7 @@ const load_cancelled =()=>{
   department = '<?=$department;?>';
   filter = document.querySelector('#deptFilterCancel').value;
     $.ajax({
-        url: '../php/rtController.php',
+        url: '../php/hrmgrController.php',
         type: 'POST',
         cache: false,
         data:{

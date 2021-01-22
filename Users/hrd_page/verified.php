@@ -2,7 +2,7 @@
 <div class="col s12">
     <div class="col s6">
         <div class="input-field col 12">
-            <select name="" id="deptFilter" class="browser-default z-depth-5" onchange="load_for_rt_appr()">
+            <select name="" id="deptFilterVerified" class="browser-default z-depth-5" onchange="load_verified()">
                 <option value="">--All Department--</option>
                 <?php
                     $fetchQL = "SELECT deptCode,deptDesc FROM tb_department ORDER BY id ASC";
@@ -30,7 +30,7 @@
                 <th>Verification Status</th>
                 <th>Request Date</th>
             </thead>
-            <tbody id="verified"></tbody>
+            <tbody id="verified_table"></tbody>
         </table>
    </div>
 </div>

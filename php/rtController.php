@@ -3,7 +3,6 @@
     $method = $_POST['method'];
     if($method == 'load_for_approval_rt'){
             $filter = $_POST['filter'];
-            $department = $_POST['department'];
             if($filter == ''){
                 $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='3'  ORDER BY id ASC";
                 $stmt = $conn->prepare($query);
@@ -46,7 +45,6 @@
     }
 // PENDING VIEW -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     elseif($method == 'pending_view'){
-        $department = $_POST['department'];
         $filter = $_POST['filter'];
             if($filter == ''){
                 $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step > 3 AND step < 7  ORDER BY id ASC";
