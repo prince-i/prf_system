@@ -209,9 +209,9 @@ elseif($method == 'verified_view'){
             echo '</div>';
             // decline
             echo '<div class="input-field col s4">';
-            echo '<button class="btn z-depth-5 red modal-trigger" style="border-radius:20px;" data-target="" onclick="get_id_check_decline(&quot;'.$id.'&quot;)">decline</button>';
+            echo '<button class="btn z-depth-5 red modal-trigger" style="border-radius:20px;" data-target="declineCheckModalRT" onclick="get_id_decline(&quot;'.$id.'&quot;)">decline</button>';
             echo '</div>';
-            // -------------
+            // --------------------------------------------------------------------------------------------------------------------------
             echo '</div>';
             echo '</div>';
         }
@@ -350,10 +350,28 @@ elseif($method=='approve_rt'){
     }
     $compat = $step + 1;
     if($compat == $level){
-        echo 'pass';
         // APPROVAL QUERY]
-        
+        $approveQL = "UPDATE tb_request_mp SET verify_check_by = '$name', verify_check_remarks = 'APPROVED', verification_status = 'FOR APPROVAL OF HRD MANAGER AND HRD DIVISION MANAGER', step = '4',approval_status = 'APPROVED' WHERE id = '$id'";
+        $stmt=$conn->prepare($approveQL);
+        if($stmt->execute()){
+            echo 'success';
+        }else{
+            echo 'fail';
+        }
     }
 
+}
+// CANCEL REQ
+elseif($method == 'declineByRT'){
+    $id = $_POST['prfID'];
+    $remarks = $_POST['remarks'];
+    $step = 0;
+    $declineQL = "UPDATE tb_request_mp SET verify_check_remarks = '$remarks', step ='$step', verification_status = 'DISAPPROVED' WHERE id = '$id'";
+    $stmt=$conn->prepare($declineQL);
+    if($stmt->execute()){
+        echo 'decline';
+    }else{
+        echo 'fail';
+    }
 }
 ?>

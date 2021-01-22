@@ -146,7 +146,7 @@ const preview_approver_note =(id)=>{
 
 function preview(){
     var id = document.getElementById('prf_ID').value;
-    window.open('../Forms/preview_prf.php?id='+id);
+    window.open('../Forms/preview_prf.php?id='+id,"Preview","width=1000,height=600,left=150");
 }
 
 const load_for_approval_note =()=>{

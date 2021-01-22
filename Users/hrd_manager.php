@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <link rel="icon" href="../Img/logo.jpg" type="image/jpg" sizes="16x16">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recruitment Assistant Manager Dashboard</title>
+    <title>HRD Manager Dashboard</title>
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
     <link rel="stylesheet" href="../style.css">
     <style>
@@ -23,15 +23,13 @@
 <body style="display:none;">
 <!-- MODAL -->
 <?php
-  include 'Modals/rt_verify_check_modal.php';
-  include 'Modals/rt_preview_pending.php';
-  include 'Modals/rt_decline_modal.php';
+  
 ?>
 <!-- /MODAL -->
 <nav class="nav-extended #212121 grey darken-4 z-depth-5">
     <div class="nav-wrapper">
     <a href="#" class="brand-logo center"><img src="../Img/logo.png" alt="" class="responsive-img" style="width:50px;"></a>
-      <a href="#">Recruitment Assistant Manager Dashboard</a>
+      <a href="#">HRD Manager Dashboard</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><span style="font-size:20px;font-weight:bold;">&plus;</span></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="#" data-target="acct_option" class="dropdown-trigger"><?=ucwords($name);?>-<?=ucwords($position);?></a></li>
@@ -53,10 +51,10 @@
 <!-- ACCT MENU -->
 <?php include 'Modals/account_menu.php';?>
 <!-- TAB CONTENTS -->
-<div id="request"><?php include 'rt_page/rtForChecking.php';?></div>
-<div id="pending_above"><?php include 'rt_page/rt_pending.php';?></div>
-<div id="verified"><?php include 'rt_page/verified_request.php';?></div>
-<div id="cancelled"><?php include 'rt_page/cancel_request.php';?></div>
+<div id="request"><?php include 'hrd_page/for_approval.php';?></div>
+<div id="pending_above"><?php include 'hrd_page/pending.php';?></div>
+<div id="verified"><?php include 'hrd_page/verified.php';?></div>
+<div id="cancelled"><?php include 'hrd_page/cancelled.php';?></div>
 
 <!-- JS -->
 <script src="../jquery/jquery.min.js"></script>
