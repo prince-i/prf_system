@@ -216,7 +216,7 @@ elseif($method == 'verified_view'){
     }
 // VIEW PENDING
 elseif($method == 'preview_pending_form'){
-    $id = $_POST['id']; 
+        $id = $_POST['id']; 
         $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,contract_status,education,required_license,work_exp,job_duties,request_date FROM tb_request_mp WHERE id = '$id'";;
         $stmt = $conn->prepare($sql);
         $stmt->execute();

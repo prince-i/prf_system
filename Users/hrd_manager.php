@@ -23,7 +23,8 @@
 <body style="display:none;">
 <!-- MODAL -->
 <?php
-  
+  include_once 'Modals/hrdmgr_approval_modal.php';
+  include_once 'Modals/hrdmgr_pending.php';
 ?>
 <!-- /MODAL -->
 <nav class="nav-extended #212121 grey darken-4 z-depth-5">
@@ -139,13 +140,12 @@ const rt_preview =(id)=>{
 }
 // PREVIEW PRF
 const preview =()=>{
-  var id = document.getElementById('prf_ID').value;
+  var id = document.getElementById('prf_id').value;
   window.open('../Forms/preview_prf.php?id='+id,"Preview","width=1000,height=600,left=150");
 }
-// preview 2nd function
 const preview_only =()=>{
-  var id = document.getElementById('reference').value;
-  window.open("../Forms/preview_prf.php?id="+id,"Preview","width=1000,height=600,left=150");
+  var id = document.getElementById('idPending').value;
+  window.open('../Forms/preview_prf.php?id='+id,"Preview","width=1000,height=600,left=150");
 }
 // LOAD VERIFIED
 const load_verified =()=>{
@@ -161,21 +161,6 @@ const load_verified =()=>{
             document.getElementById('verified_table').innerHTML = response;
         }
     });
-}
-// -----------------------------------------
-const rt_preview_pending =(id)=>{
-  document.querySelector('#reference').value = id;
-  $.ajax({
-    url: '../php/rtController.php',
-    type: 'POST',
-    cache: false,
-    data:{
-      method: 'preview_pending_form',
-      id:id
-    },success:function(response){
-      document.querySelector('#prf_form_rt_pending').innerHTML = response;
-    }
-  });
 }
 // LOAD CANCELLED
 const load_cancelled =()=>{
@@ -222,12 +207,7 @@ const approve =()=>{
     });
   }
 }
-// GET ID OF REQUEST TO DECLINE
-const get_id_decline =(id)=>{
-  // console.log(id);
-  $('.modal').modal('close','#preview_for_rt');
-  document.getElementById('ref_id_check').value = id;
-}
+
 // DECLINE FUNCTION
 function decline_rt_check(){
   var prfID = document.getElementById('ref_id_check').value;
@@ -251,6 +231,40 @@ function decline_rt_check(){
     }
   });
 }
+// GET ID
+const get_id =(id)=>{
+  document.getElementById('prf_id').value = id;
+  $.ajax({
+    url: '../php/hrmgrController.php',
+    type: 'POST',
+    cache: false,
+    data:{
+      method: 'preview_for_approval',
+      id:id
+    },success:function(response){
+      // console.log(response);
+      document.getElementById('preview_summary').innerHTML = response;
+    }
+  });
+}
+// PREVIEW PENDING
+const preview_pending =(id)=>{
+  $('#idPending').val(id);
+  console.log(id);
+  $.ajax({
+    url: '../php/hrmgrController.php',
+    type: 'POST',
+    cache: false,
+    data:{
+      method: 'displayPending',
+      id:id
+    },success:function(response){
+      // console.log(response);
+      document.getElementById('pending_form').innerHTML = response;
+    }
+  });
+}
+
 </script>
 </body>
 </html>
