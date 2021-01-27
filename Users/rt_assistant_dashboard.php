@@ -238,7 +238,10 @@ const get_id_decline =(id)=>{
 function decline_rt_check(){
   var prfID = document.getElementById('ref_id_check').value;
   var remarks = document.getElementById('cancel_remarks_rt').value;
-  $.ajax({
+  if(remarks == ''){
+    swal('Notification','Please enter cancel remarks!','info');
+  }else{
+    $.ajax({
     url: '../php/rtController.php',
     type: 'POST',
     cache:false,
@@ -256,6 +259,7 @@ function decline_rt_check(){
       }
     }
   });
+  }
 }
 </script>
 </body>

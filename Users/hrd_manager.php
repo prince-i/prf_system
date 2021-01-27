@@ -25,6 +25,7 @@
 <?php
   include_once 'Modals/hrdmgr_approval_modal.php';
   include_once 'Modals/hrdmgr_pending.php';
+  include_once 'Modals/decline_hrd.php';
 ?>
 <!-- /MODAL -->
 <nav class="nav-extended #212121 grey darken-4 z-depth-5">
@@ -181,25 +182,26 @@ const load_cancelled =()=>{
 }
 // APPROVE BY RT
 const approve =()=>{
-  var id = document.querySelector('#prf_ID').value;
+  var id = document.getElementById('prf_id').value;
   var name = '<?=$name;?>';
   var signatoryLevel = '<?=$level;?>';
   var x = confirm('You are going to approve this request, click OK to confirm.');
   if(x == true){
     $.ajax({
-      url: '../php/rtController.php',
+      url: '../php/hrmgrController.php',
       type: 'POST',
       cache: false,
       data:{
-        method: 'approve_rt',
+        method: 'approve_hrd',
         id:id,
         name:name,
         signatoryLevel:signatoryLevel
       },success:function(response){
+        // console.log(response);
         if(response == 'success'){
           swal('Notification','Successfully approve!','success');
-          $('.modal').modal('close','#preview_for_rt');
-          load_for_rt_appr();
+          $('.modal').modal('close','#universal');
+          for_approval();
         }else{
           M.toast({html:'An error was occured!',classes:'rounded'});
         }
@@ -208,29 +210,7 @@ const approve =()=>{
   }
 }
 
-// DECLINE FUNCTION
-function decline_rt_check(){
-  var prfID = document.getElementById('ref_id_check').value;
-  var remarks = document.getElementById('cancel_remarks_rt').value;
-  $.ajax({
-    url: '../php/rtController.php',
-    type: 'POST',
-    cache:false,
-    data:{
-      method: 'declineByRT',
-      prfID:prfID,
-      remarks:remarks
-    },success:function(response){
-      console.log(response);
-      if(response == 'decline'){
-        $('.modal').modal('close','#declineCheckModalRT');
-        load_for_rt_appr();
-      }else{
-        M.toast({html: 'FAILED',classes:'rounded'});
-      }
-    }
-  });
-}
+
 // GET ID
 const get_id =(id)=>{
   document.getElementById('prf_id').value = id;
@@ -265,6 +245,43 @@ const preview_pending =(id)=>{
   });
 }
 
+// DECLINE GET ID
+const get_id_decline =(id)=>{
+  console.log(id);
+  document.getElementById('ref_id').value = id;
+}
+
+// DECLINE FUNCTION
+function decline_hrd(){
+  var prfID = document.getElementById('ref_id').value;
+  var remarks = document.getElementById('remarks').value;
+  if(remarks == ''){
+    swal('Notification','Please enter cancel remarks!','info');
+  }else{
+    document.getElementById('confirm_decline').disabled = true;
+    $.ajax({
+    url: '../php/hrmgrController.php',
+    type: 'POST',
+    cache:false,
+    data:{
+      method: 'declineBy_hrd',
+      prfID:prfID,
+      remarks:remarks
+    },success:function(response){
+      console.log(response);
+      if(response == 'decline'){
+        $('.modal').modal('close','#declineModalHRD');
+        document.getElementById('confirm_decline').disabled =false;
+        swal('Notification','PRF successfully declined!','success');
+        for_approval();
+      }else{
+        M.toast({html: 'FAILED',classes:'rounded'});
+        document.getElementById('confirm_decline').disabled = false;
+      }
+    }
+  });
+  }
+}
 </script>
 </body>
 </html>

@@ -349,7 +349,7 @@ elseif($method=='approve_rt'){
     $compat = $step + 1;
     if($compat == $level){
         // APPROVAL QUERY]
-        $approveQL = "UPDATE tb_request_mp SET verify_check_by = '$name', verify_check_remarks = 'APPROVED', verification_status = 'FOR APPROVAL OF HRD MANAGER AND HRD DIVISION MANAGER', step = '4',approval_status = 'APPROVED' WHERE id = '$id'";
+        $approveQL = "UPDATE tb_request_mp SET verify_check_by = '$name', verify_check_remarks = 'APPROVED', verification_status = 'FOR APPROVAL OF HRD MANAGER AND HRD DIVISION MANAGER', step = '4' WHERE id = '$id'";
         $stmt=$conn->prepare($approveQL);
         if($stmt->execute()){
             echo 'success';

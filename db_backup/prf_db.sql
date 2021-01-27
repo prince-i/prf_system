@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 18, 2020 at 09:54 AM
--- Server version: 10.4.16-MariaDB
--- PHP Version: 7.4.12
+-- Generation Time: Jan 27, 2021 at 01:26 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 7.4.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,34 +35,24 @@ CREATE TABLE `prf_account` (
   `position` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `department` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `account_verification` varchar(200) COLLATE utf8_unicode_ci NOT NULL
+  `account_verification` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `acct_level` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `prf_account`
 --
 
-INSERT INTO `prf_account` (`id`, `username`, `password`, `role`, `position`, `name`, `department`, `account_verification`) VALUES
-(1, 'admin@admin.com', 'admin', 'administrator', 'staff', 'prince arce', 'IT', 'approved'),
-(2, 'requestor@email.com', 'test', 'requestor', 'staff', 'juan dela cruz', 'IT', 'approved');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tb_approval`
---
-
-CREATE TABLE `tb_approval` (
-  `id` int(14) NOT NULL,
-  `request_id` int(14) NOT NULL,
-  `check_by` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `check_remarks` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `noted_by` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `noted_remarks` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `check_date` date DEFAULT NULL,
-  `noted_date` date DEFAULT NULL,
-  `approval_status` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+INSERT INTO `prf_account` (`id`, `username`, `password`, `role`, `position`, `name`, `department`, `account_verification`, `acct_level`) VALUES
+(1, 'admin@admin.com', 'admin', 'administrator', 'staff', 'prince arce', 'IT', 'approved', 0),
+(2, 'requestor@email.com', 'test', 'requestor', 'staff', 'juan dela cruz', 'IT', 'approved', 1),
+(3, 'approver@email.com', 'test', 'approver', 'supervisor', 'mj', 'IT', 'approved', 2),
+(5, 'it@email.com', 'test', 'approver', 'Manager', 'test', 'IT', 'approved', 3),
+(6, 'requestor@email.com', 'test', 'approver', 'Supervisor', 'Juan dela Cruz', 'IT', 'approved', 2),
+(7, 'eqd@email.com', 'test', 'approver', 'Staff', 'test', 'EQD', 'approved', 2),
+(8, 'rt@email.com', 'test', 'verifier', 'Asst. Manager', '[RT manager name]', 'EQD', 'approved', 4),
+(12, 'asdad', 'asdasd', 'requestor', 'Staff', 'dad', 'IT', 'approved', 1),
+(13, 'hrd@email.com', 'test', 'verifier', 'Department Manager', 'hrd-name', 'HR', 'approved', 5);
 
 -- --------------------------------------------------------
 
@@ -129,18 +119,23 @@ CREATE TABLE `tb_department` (
 --
 
 INSERT INTO `tb_department` (`id`, `deptDesc`, `deptCode`) VALUES
-(1, 'Accounting Department', 'ACC'),
+(2, 'Accounting Department', 'ACC'),
 (3, 'Equipment Department', 'EQD'),
 (4, 'G-Assist Team', 'G-ASSIST'),
-(6, 'Human Resource Department', 'HR'),
-(7, 'Information Technology Department', 'IT'),
-(8, 'Material Procurement Department', 'MPD'),
-(9, 'NF Kaizen Department', 'NF'),
-(11, 'Production Design Center', 'PDC'),
-(12, 'Production Engineering Department', 'PE'),
-(13, 'Production Management Department', 'PMD'),
-(14, 'Production Department', 'PROD'),
-(15, 'Quality Assurance Department', 'QA');
+(5, 'Human Resource Department', 'HR'),
+(6, 'Information Technology Department', 'IT'),
+(7, 'Material Procurement Department', 'MPD'),
+(8, 'NF Kaizen Department', 'NF'),
+(9, 'Production Design Center', 'PDC'),
+(10, 'Production Engineering Department', 'PE'),
+(11, 'Production Management Department', 'PMD'),
+(13, 'Quality Assurance Department', 'QA'),
+(14, 'Housekeeping', 'HouseKeeping'),
+(15, 'Production 1', 'PD1'),
+(16, 'Production 2', 'PD2'),
+(17, 'Production 3', 'PD3'),
+(18, 'Production 4', 'PD4'),
+(19, 'Production 5', 'PD5');
 
 -- --------------------------------------------------------
 
@@ -243,8 +238,11 @@ CREATE TABLE `tb_request_mp` (
   `verify_verifier_manager_remarks` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `verify_verifier_div_mgr` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `verify_verifier_div_mgr_remarks` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `president_verify` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `president_remarks` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
   `cancel_remarks` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `verification_status` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `step` varchar(2000) COLLATE utf8_unicode_ci NOT NULL,
+  `verification_status` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `request_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -252,25 +250,144 @@ CREATE TABLE `tb_request_mp` (
 -- Dumping data for table `tb_request_mp`
 --
 
-INSERT INTO `tb_request_mp` (`id`, `requestor`, `requestor_email`, `requesting_position`, `assigned_dept`, `female_num_mp`, `male_num_mp`, `total_mp`, `contract_status`, `date_start`, `date_end`, `education`, `required_license`, `work_exp`, `other_qualification`, `job_duties`, `interview_need`, `interviewers`, `availability_for_interview`, `additional_mp`, `mp_plan`, `reorganization`, `promotion`, `retirement`, `replacement`, `replacement_mp_name`, `others`, `budget_source`, `budget_status`, `actual_mp_dept`, `actual_mp_section`, `plan_mp_dept`, `plan_mp_section`, `approve_check_by`, `approve_check_remarks`, `approve_noted_by`, `approve_noted_remarks`, `approval_status`, `verify_check_by`, `verify_check_remarks`, `verify_verifier_manager`, `verify_verifier_manager_remarks`, `verify_verifier_div_mgr`, `verify_verifier_div_mgr_remarks`, `cancel_remarks`, `verification_status`, `request_date`) VALUES
-(36, 'Juan Dela Cruz', '@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', 'Junior Highschool (New Curriculum)', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-11-18 00:00:00'),
-(37, 'Juan Dela Cruz', 'requestor@email.com', 'Associate', 'IT', 1, 1, 2, 'Full Time', '2020-12-07', '0000-00-00', 'Bachelors Degree', 'N/A', '', '', 'yamete', 'need', 'gem ibana', '2020-11-26 13:00', '1', '1', '0', '0', '0', '1', 'ann , aison cabusay', '', 'IT', 'IT', 35, 0, 38, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-11-18 00:00:00'),
-(38, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-11-18 00:00:00'),
-(39, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-11-18 00:00:00'),
-(40, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-11-18 00:00:00'),
-(41, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-11-18 00:00:00'),
-(42, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, 'approved', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-11-18 00:00:00'),
-(43, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, 'approved', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '2020-11-18 00:00:00'),
-(44, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '2020-11-18 00:00:00'),
-(45, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', ' ', '1', '1', '1', '1', '1', '1', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '2020-12-09 00:00:00'),
-(46, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '2020-12-09 00:00:00'),
-(47, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '2020-12-09 03:32:30'),
-(48, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '2020-12-09 03:36:12'),
-(49, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '0000-00-00 00:00:00'),
-(50, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '2020-12-09 14:13:45'),
-(51, 'Juan Dela Cruz', '@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '2020-12-10 15:26:17'),
-(52, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '2020-12-18 16:32:59'),
-(53, 'Juan Dela Cruz', 'requestor@email.com', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '1 year', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, 'pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '2020-12-18 16:33:07');
+INSERT INTO `tb_request_mp` (`id`, `requestor`, `requestor_email`, `requesting_position`, `assigned_dept`, `female_num_mp`, `male_num_mp`, `total_mp`, `contract_status`, `date_start`, `date_end`, `education`, `required_license`, `work_exp`, `other_qualification`, `job_duties`, `interview_need`, `interviewers`, `availability_for_interview`, `additional_mp`, `mp_plan`, `reorganization`, `promotion`, `retirement`, `replacement`, `replacement_mp_name`, `others`, `budget_source`, `budget_status`, `actual_mp_dept`, `actual_mp_section`, `plan_mp_dept`, `plan_mp_section`, `approve_check_by`, `approve_check_remarks`, `approve_noted_by`, `approve_noted_remarks`, `approval_status`, `verify_check_by`, `verify_check_remarks`, `verify_verifier_manager`, `verify_verifier_manager_remarks`, `verify_verifier_div_mgr`, `verify_verifier_div_mgr_remarks`, `president_verify`, `president_remarks`, `cancel_remarks`, `step`, `verification_status`, `request_date`) VALUES
+(72, 'Juan Dela Cruz', 'requestor@email.com', 'Associate', 'IT', 0, 1, 1, 'Fulltime', '0000-00-00', '0000-00-00', 'College', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '0', '0', '0', '0', '0', '0', 'AISON', 'N/A', 'IT', 'On Budget', 0, 0, 0, 0, 'test', 'APPROVED', 'N/A', 'N/A', 'FOR SIGNATORY OF RECRUITMENT ASST. MNGR.', 'N/A', NULL, 'N/A', 'N/A', 'N/A', 'N/A', '', '', 'Ayaw ko lang', '4', '', '0000-00-00 00:00:00'),
+(73, 'Juan Dela Cruz', 'requestor@email.com', 'Supervisor', 'IT', 0, 1, 1, 'Fulltime', '0000-00-00', '0000-00-00', 'College', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '0', '0', '0', '0', '0', '0', 'AISON', 'N/A', 'IT', 'On Budget', 0, 0, 0, 0, 'mj', 'APPROVED', 'test', 'N/A', 'FOR SIGNATORY OF RECRUITMENT ASST. MNGR.', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '', 'N/A', '7', '', '0000-00-00 00:00:00'),
+(74, 'Juan Dela Cruz', 'requestor@email.com', 'Manager', 'IT', 2, 0, 2, 'Fulltime', '0000-00-00', '0000-00-00', 'College', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '0', '0', '0', '0', '0', '0', 'AISON', 'N/A', 'IT', 'On Budget', 0, 0, 0, 0, 'Mj', 'APPROVED', 'N/A', 'N/A', 'FOR APPROVAL OF DEPT. MNGR./SECTION MNGR.', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '', 'N/A', '2', '', '0000-00-00 00:00:00'),
+(90, 'Juan Dela Cruz', 'requestor@email.com', 'Associate', 'IT', 0, 1, 1, 'Fulltime', '0000-00-00', '0000-00-00', 'College', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '0', '0', '0', '0', '0', '0', 'AISON', 'N/A', 'IT', 'On Budget', 0, 0, 0, 0, 'Mj', 'APPROVED', 'N/A', 'N/A', 'FOR APPROVAL OF DEPT. MNGR./SECTION MNGR.', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '', 'N/A', '2', '', '0000-00-00 00:00:00'),
+(91, 'Juan Dela Cruz', 'requestor@email.com', 'Supervisor', 'IT', 0, 1, 1, 'Fulltime', '0000-00-00', '0000-00-00', 'College', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '0', '0', '0', '0', '0', '0', 'AISON', 'N/A', 'IT', 'On Budget', 0, 0, 0, 0, 'Mj', 'APPROVED', 'Test', 'N/A', 'APPROVED', '[RT manager name]', 'cvxcvxcv', 'N/A', 'N/A', 'N/A', 'N/A', '', '', 'N/A', '0', 'DISAPPROVED', '0000-00-00 00:00:00'),
+(92, 'Juan Dela Cruz', 'requestor@email.com', 'Manager', 'IT', 2, 0, 2, 'Fulltime', '0000-00-00', '0000-00-00', 'College', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '0', '0', '0', '0', '0', '0', 'AISON', 'N/A', 'IT', 'On Budget', 0, 0, 0, 0, NULL, 'DECLINED', 'N/A', 'N/A', 'FOR SIGNATORY OF DEPT. MNGR./SECTION MNGR.', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '', 'N/A', '4', '', '0000-00-00 00:00:00'),
+(96, '', '', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '1', '', '0000-00-00 00:00:00'),
+(97, '', '', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '1', '', '0000-00-00 00:00:00'),
+(98, '', '', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '1', '', '0000-00-00 00:00:00'),
+(99, '', '', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '1', '', '0000-00-00 00:00:00'),
+(100, '', '', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '1', '', '0000-00-00 00:00:00'),
+(101, '', '', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '1', '', '0000-00-00 00:00:00'),
+(102, '', '', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '1', '', '0000-00-00 00:00:00'),
+(103, '', '', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '1', '', '0000-00-00 00:00:00'),
+(104, '', '', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '1', '', '0000-00-00 00:00:00'),
+(105, '', '', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '1', '', '0000-00-00 00:00:00'),
+(106, '', '', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '1', '', '0000-00-00 00:00:00'),
+(107, '', '', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '1', '', '0000-00-00 00:00:00'),
+(108, 'Juan Dela Cruz', 'requestor@email.com', 'Associate', 'IT', 0, 1, 1, 'Fulltime', '0000-00-00', '0000-00-00', 'College', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '0', '0', '0', '0', '0', '0', 'AISON', 'N/A', 'IT', 'On Budget', 0, 0, 0, 0, '', 'DECLINED', 'N/A', 'N/A', 'FOR SIGNATORY OF DEPT. MNGR./SECTION MNGR.', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '', 'N/A', '0', '', '0000-00-00 00:00:00'),
+(109, 'Juan Dela Cruz', 'requestor@email.com', 'Supervisor', 'IT', 0, 1, 1, 'Fulltime', '0000-00-00', '0000-00-00', 'College', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '0', '0', '0', '0', '0', '0', 'AISON', 'N/A', 'IT', 'On Budget', 0, 0, 0, 0, '', 'DECLINED', 'N/A', 'N/A', 'FOR SIGNATORY OF DEPT. MNGR./SECTION MNGR.', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '', 'N/A', '0', '', '0000-00-00 00:00:00'),
+(110, 'Juan Dela Cruz', 'requestor@email.com', 'Manager', 'IT', 2, 0, 2, 'Fulltime', '0000-00-00', '0000-00-00', 'College', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '0', '0', '0', '0', '0', '0', 'AISON', 'N/A', 'IT', 'On Budget', 0, 0, 0, 0, '', 'DECLINED', 'N/A', 'N/A', 'FOR SIGNATORY OF DEPT. MNGR./SECTION MNGR.', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '', 'N/A', '0', '', '0000-00-00 00:00:00'),
+(114, '', '', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '1', '', '0000-00-00 00:00:00'),
+(115, '', '', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '1', '', '0000-00-00 00:00:00'),
+(116, '', '', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '1', '', '0000-00-00 00:00:00'),
+(117, '', '', '', '', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '1', '', '0000-00-00 00:00:00'),
+(126, 'Juan Dela Cruz', 'requestor@email.com', 'Associate', 'IT', 0, 1, 1, 'Fulltime', '0000-00-00', '0000-00-00', 'College', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '0', '0', '0', '0', '0', '0', 'AISON', 'N/A', 'IT', 'On Budget', 0, 0, 0, 0, '', 'DECLINED', 'N/A', 'N/A', 'FOR SIGNATORY OF DEPT. MNGR./SECTION MNGR.', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '', 'N/A', '0', '', '0000-00-00 00:00:00'),
+(127, 'Juan Dela Cruz', 'requestor@email.com', 'Supervisor', 'IT', 0, 1, 1, 'Fulltime', '0000-00-00', '0000-00-00', 'College', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '0', '0', '0', '0', '0', '0', 'AISON', 'N/A', 'IT', 'On Budget', 0, 0, 0, 0, '', 'DECLINED', 'N/A', 'N/A', 'FOR SIGNATORY OF DEPT. MNGR./SECTION MNGR.', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '', 'N/A', '0', '', '0000-00-00 00:00:00'),
+(128, 'Juan Dela Cruz', 'requestor@email.com', 'Manager', 'IT', 2, 0, 2, 'Fulltime', '0000-00-00', '0000-00-00', 'College', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '0', '0', '0', '0', '0', '0', 'AISON', 'N/A', 'IT', 'On Budget', 0, 0, 0, 0, '', 'ayaw ko lang', 'N/A', 'N/A', 'DISAPPROVED', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '', 'N/A', '0', '', '0000-00-00 00:00:00'),
+(144, 'Juan Dela Cruz', 'requestor@email.com', 'Associate', 'IT', 0, 1, 1, 'Fulltime', '0000-00-00', '0000-00-00', 'College', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '0', '0', '0', '0', '0', '0', 'AISON', 'N/A', 'IT', 'On Budget', 0, 0, 0, 0, 'Mj', 'APPROVED', 'N/A', 'N/A', 'FOR APPROVAL OF DEPT. MNGR./SECTION MNGR.', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '', 'N/A', '2', '', '2020-11-18 00:00:00'),
+(145, 'Juan Dela Cruz', 'requestor@email.com', 'Supervisor', 'IT', 0, 1, 1, 'Fulltime', '0000-00-00', '0000-00-00', 'College', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '0', '0', '0', '0', '0', '0', 'AISON', 'N/A', 'IT', 'On Budget', 0, 0, 0, 0, 'Mj', 'APPROVED', 'N/A', 'N/A', 'FOR APPROVAL OF DEPT. MNGR./SECTION MNGR.', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '', 'N/A', '2', '', '2020-11-19 00:00:00'),
+(146, 'Juan Dela Cruz', 'requestor@email.com', 'Manager', 'IT', 2, 0, 2, 'Fulltime', '0000-00-00', '0000-00-00', 'College', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '0', '0', '0', '0', '0', '0', 'AISON', 'N/A', 'IT', 'On Budget', 0, 0, 0, 0, '', 'budget', 'N/A', 'N/A', 'DISAPPROVED', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '', 'N/A', '0', '', '2020-11-20 00:00:00'),
+(150, 'Juan Dela Cruz', 'requestor@email.com', 'Associate', 'IT', 0, 1, 1, 'Full Time', '0000-00-00', '0000-00-00', 'Bachelors Degree', 'N/A', 'N/A', '', 'it support', 'need', 'johnny sins', '2021-01-16 10:00', '1', '1', '0', '0', '0', '0', '', '', 'IT', 'IT', 30, 30, 30, 30, '', 'asdsadsadasdasdsadas', NULL, NULL, 'DISAPPROVED', NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, '0', 'DISAPPROVED', '2021-01-06 16:11:36'),
+(157, 'Test', 'test', 'Associate', 'EQD-Equipment Engineering', 1, 0, 1, 'Full Time', '0000-00-00', '0000-00-00', 'Bachelors Degree', 'N/A', 'N?A', 'N?A', 'N?A', 'need', 'barjakul wakadu', '2021-02-05 10:00', '1', '1', '1', '0', '0', '0', '', '', 'EQD', 'EQD', 1, 1, 1, 1, 'Test', 'APPROVED', 'Test', NULL, 'FOR SIGNATORY OF RECRUITMENT ASST. MNGR.', NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, '6', '', '2021-01-12 13:14:52'),
+(158, 'Test', 'test', '', 'EQD- EUT', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, 'eutdin', NULL, NULL, 'DISAPPROVED', NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, '0', 'DISAPPROVED', '2021-01-16 08:34:53'),
+(159, 'Test', 'test', '', 'EQD-Machine', 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', '', '', ' ', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, 'Test', 'APPROVED', NULL, NULL, 'FOR APPROVAL OF DEPT. MNGR./SECTION MNGR.', NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, '2', 'PENDING', '2021-01-16 08:35:06');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_section`
+--
+
+CREATE TABLE `tb_section` (
+  `id` int(14) NOT NULL,
+  `department` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `section_name` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `tb_section`
+--
+
+INSERT INTO `tb_section` (`id`, `department`, `section_name`) VALUES
+(1, 'EQD', 'Management'),
+(2, 'EQD', 'Equipment Management'),
+(3, 'EQD', 'Equipment Engineering'),
+(4, 'EQD', 'Facilities'),
+(5, 'ACC', 'Accounting and Taxation'),
+(6, 'Housekeeping', 'Housekeeping'),
+(7, 'HR', 'Recruitment and Training'),
+(8, 'HR', 'Human Resource'),
+(9, 'HR', 'General Affairs'),
+(10, 'IT', 'Support Group'),
+(11, 'IT', 'System Group'),
+(12, 'IT', 'CAD Group'),
+(13, 'MPD', 'Material Management'),
+(14, 'MPD', 'Procurement'),
+(15, 'MPD', 'FG Preparation'),
+(16, 'NF', 'NF Kaizen'),
+(17, 'EQD', 'Machine Data'),
+(18, 'EQD', 'EM Initial (Corrective Maintenance)'),
+(19, 'EQD', 'Fabrication'),
+(20, 'EQD', 'EM Final (Corrective Maintenance)'),
+(21, 'EQD', 'Spareparts'),
+(22, 'EQD', 'Machinery Center'),
+(23, 'EQD', 'EM Initial (Preventive Maintenance)'),
+(24, 'EQD', 'EM Final (Preventive Maintenance)'),
+(25, 'EQD', 'Calibration'),
+(26, 'EQD', 'ISO/Document Control'),
+(27, 'EQD', 'PCO'),
+(28, 'EQD', 'N/A'),
+(29, 'HR', 'Non-PD Technical Training'),
+(30, 'HR', 'PD Technical Training'),
+(31, 'MPD ', 'MH (WHSE)'),
+(32, 'PE', 'AME'),
+(33, 'PE', 'MPPD'),
+(34, 'PE', 'PEC'),
+(35, 'QA', 'Quality Control'),
+(36, 'QA', 'Quality Assurance'),
+(37, 'QA', 'Quality Management'),
+(38, 'G-ASSIST', 'G-Assists'),
+(39, 'PDC', 'PDC'),
+(40, 'PMD', 'Production Control'),
+(41, 'PMD', 'IMPEX'),
+(42, 'PD1', 'Battery Final'),
+(43, 'PD1', 'Battery Initial'),
+(44, 'PD1', 'Distributor'),
+(45, 'PD1', 'PPET'),
+(46, 'PD1', 'Repair Person'),
+(47, 'PD1', 'PD1 Clerk'),
+(48, 'PD1', 'SWAT Final'),
+(49, 'PD1', 'SWAT Initial'),
+(50, 'PD1', 'Tube Cutting'),
+(51, 'PD1', 'Tube Making'),
+(52, 'PD1', 'VS Laminating'),
+(53, 'PD2', 'D01L Final'),
+(54, 'PD2', 'D01L Initial'),
+(55, 'PD2', 'D54L Final'),
+(56, 'PD2', 'D54L Initial'),
+(57, 'PD2', 'Daihatsu Final'),
+(58, 'PD2', 'Daihatsu Initial'),
+(59, 'PD2', 'Nissan Final'),
+(60, 'PD2', 'Nissan Initial'),
+(61, 'PD2', 'PD2 Clerk'),
+(62, 'PD2', 'PPET'),
+(63, 'PD3', 'Mazda J12 Final'),
+(64, 'PD3', 'Mazda J12 Initial'),
+(65, 'PD3', 'Mazda Merge Final'),
+(66, 'PD3', 'Mazda Merge Initial'),
+(67, 'PD3', 'PD3 Clerk'),
+(68, 'PD3', 'PPET'),
+(69, 'PD4', 'PD4 Clerk'),
+(70, 'PD4', 'Suzuki Final'),
+(71, 'PD4', 'Suzuki Initial'),
+(72, 'PD4', 'Toyota Final'),
+(73, 'PD4', 'Toyota Initial'),
+(74, 'PD4', 'Y2R Final'),
+(75, 'PD4', 'Y2R Initial'),
+(76, 'PD4', 'PPET'),
+(77, 'PD5', 'Honda Final'),
+(78, 'PD5', 'Honda Initial'),
+(79, 'PD5', 'PD5 Clerk'),
+(80, 'PD5', 'Subaru Final'),
+(81, 'PD5', 'Subaru Initial'),
+(82, 'PD5', 'TKRA Final'),
+(83, 'PD5', 'TKRA Initial'),
+(84, 'PD5', 'PPET');
 
 --
 -- Indexes for dumped tables
@@ -280,12 +397,6 @@ INSERT INTO `tb_request_mp` (`id`, `requestor`, `requestor_email`, `requesting_p
 -- Indexes for table `prf_account`
 --
 ALTER TABLE `prf_account`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tb_approval`
---
-ALTER TABLE `tb_approval`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -325,6 +436,12 @@ ALTER TABLE `tb_request_mp`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tb_section`
+--
+ALTER TABLE `tb_section`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -332,13 +449,7 @@ ALTER TABLE `tb_request_mp`
 -- AUTO_INCREMENT for table `prf_account`
 --
 ALTER TABLE `prf_account`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `tb_approval`
---
-ALTER TABLE `tb_approval`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tb_certification`
@@ -356,7 +467,7 @@ ALTER TABLE `tb_contract_status`
 -- AUTO_INCREMENT for table `tb_department`
 --
 ALTER TABLE `tb_department`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tb_education`
@@ -374,7 +485,13 @@ ALTER TABLE `tb_position`
 -- AUTO_INCREMENT for table `tb_request_mp`
 --
 ALTER TABLE `tb_request_mp`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
+
+--
+-- AUTO_INCREMENT for table `tb_section`
+--
+ALTER TABLE `tb_section`
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

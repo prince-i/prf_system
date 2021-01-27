@@ -50,6 +50,7 @@
             if(!empty($checker)){
                 $checker_sig = 'APPROVED';
             }
+            $president = $x['president_verify'];
         }
     }
 
@@ -291,10 +292,10 @@
                         <td style="border:1px solid black;font-weight:bold;">Approved By:</td>
                     </tr>
                     <tr>
-                        <td style="border:1px solid black;">--</td>
-                        <td style="border:1px solid black;">--</td>
-                        <td style="border:1px solid black;">--</td>
-                        <td style="border:1px solid black;">--</td>
+                        <td style="border:1px solid black;"><?=$verify_check;?></td>
+                        <td style="border:1px solid black;"><?=$verify_manager;?></td>
+                        <td style="border:1px solid black;"><?=$verify_div_mgr;?></td>
+                        <td style="border:1px solid black;"><?=$president;?></td>
                     </tr>
                     <tr>
                         <td style="border:1px solid black;font-weight:bold;font-size:9px;">Recruitment Asst. Mngr</td>

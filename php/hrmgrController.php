@@ -232,7 +232,7 @@ elseif($method == 'preview_for_approval'){
             echo '</div>';
             // decline
             echo '<div class="input-field col s4">';
-            echo '<button class="btn z-depth-5 red modal-trigger" style="border-radius:20px;" data-target="declineCheckModalRT" onclick="get_id_decline(&quot;'.$id.'&quot;)">decline</button>';
+            echo '<button class="btn z-depth-5 red modal-trigger" style="border-radius:20px;" data-target="declineModalHRD" onclick="get_id_decline(&quot;'.$id.'&quot;)">decline</button>';
             echo '</div>';
             // --------------------------------------------------------------------------------------------------------------------------
             echo '</div>';
@@ -314,5 +314,42 @@ elseif($method == 'displayPending'){
             echo '</div>';
             echo '</div>';
         }
+}
+// APPROVE BY HRD
+elseif($method == 'approve_hrd'){
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $level = $_POST['signatoryLevel'];
+    // CHECK THE REQUEST STEP
+    $check = "SELECT step FROM tb_request_mp WHERE id = '$id'";
+    $stmt = $conn->prepare($check);
+    $stmt->execute();
+    foreach($stmt->fetchall() as $x){
+        $step = $x['step'];
+    }
+    $compatible = $step + 1;
+    if($compatible == $level){
+        // APPROVING QUERY
+        $approveQL = "UPDATE tb_request_mp SET verify_verifier_manager = '$name', verify_verifier_manager_remarks = 'APPROVED', verification_status = 'FOR HRD DIV. MNGR. APPROVAL', step = '5' WHERE id = '$id'";
+        $stmt = $conn->prepare($approveQL);
+        if($stmt->execute()){
+            echo 'success';
+        }else{
+            echo 'fail';
+        }
+    }
+}
+// DECLINE PRF BY HRD
+elseif($method == 'declineBy_hrd'){
+    $prf_id = $_POST['prfID'];
+    $remarks = $_POST['remarks'];
+    $decline_step = 0;
+    $decline_query = "UPDATE tb_request_mp SET verify_verifier_manager_remarks = '$remarks',step = '$decline_step', verification_status = 'DISAPPROVED' WHERE id = '$prf_id'";
+    $stmt=$conn->prepare($decline_query);
+    if($stmt->execute()){
+        echo 'decline';
+    }else{
+        echo 'fail';
+    }
 }
 ?>
