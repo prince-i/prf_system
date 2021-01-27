@@ -192,7 +192,7 @@ elseif($method == 'count_verified_request'){
 // VIEWING  SUMMARY
 elseif($method == 'summary_prf_view'){
     $id = $_POST['id']; 
-    $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,contract_status,education,required_license,work_exp,job_duties,request_date,cancel_remarks FROM tb_request_mp WHERE id = '$id'";;
+    $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,contract_status,education,required_license,work_exp,job_duties,request_date,approve_check_remarks,approve_noted_remarks,verify_check_remarks,verify_verifier_manager_remarks,verify_verifier_div_mgr_remarks,cancel_remarks FROM tb_request_mp WHERE id = '$id'";;
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     foreach($stmt->fetchALL() as $x){
@@ -252,10 +252,38 @@ elseif($method == 'summary_prf_view'){
         echo '<div class="col s6">'.$x['request_date'].'</div>';
         echo '</div>';
         // ------------------
-        echo '<div class="col s12">';
-        echo '<div class="col s6"><b>Cancel Remarks:</b></div>';
-        echo '<div class="col s6"><b>'.$x['cancel_remarks'].'</b></div>';
         echo '</div>';
+            echo '<div class="row">';
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>Asst.Mngr./Section Mngr. Remarks</b></div>';
+            echo '<div class="col s6">'.$x['approve_check_remarks'].'</div>';
+            echo '</div>';
+            // -------------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>Dept.Mngr./Div Mngr. Remarks</b></div>';
+            echo '<div class="col s6">'.$x['approve_noted_remarks'].'</div>';
+            echo '</div>';
+            // -------------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>Recruitment Asst.Mngr. Remarks</b></div>';
+            echo '<div class="col s6">'.$x['verify_check_remarks'].'</div>';
+            echo '</div>';
+            // -------------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>HRD Mngr. Remarks</b></div>';
+            echo '<div class="col s6">'.$x['verify_verifier_manager_remarks'].'</div>';
+            echo '</div>';
+            // -------------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>HRD Division Mngr. Remarks</b></div>';
+            echo '<div class="col s6">'.$x['verify_verifier_div_mgr_remarks'].'</div>';
+            echo '</div>';
+            // -------------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>President Remarks</b></div>';
+            echo '<div class="col s6">'.$x['cancel_remarks'].'</div>';
+            echo '</div>';
+            echo '</div>';
         // ------------------
         echo '</div>';
         echo '<br>';
@@ -301,7 +329,7 @@ elseif($method=='count_cancel_request'){
 }
 elseif($method == 'load_cancel_request'){
     $email = $_POST['email'];
-        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE step ='0' AND requestor_email LIKE '$email%' ORDER BY request_date ASC";
+        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,cancel_remarks FROM tb_request_mp WHERE step ='0' AND requestor_email LIKE '$email%' ORDER BY request_date ASC";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         foreach($stmt->fetchall() as $x){

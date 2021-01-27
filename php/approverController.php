@@ -606,4 +606,6 @@ elseif($method == 'decline_note_func'){
             echo 'unauthorized';
         }
 }
+
+$conn=null;
 ?>

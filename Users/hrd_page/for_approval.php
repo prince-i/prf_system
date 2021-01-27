@@ -17,7 +17,7 @@
     </div>
 </div>
    <div class="col s12">
-        <table class="centered z-depth-5">
+        <table class="centered z-depth-5" id="datatable">
             <thead>
                 <th>Request ID</th>
                 <th>Requesting Position</th>

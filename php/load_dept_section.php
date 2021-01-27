@@ -20,4 +20,6 @@
             echo '<option value="'.$x['position'].'">'.$x['position'].'</option>';
         }
     }
+
+    $conn=null;
 ?>

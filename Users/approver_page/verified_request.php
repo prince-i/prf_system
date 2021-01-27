@@ -1,6 +1,6 @@
 <div class="row">
    <div class="col s12">
-        <table class="centered">
+        <table class="centered z-depth-5">
             <thead>
                 <th>Request ID</th>
                 <th>Requesting Position</th>

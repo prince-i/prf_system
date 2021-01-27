@@ -217,11 +217,11 @@ elseif($method == 'verified_view'){
 // VIEW PENDING
 elseif($method == 'preview_pending_form'){
         $id = $_POST['id']; 
-        $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,contract_status,education,required_license,work_exp,job_duties,request_date FROM tb_request_mp WHERE id = '$id'";;
+        $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,contract_status,education,required_license,work_exp,job_duties,request_date,approve_check_remarks,approve_noted_remarks,verify_check_remarks,verify_verifier_manager_remarks,verify_verifier_div_mgr_remarks,cancel_remarks FROM tb_request_mp WHERE id = '$id'";;
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){
-            echo '<h5 class="center" style="margin-top:-10%;">PENDING</h5>';
+            
             echo '<div class="row">';
             echo '<div class="col s12">';
             echo '<div class="col s6">Requested By:</div>';
@@ -278,7 +278,37 @@ elseif($method == 'preview_pending_form'){
             echo '<div class="col s6">'.$x['request_date'].'</div>';
             echo '</div>';
             // ------------------
-            
+            echo '</div>';
+            echo '<div class="row">';
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>Asst.Mngr./Section Mngr. Remarks</b></div>';
+            echo '<div class="col s6">'.$x['approve_check_remarks'].'</div>';
+            echo '</div>';
+            // -------------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>Dept.Mngr./Div Mngr. Remarks</b></div>';
+            echo '<div class="col s6">'.$x['approve_noted_remarks'].'</div>';
+            echo '</div>';
+            // -------------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>Recruitment Asst.Mngr. Remarks</b></div>';
+            echo '<div class="col s6">'.$x['verify_check_remarks'].'</div>';
+            echo '</div>';
+            // -------------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>HRD Mngr. Remarks</b></div>';
+            echo '<div class="col s6">'.$x['verify_verifier_manager_remarks'].'</div>';
+            echo '</div>';
+            // -------------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>HRD Division Mngr. Remarks</b></div>';
+            echo '<div class="col s6">'.$x['verify_verifier_div_mgr_remarks'].'</div>';
+            echo '</div>';
+            // -------------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>President Remarks</b></div>';
+            echo '<div class="col s6">'.$x['cancel_remarks'].'</div>';
+            echo '</div>';
             echo '</div>';
             echo '<br>';
             echo '<div class="row">';
@@ -372,4 +402,6 @@ elseif($method == 'declineByRT'){
         echo 'fail';
     }
 }
+
+$conn=null;
 ?>

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="style.css">
     <style>
         body{
-            /* background-image: url('Img/BG.jpg'); */
+            background-image: url('Img/recruitment.jpg');
             background-size:cover;
             background-repeat: no-repeat;
             background-origin: content-box;
