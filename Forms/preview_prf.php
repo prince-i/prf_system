@@ -67,7 +67,11 @@
         body{
             font-family:arial;
             font-size:11px;
-        } 
+        }
+        body[size="A4"] {
+            width: 21cm;
+            height: 29.7cm;
+        }
         td{
             font-size:10px;
         }
@@ -81,7 +85,7 @@
     </style>
 </head>
 <body>
-    <img src="../Img/cancel.png" alt="" id="watermark" style="position:absolute;opacity:0.15;width:100%;margin-top:15%;display:none;">
+    <img src="../Img/cancel.png" alt="" id="watermark" style="position:absolute;opacity:0.15;width:100%;margin-top:40%;display:none;">
     <!--  PRF FORM -->
     <div class="row container" id="form">
         <br>
