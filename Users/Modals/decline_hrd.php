@@ -5,13 +5,13 @@
         <div class="row">
             <div class="cols 12">
                 <div class="input-field col s12">
-                    <input type="text" name="" id="ref_id">
+                    <input type="hidden" name="" id="ref_id">
                 </div>
                 <div class="input-field col s12">
                     <input type="text" name="" id="remarks"><label for="">Cancelling Remarks</label>
                 </div>
                 <div class="input-field col s12">
-                    <button class="btn blue z-depth-5" onclick="decline_hrd()" id="confirm_decline">Confirm</button>
+                    <button class="btn blue z-depth-5" onclick="decline_hrd()" id="confirm_decline" style="border-radius:30px;">Confirm</button>
                 </div>
             </div>
         </div>
