@@ -385,7 +385,7 @@
         }
         
     }
-    // DECLINE PRF BY HRD
+    // DECLINE PRF BY HRD DIV SUPPLIES DISAPPROVAL REMARKS FOR HR MANAGER AND HR DIV MANAGER
     elseif($method == 'declineBy_hrd'){
         $prf_id = $_POST['prfID'];
         $remarks = $_POST['remarks'];

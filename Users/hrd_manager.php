@@ -125,21 +125,6 @@ const count_for_approval =()=>{
     document.getElementById('check_notif').innerHTML = count;
 }
 
-// PREVIEW RT APPROVAL MODAL
-// const rt_preview =(id)=>{
-//   $('#prf_ID').val(id);
-//   $.ajax({
-//     url: '../php/rtController.php',
-//     type: 'POST',
-//     cache:false,
-//     data:{
-//       method: 'preview_verify_check_rt',
-//       id:id
-//     },success:function(response){
-//       document.getElementById('prf_preview_form').innerHTML = response;
-//     }
-//   });
-// }
 // PREVIEW PRF
 const preview =()=>{
   var id = document.getElementById('prf_id').value;
@@ -248,7 +233,7 @@ const preview_pending =(id)=>{
 
 // DECLINE GET ID
 const get_id_decline =(id)=>{
-  console.log(id);
+  // console.log(id);
   document.getElementById('ref_id').value = id;
 }
 
@@ -269,7 +254,7 @@ function decline_hrd(){
       prfID:prfID,
       remarks:remarks
     },success:function(response){
-      console.log(response);
+      // console.log(response);
       if(response == 'decline'){
         $('.modal').modal('close','#declineModalHRD');
         document.getElementById('confirm_decline').disabled =false;
