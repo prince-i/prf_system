@@ -393,8 +393,9 @@ elseif($method=='approve_rt'){
 elseif($method == 'declineByRT'){
     $id = $_POST['prfID'];
     $remarks = $_POST['remarks'];
+    $decline_stmt = "DISAPPROVED (".$remarks.")";
     $step = 0;
-    $declineQL = "UPDATE tb_request_mp SET verify_check_remarks = '$remarks', step ='$step', verification_status = 'DISAPPROVED' WHERE id = '$id'";
+    $declineQL = "UPDATE tb_request_mp SET verify_check_remarks = '$decline_stmt', step ='$step', verification_status = 'DISAPPROVED' WHERE id = '$id'";
     $stmt=$conn->prepare($declineQL);
     if($stmt->execute()){
         echo 'decline';

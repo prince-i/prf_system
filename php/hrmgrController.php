@@ -373,8 +373,9 @@ elseif($method == 'approve_hrd'){
 elseif($method == 'declineBy_hrd'){
     $prf_id = $_POST['prfID'];
     $remarks = $_POST['remarks'];
+    $decline_stmt = "DISAPPROVED (".$remarks.")";
     $decline_step = 0;
-    $decline_query = "UPDATE tb_request_mp SET verify_verifier_manager_remarks = '$remarks',step = '$decline_step', verification_status = 'DISAPPROVED' WHERE id = '$prf_id'";
+    $decline_query = "UPDATE tb_request_mp SET verify_verifier_manager_remarks = '$decline_stmt',step = '$decline_step', verification_status = 'DISAPPROVED' WHERE id = '$prf_id'";
     $stmt=$conn->prepare($decline_query);
     if($stmt->execute()){
         echo 'decline';
