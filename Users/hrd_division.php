@@ -32,7 +32,7 @@
 <nav class="nav-extended #212121 grey darken-4 z-depth-5">
     <div class="nav-wrapper">
     <a href="#" class="brand-logo center"><img src="../Img/logo.png" alt="" class="responsive-img" style="width:50px;"></a>
-      <a href="#">HRD Manager Dashboard</a>
+      <a href="#">HRD Division Manager Dashboard</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><span style="font-size:20px;font-weight:bold;">&plus;</span></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="#" data-target="acct_option" class="dropdown-trigger"><?=ucwords($name);?>-<?=ucwords($position);?></a></li>
@@ -86,11 +86,11 @@
     for_approval();
 });
 
-  // AJAX
-  const for_approval =()=>{
+// AJAX
+const for_approval =()=>{
     filter = document.querySelector('#deptFilter').value;
     $.ajax({
-        url: '../php/hrmgrController.php',
+        url: '../php/hrdDivController.php',
         type: 'POST',
         cache: false,
         data:{
@@ -107,7 +107,7 @@
 const load_pending =()=>{
   filter = document.querySelector('#deptFilterPending').value;
     $.ajax({
-        url: '../php/hrmgrController.php',
+        url: '../php/hrdDivController.php',
         type: 'POST',
         cache: false,
         data:{
@@ -125,21 +125,6 @@ const count_for_approval =()=>{
     document.getElementById('check_notif').innerHTML = count;
 }
 
-// PREVIEW RT APPROVAL MODAL
-// const rt_preview =(id)=>{
-//   $('#prf_ID').val(id);
-//   $.ajax({
-//     url: '../php/rtController.php',
-//     type: 'POST',
-//     cache:false,
-//     data:{
-//       method: 'preview_verify_check_rt',
-//       id:id
-//     },success:function(response){
-//       document.getElementById('prf_preview_form').innerHTML = response;
-//     }
-//   });
-// }
 // PREVIEW PRF
 const preview =()=>{
   var id = document.getElementById('prf_id').value;
@@ -153,7 +138,7 @@ const preview_only =()=>{
 const load_verified =()=>{
   filter = document.querySelector('#deptFilterVerified').value;
     $.ajax({
-        url: '../php/hrmgrController.php',
+        url: '../php/hrdDivController.php',
         type: 'POST',
         cache: false,
         data:{
@@ -169,7 +154,7 @@ const load_cancelled =()=>{
   department = '<?=$department;?>';
   filter = document.querySelector('#deptFilterCancel').value;
     $.ajax({
-        url: '../php/hrmgrController.php',
+        url: '../php/hrdDivController.php',
         type: 'POST',
         cache: false,
         data:{
@@ -189,7 +174,7 @@ const approve =()=>{
   var x = confirm('You are going to approve this request, click OK to confirm.');
   if(x == true){
     $.ajax({
-      url: '../php/hrmgrController.php',
+      url: '../php/hrdDivController.php',
       type: 'POST',
       cache: false,
       data:{
@@ -198,7 +183,7 @@ const approve =()=>{
         name:name,
         signatoryLevel:signatoryLevel
       },success:function(response){
-        // console.log(response);
+        console.log(response);
         if(response == 'success'){
           swal('Notification','Successfully approve!','success');
           $('.modal').modal('close','#universal');
@@ -211,12 +196,11 @@ const approve =()=>{
   }
 }
 
-
 // GET ID
 const get_id =(id)=>{
   document.getElementById('prf_id').value = id;
   $.ajax({
-    url: '../php/hrmgrController.php',
+    url: '../php/hrdDivController.php',
     type: 'POST',
     cache: false,
     data:{
@@ -233,7 +217,7 @@ const preview_pending =(id)=>{
   $('#idPending').val(id);
   console.log(id);
   $.ajax({
-    url: '../php/hrmgrController.php',
+    url: '../php/hrdDivController.php',
     type: 'POST',
     cache: false,
     data:{
@@ -261,7 +245,7 @@ function decline_hrd(){
   }else{
     document.getElementById('confirm_decline').disabled = true;
     $.ajax({
-    url: '../php/hrmgrController.php',
+    url: '../php/hrdDivController.php',
     type: 'POST',
     cache:false,
     data:{

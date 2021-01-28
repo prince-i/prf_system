@@ -165,6 +165,21 @@
             });
         }
     }
+    function update_appr_level(){
+        var role = document.getElementById('role_select').value;
+        console.log(role);
+        $.ajax({
+            url:'php/load_dept_section.php',
+            type: 'POST',
+            cache: false,
+            data:{
+                method: 'load_level',
+                role:role
+            },success:function(response){
+                $('#approval_level_select').html(response);
+            }
+        });
+    }
     </script>
 </body>
 </html>

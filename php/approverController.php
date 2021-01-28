@@ -564,7 +564,7 @@ elseif($method == 'decline_checker_func'){
     $id = $_POST['id'];
     $level = $_POST['level'];
     $remarks = $_POST['remarks'];
-    $x = "DISAPPROVED (".$remarks.")";
+    $decline_stmt = "DISAPPROVED (".$remarks.")";
     // CHECK LEVEL
     $check_level_req = "SELECT step FROM tb_request_mp WHERE id = '$id'";
     $stmt =$conn->prepare($check_level_req);
@@ -575,7 +575,7 @@ elseif($method == 'decline_checker_func'){
         $compatible = $step + 1;
         if($compatible == $level){
             // echo 'authorized';
-            $decline_apprCheck = "UPDATE tb_request_mp SET step = '0', approve_check_remarks = '$x',approval_status = 'DISAPPROVED', verification_status = 'DISAPPROVED' WHERE id = '$id'";
+            $decline_apprCheck = "UPDATE tb_request_mp SET step = '0', approve_check_remarks = '$decline_stmt',approval_status = 'DISAPPROVED', verification_status = 'DISAPPROVED' WHERE id = '$id'";
             $stmt = $conn->prepare($decline_apprCheck);
             $stmt->execute();
             echo 'success';
@@ -589,7 +589,7 @@ elseif($method == 'decline_note_func'){
     $id = $_POST['id'];
     $level = $_POST['level'];
     $remarks = $_POST['remarks'];
-    $x = "DISAPPROVED (".$remarks.")";
+    $decline_note = "DISAPPROVED (".$remarks.")";
     // CHECK LEVEL
     $check_level_req = "SELECT step FROM tb_request_mp WHERE id = '$id'";
     $stmt =$conn->prepare($check_level_req);
@@ -600,7 +600,7 @@ elseif($method == 'decline_note_func'){
         $compatible = $step + 1;
         if($compatible == $level){
             // echo 'authorized';
-            $decline_apprNote = "UPDATE tb_request_mp SET step = '0', approve_noted_remarks = '$x',approval_status = 'DISAPPROVED',verification_status = 'DISAPPROVED' WHERE id = '$id'";
+            $decline_apprNote = "UPDATE tb_request_mp SET step = '0', approve_noted_remarks = '$decline_note',approval_status = 'DISAPPROVED',verification_status = 'DISAPPROVED' WHERE id = '$id'";
             $stmt = $conn->prepare($decline_apprNote);
             $stmt->execute();
             echo 'success';

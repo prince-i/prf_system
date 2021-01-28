@@ -35,6 +35,7 @@ include 'Modals/declineNoteModal.php';
       <a href="#">Approver Dashboard</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><span style="font-size:20px;font-weight:bold;">&plus;</span></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="requestor.php">Create PRF Request</a></li>
         <li><a href="#" data-target="acct_option" class="dropdown-trigger"><?=ucwords($name);?>-<?=ucwords($position);?></a></li>
       </ul>
     </div>

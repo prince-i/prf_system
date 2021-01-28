@@ -20,6 +20,24 @@
             echo '<option value="'.$x['position'].'">'.$x['position'].'</option>';
         }
     }
-
+    // LOAD LEVEL SIGNUP
+    elseif($method == 'load_level'){
+        $role = $_POST['role'];
+        if($role == 'requestor'){
+            echo '<option value="" disabled selected>--SELECT APPROVAL LEVEL--</option>';
+            echo '<option value="1">1</option>';
+        }
+        if($role == 'approver'){
+            echo '<option value="" disabled selected>--SELECT APPROVAL LEVEL--</option>';
+            echo '<option value="2">2</option>';
+            echo '<option value="3">3</option>';
+        }
+        if($role == 'verifier'){
+            echo '<option value="" disabled selected>--SELECT APPROVAL LEVEL--</option>';
+            for($x=4;$x<=7;$x++){
+                echo '<option value="'.$x.'">'.$x.'</option>';
+            }
+        }
+    }
     $conn=null;
 ?>

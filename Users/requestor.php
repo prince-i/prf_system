@@ -363,6 +363,7 @@ const submit_prf =()=>{
                 actual_mp_section:actual_mp_section,
                 plan_mp_section:plan_mp_section,
                 email:'<?=$username;?>',
+                level: '<?=$level;?>',
             },success:function(response){
                     swal('Notification',response,'success');
                     document.getElementById('submitPRF').disabled = false;

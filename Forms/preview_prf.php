@@ -231,12 +231,12 @@
         <!-- REQUIRED -->
         <div class="col s12">
            <div class="col s6">Required for interview/validation:</div>
-           <div class="col s6"><u><?=$interview_req;?></u></div>
+           <div class="col s6"><u><?=ucwords($interview_req);?></u></div>
         </div>
         <!-- INTERVIEWERS -->
         <div class="col s12">
            <div class="col s6">Interviewer/s:</div>
-           <div class="col s6"><u><?=$interviewers;?></u></div>
+           <div class="col s6"><u><?=ucwords($interviewers);?></u></div>
         </div>
         <!-- AVAILABILITY -->
         <div class="col s12">
@@ -296,10 +296,10 @@
                         <td style="border:1px solid black;font-weight:bold;">Approved By:</td>
                     </tr>
                     <tr>
-                        <td style="border:1px solid black;"><?=$verify_check;?></td>
-                        <td style="border:1px solid black;"><?=$verify_manager;?></td>
-                        <td style="border:1px solid black;"><?=$verify_div_mgr;?></td>
-                        <td style="border:1px solid black;"><?=$president;?></td>
+                        <td style="border:1px solid black;"><?=ucwords($verify_check);?></td>
+                        <td style="border:1px solid black;"><?=ucwords($verify_manager);?></td>
+                        <td style="border:1px solid black;"><?=ucwords($verify_div_mgr);?></td>
+                        <td style="border:1px solid black;"><?=ucwords($president);?></td>
                     </tr>
                     <tr>
                         <td style="border:1px solid black;font-weight:bold;font-size:9px;">Recruitment Asst. Mngr</td>

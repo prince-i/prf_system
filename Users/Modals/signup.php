@@ -24,7 +24,7 @@
                 </div>
                 <!-- ROLE -->
                 <div class="input-field col s6">
-                    <select name="" id="role_select" class="browser-default z-depth-5">
+                    <select name="" id="role_select" class="browser-default z-depth-5" onchange="update_appr_level()">
                         <option value="" disabled selected>--Select Role--</option>
                         <option value="requestor">Requestor</option>
                         <option value="approver">Approver</option>
@@ -41,11 +41,7 @@
                 <div class="input-field col s6">
                     <select name="" id="approval_level_select" class="browser-default z-depth-5">
                         <option value="" disabled selected>--SELECT APPROVAL LEVEL--</option>
-                        <?php
-                            for($x = 1; $x<=7;$x++){
-                                echo '<option value="'.$x.'">'.$x.'</option>';
-                            }
-                        ?>
+                       
                     </select>
                 </div>
             </div>

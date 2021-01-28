@@ -403,6 +403,5 @@ elseif($method == 'declineByRT'){
         echo 'fail';
     }
 }
-
 $conn=null;
 ?>

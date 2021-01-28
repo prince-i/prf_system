@@ -80,22 +80,57 @@
         $plan_mp_dept = $_POST['plan_mp_dept'];
         $actual_mp_section = $_POST['actual_mp_section'];
         $plan_mp_section = $_POST['plan_mp_section'];
-        // DATE
-        // $date_now = date("Y-m-d H:i:s");
-        // $time_now = date("H:i:s");
-        $save_req = "INSERT INTO tb_request_mp (`id`,`requestor`,`requestor_email`,`requesting_position`,`assigned_dept`,`female_num_mp`,
-        `male_num_mp`,`total_mp`,`contract_status`,`date_start`,`date_end`,`education`,`required_license`,`work_exp`,`other_qualification`,
-        `job_duties`,`interview_need`,`interviewers`,`availability_for_interview`,`additional_mp`,
-        `mp_plan`,`reorganization`,`promotion`,`retirement`,`replacement`,`replacement_mp_name`,`others`,
-        `budget_source`,`budget_status`,`actual_mp_dept`,`actual_mp_section`,`plan_mp_dept`,`plan_mp_section`,`request_date`,`approval_status`,`verification_status`,`step`)
-         VALUES ('$id','$requestor','$email','$position','$assign_dept','$female_mp_count','$male_mp_count','$total','$contractStatus','$dateStart','$dateEnd','$educ','$cert','$work_exp','$other_quali',
-        '$job_duties','$interview_stat','$interviewer','$interview_date_time','$add_mp_val','$mp_plan_val','$re_org_val','$promotion','$retirement','$replace_val','$replaceName',
-        '$other_text','$budget_source','$budget_status','$actual_mp_dept','$actual_mp_section','$plan_mp_dept','$plan_mp_section','$server_date_time','FOR APPROVAL OF ASST. MNGR/SECTION MNGR.','PENDING','1')";
-        $stmt = $conn->prepare($save_req);
-        if($stmt->execute()){
-            echo "Success!";
-        }else{
-            echo "Failed!";
+        $level = $_POST['level'];
+        if($level == 1){
+            // REQUESTOR
+                $save_req = "INSERT INTO tb_request_mp (`id`,`requestor`,`requestor_email`,`requesting_position`,`assigned_dept`,`female_num_mp`,
+            `male_num_mp`,`total_mp`,`contract_status`,`date_start`,`date_end`,`education`,`required_license`,`work_exp`,`other_qualification`,
+            `job_duties`,`interview_need`,`interviewers`,`availability_for_interview`,`additional_mp`,
+            `mp_plan`,`reorganization`,`promotion`,`retirement`,`replacement`,`replacement_mp_name`,`others`,
+            `budget_source`,`budget_status`,`actual_mp_dept`,`actual_mp_section`,`plan_mp_dept`,`plan_mp_section`,`request_date`,`approval_status`,`verification_status`,`step`)
+            VALUES ('$id','$requestor','$email','$position','$assign_dept','$female_mp_count','$male_mp_count','$total','$contractStatus','$dateStart','$dateEnd','$educ','$cert','$work_exp','$other_quali',
+            '$job_duties','$interview_stat','$interviewer','$interview_date_time','$add_mp_val','$mp_plan_val','$re_org_val','$promotion','$retirement','$replace_val','$replaceName',
+            '$other_text','$budget_source','$budget_status','$actual_mp_dept','$actual_mp_section','$plan_mp_dept','$plan_mp_section','$server_date_time','FOR APPROVAL OF ASST. MNGR/SECTION MNGR.','PENDING','1')";
+            $stmt = $conn->prepare($save_req);
+            if($stmt->execute()){
+                echo "Success!";
+            }else{
+                echo "Failed!";
+            }
+        }
+        if($level == 2){
+            // APPROVE CHECKER REQUEST
+                $save_req = "INSERT INTO tb_request_mp (`id`,`requestor`,`requestor_email`,`requesting_position`,`assigned_dept`,`female_num_mp`,
+            `male_num_mp`,`total_mp`,`contract_status`,`date_start`,`date_end`,`education`,`required_license`,`work_exp`,`other_qualification`,
+            `job_duties`,`interview_need`,`interviewers`,`availability_for_interview`,`additional_mp`,
+            `mp_plan`,`reorganization`,`promotion`,`retirement`,`replacement`,`replacement_mp_name`,`others`,
+            `budget_source`,`budget_status`,`actual_mp_dept`,`actual_mp_section`,`plan_mp_dept`,`plan_mp_section`,`request_date`,`approval_status`,`verification_status`,`step`,`approve_check_by`,`approve_check_remarks`)
+            VALUES ('$id','$requestor','$email','$position','$assign_dept','$female_mp_count','$male_mp_count','$total','$contractStatus','$dateStart','$dateEnd','$educ','$cert','$work_exp','$other_quali',
+            '$job_duties','$interview_stat','$interviewer','$interview_date_time','$add_mp_val','$mp_plan_val','$re_org_val','$promotion','$retirement','$replace_val','$replaceName',
+            '$other_text','$budget_source','$budget_status','$actual_mp_dept','$actual_mp_section','$plan_mp_dept','$plan_mp_section','$server_date_time','FOR APPROVAL OF DEPT. MNGR./DIV. MNGR.','PENDING','2','$requestor','APPROVED')";
+            $stmt = $conn->prepare($save_req);
+            if($stmt->execute()){
+                echo "Success!";
+            }else{
+                echo "Failed!";
+            }
+        }
+        if($level == 3){
+            // APPROVER NOTE REQUEST
+            $save_req = "INSERT INTO tb_request_mp (`id`,`requestor`,`requestor_email`,`requesting_position`,`assigned_dept`,`female_num_mp`,
+            `male_num_mp`,`total_mp`,`contract_status`,`date_start`,`date_end`,`education`,`required_license`,`work_exp`,`other_qualification`,
+            `job_duties`,`interview_need`,`interviewers`,`availability_for_interview`,`additional_mp`,
+            `mp_plan`,`reorganization`,`promotion`,`retirement`,`replacement`,`replacement_mp_name`,`others`,
+            `budget_source`,`budget_status`,`actual_mp_dept`,`actual_mp_section`,`plan_mp_dept`,`plan_mp_section`,`request_date`,`approval_status`,`verification_status`,`step`,`approve_check_by`,`approve_check_remarks`,`approve_noted_by`,`approve_noted_remarks`)
+            VALUES ('$id','$requestor','$email','$position','$assign_dept','$female_mp_count','$male_mp_count','$total','$contractStatus','$dateStart','$dateEnd','$educ','$cert','$work_exp','$other_quali',
+            '$job_duties','$interview_stat','$interviewer','$interview_date_time','$add_mp_val','$mp_plan_val','$re_org_val','$promotion','$retirement','$replace_val','$replaceName',
+            '$other_text','$budget_source','$budget_status','$actual_mp_dept','$actual_mp_section','$plan_mp_dept','$plan_mp_section','$server_date_time','APPROVED','FOR APPROVAL OF ASST. RECRUITMENT MNGR.','3','$requestor','APPROVED','$requestor','APPROVED')";
+            $stmt = $conn->prepare($save_req);
+            if($stmt->execute()){
+                echo "Success!";
+            }else{
+                echo "Failed!";
+            }
         }
     }
     // PENDING VIEW
