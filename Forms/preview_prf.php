@@ -47,9 +47,9 @@
             $verify_manager = $x['verify_verifier_manager'];
             $verify_div_mgr = $x['verify_verifier_div_mgr'];
             $step = $x['step'];
-            if(!empty($checker)){
-                $checker_sig = 'APPROVED';
-            }
+            // if(!empty($checker)){
+            //     $checker_sig = 'APPROVED';
+            // }
             $president = $x['president_verify'];
         }
     }
@@ -92,14 +92,14 @@
     <!-- TITLE ROW -->
         <div class="col s12">
             <!-- COLUMN 1 -->
-            <div class="col s6">
+            <div class="col s5">
             <img src="../Img/FAS.png" alt="FAS logo" width="250" height="50">
                 <p><b>PERSONAL REQUISITION FORM</b></p>
                 <b>Instructions/Hiring Information</b>
                 <p>Use this form to initiate the recruitment provess for new and existing employee/s. Please complete all applicable sections of this form.</p>
             </div>
             <!-- COLUMN 2 -->
-            <div class="col s6">
+            <div class="col s7">
                 <table class="centered" style="border:1.5px solid black;" cellpadding="0" height=""> 
                     <tr style="border:1.5px solid black;" class="#bdbdbd grey lighten-1">
                         <td colspan="3" style="font-weight:bold;font-size:10px;">Approval of Requesting Department</td>
@@ -284,7 +284,10 @@
     <!-- SIGNATORIES -->
     <div class="row">
         <div class="co s12">
-            <div class="col s5"></div>
+            <div class="col s5 center">
+               <img id="stamp" class="responsive-img" src="../Img/approved.png" alt="" style="margin-top:16%;display:none;">
+               <!-- <p id="stamp" style="font-size:20px;border:2px solid black;display:none;">&check; APPROVED DOCUMENT</p> -->
+            </div>
             <div class="col s7">
                 <table class="centered" style="border:1px solid black;" cellpadding="0" cellspacing="0">
                     <tr class="#bdbdbd grey lighten-1">
@@ -332,6 +335,15 @@
                document.getElementById('watermark').style.display = "block";
             }else{
                 document.getElementById('watermark').style.display = "none";
+            }
+        }
+        detectDone();
+        function detectDone(){
+            var status = '<?=$step;?>';
+            if(status == '7'){
+                document.getElementById('stamp').style.display = "block";
+            }else{
+                document.getElementById('stamp').style.display = "none";
             }
         }
     </script>

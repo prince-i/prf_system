@@ -24,7 +24,8 @@
 <body style="display:none;">
 <!-- MODAL -->
 <?php
-  
+  include 'Modals/pres_appr.php';
+  include 'Modals/decline_pres.php';
 ?>
 <!-- /MODAL -->
 <nav class="nav-extended #212121 grey darken-4 z-depth-5">
@@ -51,9 +52,9 @@
 <!-- ACCT MENU -->
 <?php include 'Modals/account_menu.php';?>
 <!-- TAB CONTENTS -->
-<div id="request"></div>
-<div id="verified"></div>
-<div id="cancelled"></div>
+<div id="request"><?php include_once 'president_page/for_approval.php';?></div>
+<div id="verified"><?php include_once 'president_page/verified_req.php';?></div>
+<div id="cancelled"><?php include_once 'president_page/cancelled_req.php';?></div>
 
 <!-- JS -->
 <script src="../jquery/jquery.min.js"></script>
@@ -82,7 +83,144 @@
     for_approval();
 });
 
- 
+function for_approval(){
+  var filter = document.getElementById('deptFilterReq').value;
+  $.ajax({
+    url: '../php/presController.php',
+    type: 'POST',
+    cache: false,
+    data:{
+      method: 'for_approval',
+      filter:filter,
+    },success:function(response){
+      document.getElementById('req_table').innerHTML = response;
+    }
+  });
+}
+
+// LOAD VERIFIED
+function load_verified(){
+  var filter = document.getElementById('deptFilterDone').value;
+  $.ajax({
+    url: '../php/presController.php',
+    type: 'POST',
+    cache: false,
+    data:{
+      method: 'verified_prf',
+      filter:filter,
+    },success:function(response){
+      document.getElementById('done_table').innerHTML = response;
+    }
+  });
+}
+// CANCEL REQ
+function load_cancelled(){
+  var filter = document.getElementById('deptFilterCancel').value;
+  $.ajax({
+    url: '../php/presController.php',
+    type: 'POST',
+    cache: false,
+    data:{
+      method: 'cancelled_prf',
+      filter:filter,
+    },success:function(response){
+      document.getElementById('cancel_table').innerHTML = response;
+    }
+  });
+}
+
+// APPROVAL PREVIEW
+function appr_preview(id){
+  document.getElementById('req_id').value = id;
+  $.ajax({
+    url: '../php/presController.php',
+    type: 'POST',
+    cache: false,
+    data:{
+      method:'preview_approval',
+      id:id
+    },success:function(response){
+      document.getElementById('preview_form').innerHTML = response;
+    }
+  });
+}
+
+function preview(){
+  var id = document.getElementById('req_id').value;
+  window.open('../Forms/preview_prf.php?id='+id,"Preview","width=1000,height=600,left=150");
+}
+
+function approve(){
+  var id = document.getElementById('req_id').value;
+  var level = '<?=$level;?>';
+  var name = '<?=ucwords($name);?>';
+  var x = confirm('You are going to approve this PRF. Click "OK" to proceed.');
+  if(x == true){
+    document.getElementById('approveBtn').disabled = true;
+    $.ajax({
+    url: '../php/presController.php',
+    type: 'POST',
+    cache: false,
+    data:{
+      method: 'approve_pres_func',
+      id:id,
+      level:level,
+      name:name
+    },success:function(response){
+      console.log(response);
+      if(response == 'invalid'){
+        M.toast({html:'Unauthorized Personnel!',classes:'rounded'});
+      }else if(response == 'fail'){
+        M.toast({html:'Error!',classes:'rounded'});
+      }else{
+        swal('Approved','Successfully approved request!','success');
+        for_approval();
+        $('.modal').modal('close','#appr_pres_modal');
+      }
+    }
+  });
+  }else{
+    // DO NOTHING
+  }
+}
+
+// DECLINE FUNCTION
+function get_id_decline(id){
+  // console.log(id);
+  document.getElementById('decline_id').value = id;
+  $('.modal').modal('close','#appr_pres_modal');
+}
+
+function disapproved(){
+  var id = document.getElementById('decline_id').value;
+  var cancel_remarks = document.getElementById('cancel_remarks').value;
+  if(cancel_remarks == ''){
+    swal('Incomplete','Please enter your reason for cancelling this request.','info');
+  }else{
+    document.getElementById('decConfirmBtn').disabled = true;
+    $.ajax({
+      url:'../php/presController.php',
+      type:'POST',
+      cache:false,
+      data:{
+        method: 'disapprove_president',
+        id:id,
+        cancel_remarks:cancel_remarks
+      },success:function(response){
+        // console.log(response);
+        if(response == 'ok'){
+          swal('Done!','Disapproved successfully!','success');
+          $('.modal').modal('close','#decline_pres');
+          for_approval();
+          document.getElementById('decConfirmBtn').disabled = false;
+        }else{
+          document.getElementById('decConfirmBtn').disabled = false;
+          swal('Error!');
+        }
+      }
+    });
+  }
+}
 </script>
 </body>
 </html>

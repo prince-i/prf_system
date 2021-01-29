@@ -263,7 +263,7 @@ elseif($method == 'approval_note_func'){
         }
             $compatible = $step + 1;
             if($compatible == $level){
-                $step_two_appr = "UPDATE tb_request_mp SET step = '3',approve_noted_by = '$name',approve_check_remarks = 'APPROVED',approval_status = 'APPROVED',verification_status = 'FOR APPROVAL OF ASST. RECRUITMENT MANAGER'  WHERE id = '$id'";
+                $step_two_appr = "UPDATE tb_request_mp SET step = '3',approve_noted_by = '$name',approve_noted_remarks = 'APPROVED',approval_status = 'APPROVED',verification_status = 'FOR APPROVAL OF ASST. RECRUITMENT MANAGER'  WHERE id = '$id'";
                 $stmt = $conn->prepare($step_two_appr);
                 if($stmt->execute()){
                     echo 'true';

@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <link rel="icon" href="../Img/logo.jpg" type="image/jpg" sizes="16x16">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HRD Manager Dashboard</title>
+    <title>HRD Division Manager Dashboard</title>
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
     <link rel="stylesheet" href="../style.css">
     <style>
