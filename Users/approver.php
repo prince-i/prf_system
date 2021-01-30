@@ -1,5 +1,14 @@
 <?php
-    include_once "../php/session.php";
+    include "../php/session.php";
+    
+    if($level >= 2 && $level <= 3){
+        // DO NOTHING
+    }else{
+        // RESTRICT THE USER IF NOT LEVEL 2 and 3
+        session_unset();
+        session_destroy();
+        header('location: ../index.php');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

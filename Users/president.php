@@ -1,5 +1,10 @@
 <?php
     include_once "../php/session.php";
+    if($level != 7){
+      session_unset();
+      session_destroy();
+      header('location:../index.php');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,6 +31,7 @@
 <?php
   include 'Modals/pres_appr.php';
   include 'Modals/decline_pres.php';
+  include 'Modals/pres_summary.php';
 ?>
 <!-- /MODAL -->
 <nav class="nav-extended #212121 grey darken-4 z-depth-5">
@@ -150,6 +156,11 @@ function preview(){
   window.open('../Forms/preview_prf.php?id='+id,"Preview","width=1000,height=600,left=150");
 }
 
+function preview_only(){
+  var id = document.getElementById('prev_id').value;
+  window.open('../Forms/preview_prf.php?id='+id,"Preview","width=1000,height=600,left=150");
+}
+
 function approve(){
   var id = document.getElementById('req_id').value;
   var level = '<?=$level;?>';
@@ -220,6 +231,24 @@ function disapproved(){
       }
     });
   }
+}
+// GET PREVIEW ID
+function preview_id(id){
+  console.log(id);
+  // THROW ID TO INPUT HIDDEN
+  document.getElementById('prev_id').value = id;
+  $.ajax({
+    url: '../php/presController.php',
+    type: 'POST',
+    cache: false,
+    data:{
+      method: 'preview_verified',
+      id:id
+    },success:function(response){
+      // console.log(response);
+      document.getElementById('preview_verified_form').innerHTML = response;
+    }
+  });
 }
 </script>
 </body>

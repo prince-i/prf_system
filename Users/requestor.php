@@ -1,5 +1,10 @@
 <?php
     include_once "../php/session.php";
+    if($level > 3){
+        session_unset();
+        session_destroy();
+        header('location:../index.php');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -85,7 +85,8 @@
     </style>
 </head>
 <body>
-    <img src="../Img/cancel.png" alt="" id="watermark" style="position:absolute;opacity:0.15;width:100%;margin-top:40%;display:none;">
+    <img src="../Img/CANCEL STAMP.png" alt="" id="watermark" style="position:absolute;opacity:0.15;width:100%;margin-top:20%;display:none;">
+    <img src="../Img/PENDING STAMP.png" alt="" id="pending" style="position:absolute;opacity:0.15;width:100%;margin-top:30%;display:none;">
     <!--  PRF FORM -->
     <div class="row container" id="form">
         <br>
@@ -314,6 +315,7 @@
             </div>
         </div>
     </div>
+    <br>
     <button class="btn-small blue z-depth-5" id="print_btn" onclick="print_docs()" style="border-radius:30px;">Print/Save</button>
     </div>
 
@@ -344,6 +346,15 @@
                 document.getElementById('stamp').style.display = "block";
             }else{
                 document.getElementById('stamp').style.display = "none";
+            }
+        }
+        detectPending();
+        function detectPending(){
+            var status = '<?=$step;?>';
+            if(status >= 1 && status <=6){
+                document.getElementById('pending').style.display = "block";
+            }else{
+                document.getElementById('pending').style.display = "none";
             }
         }
     </script>
