@@ -33,6 +33,5 @@ foreach($stmt->fetchALL() as $x){
     }else{
         echo 'fail';
     }
-
     $conn=null;
 ?>
