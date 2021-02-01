@@ -216,7 +216,7 @@
         $ok = $step + 1;
         if($ok == $level){
             // APPROVAL QUERY
-            $approveQL = "UPDATE tb_request_mp SET president_verify = '$name',cancel_remarks = 'APPROVED',verification_status = 'DONE',step = '7' WHERE id = '$id'";
+            $approveQL = "UPDATE tb_request_mp SET president_verify = '$name',cancel_remarks = 'APPROVED',verification_status = 'DONE',step = '7',approve_date='$server_date' WHERE id = '$id'";
             $stmt = $conn->prepare($approveQL);
             if($stmt->execute()){
                 echo 'success';

@@ -178,7 +178,7 @@ function approve(){
       level:level,
       name:name
     },success:function(response){
-      console.log(response);
+      // console.log(response);
       if(response == 'invalid'){
         M.toast({html:'Unauthorized Personnel!',classes:'rounded'});
       }else if(response == 'fail'){
@@ -187,6 +187,7 @@ function approve(){
         swal('Approved','Successfully approved request!','success');
         for_approval();
         $('.modal').modal('close','#appr_pres_modal');
+        // syncToRms();
       }
     }
   });
@@ -194,6 +195,22 @@ function approve(){
     // DO NOTHING
   }
 }
+// // SYNC TO RMS
+// function syncToRms(){
+//   var id = $('#req_id').val();
+//   console.log(id);
+//   $.ajax({
+//     url: '../php/auto_sync.php',
+//     type: 'POST',
+//     cache:false,
+//     data:{
+//       method:'transfer',
+//       id:id
+//     },success:function(response){
+//       console.log(response);
+//     }
+//   });
+// }
 
 // DECLINE FUNCTION
 function get_id_decline(id){
