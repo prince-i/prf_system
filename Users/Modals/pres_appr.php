@@ -4,6 +4,7 @@
 </div>
 <div class="modal-content">
     <input type="hidden" name="" id="req_id">
+    <input type="hidden" name="" id="req_email">
     <div class="row" id="preview_form"></div>
 </div>
 </div>

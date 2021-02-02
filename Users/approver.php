@@ -212,6 +212,7 @@ const check_request =()=>{
                 load_for_approval();
                 M.toast({html:'Approved successfully!',classes:'rounded'});
                 $('.modal').modal('close','#preview_summary');
+                sendmail();
             }else if(response == 'false'){
                 M.toast({html:'Error!',classes:'rounded'});
             }
@@ -222,9 +223,27 @@ const check_request =()=>{
     });
     }else{
         // DECLINE
-        console.log('no');
+        // console.log('no');
     }
 }
+
+// EMAIL TO APPROVER CHECKER
+const sendmail =()=>{
+    var level = '<?=$level;?>';
+    var dept = '<?=$department;?>';
+    $.ajax({
+        url: '../phpmailer/for_approval_notif.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            level:level,
+            dept:dept
+        },success:function(response){
+            console.log(response);
+        }
+    });
+}
+
 // NOTE REQUEST
 const note_request =()=>{
     var id = document.querySelector('#prf_ID').value;
@@ -249,6 +268,7 @@ const note_request =()=>{
                 M.toast({html:'Approved successfully!',classes:'rounded'});
                 $('.modal').modal('close','#preview_summary');
                 load_for_approval_note();
+                sendNote();
             }else if(response == 'false'){
                 M.toast({html:'Error!',classes:'rounded'});
             }
@@ -259,9 +279,26 @@ const note_request =()=>{
     });
     }else{
         // DECLINE
-        console.log('no');
+        // console.log('no');
     }
 }
+// EMAIL NOTE 
+const sendNote =()=>{
+    var level = '<?=$level;?>';
+    var dept = '<?=$department;?>';
+    $.ajax({
+        url: '../phpmailer/for_approval_notif.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            level:level,
+            dept:dept
+        },success:function(response){
+            console.log(response);
+        }
+    });
+}
+
 // LOAD APPROVED REQ
 const load_approve_req=()=>{
     var department = '<?=$department;?>';

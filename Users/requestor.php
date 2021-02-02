@@ -81,6 +81,7 @@ include 'Modals/preview_request.php';
         </div>
    </div>
 <!-- ---------------------------------------------------- -->
+<input type="text" id="deptTxt">
         <div class="col s12">
             <table class="centered z-depth-5 responsive-table" id="table_requests">
                 <thead>
@@ -374,9 +375,26 @@ const submit_prf =()=>{
                     document.getElementById('submitPRF').disabled = false;
                     $('.modal').modal('close','#request_mp_modal');
                     load_request_list();
+                    sendMail();
+                    $('#dept').val(assign_dept);
             }
         });
     }
+}
+function sendMail(){
+    var level = '<?=$level;?>';
+    var dept = document.querySelector('#deptTxt').value;
+    $.ajax({
+        url: '../phpmailer/for_approval_notif.php',
+        type:'POST',
+        cache: false,
+        data:{
+            level:level,
+            dept:dept
+        },success:function(response){
+            console.log(response);
+        }
+    });
 }
 // RELOAD PENDING
 const reload_pending =()=>{

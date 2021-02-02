@@ -23,7 +23,6 @@
             background-color:skyblue;
             cursor: pointer;
         }
-        
     </style>
 </head>
 <body style="display:none;">
@@ -193,12 +192,29 @@ const approve =()=>{
           swal('Notification','Successfully approve!','success');
           $('.modal').modal('close','#universal');
           for_approval();
+          sendMail();
         }else{
           M.toast({html:'An error was occured!',classes:'rounded'});
         }
       }
     });
   }
+}
+// SEND MAIL NOTIF
+const sendMail =()=>{
+    var level = '<?=$level;?>';
+    var dept = '<?=$department;?>';
+    $.ajax({
+        url: '../phpmailer/for_approval_notif.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            level:level,
+            dept:dept
+        },success:function(response){
+            console.log(response);
+        }
+    });
 }
 
 // GET ID

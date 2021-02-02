@@ -136,8 +136,12 @@ function load_cancelled(){
 }
 
 // APPROVAL PREVIEW
-function appr_preview(id){
+function appr_preview(param){
+  var string = param.split('*!*');
+  var id = string[0];
+  var email = string[1];
   document.getElementById('req_id').value = id;
+  document.getElementById('req_email').value = email;
   $.ajax({
     url: '../php/presController.php',
     type: 'POST',
@@ -187,7 +191,7 @@ function approve(){
         swal('Approved','Successfully approved request!','success');
         for_approval();
         $('.modal').modal('close','#appr_pres_modal');
-        // syncToRms();
+       emailRequestor();
       }
     }
   });
@@ -195,22 +199,21 @@ function approve(){
     // DO NOTHING
   }
 }
-// // SYNC TO RMS
-// function syncToRms(){
-//   var id = $('#req_id').val();
-//   console.log(id);
-//   $.ajax({
-//     url: '../php/auto_sync.php',
-//     type: 'POST',
-//     cache:false,
-//     data:{
-//       method:'transfer',
-//       id:id
-//     },success:function(response){
-//       console.log(response);
-//     }
-//   });
-// }
+
+// NOTIFY REQUESTOR
+function emailRequestor(){
+  var requestor = document.getElementById('req_email').value;
+  $.ajax({
+    url: '../phpmailer/done_prf.php',
+    type: 'POST',
+    cache: false,
+    data:{
+      requestor:requestor
+    },success:function(response){
+      console.log(response);
+    }
+  });
+}
 
 // DECLINE FUNCTION
 function get_id_decline(id){

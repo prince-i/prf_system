@@ -8,7 +8,7 @@
             $stmt=$conn->prepare($qry);
             $stmt->execute();
             foreach($stmt->fetchAll() as $x){
-                echo '<tr class="modal-trigger" data-target="appr_pres_modal" onclick="appr_preview(&quot;'.$x['id'].'&quot;)">';
+                echo '<tr class="modal-trigger" data-target="appr_pres_modal" onclick="appr_preview(&quot;'.$x['id'].'*!*'.$x['requestor_email'].'&quot;)">';
                 echo '<td>'.$x['id'].'</td>';
                 echo '<td>'.$x['requesting_position'].'</td>';
                 echo '<td>'.$x['assigned_dept'].'</td>';
@@ -25,7 +25,7 @@
             $stmt = $conn->prepare($qry);
             $stmt->execute();
             foreach($stmt->fetchAll() as $x){
-                echo '<tr class="modal-trigger" data-target="appr_pres_modal" onclick="appr_preview(&quot;'.$x['id'].'&quot;)">';
+                echo '<tr class="modal-trigger" data-target="appr_pres_modal" onclick="appr_preview(&quot;'.$x['id'].'*!*'.$x['requestor_email'].'&quot;)">';
                 echo '<td>'.$x['id'].'</td>';
                 echo '<td>'.$x['requesting_position'].'</td>';
                 echo '<td>'.$x['assigned_dept'].'</td>';

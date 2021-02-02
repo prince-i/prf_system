@@ -226,6 +226,7 @@ const approve =()=>{
           swal('Notification','Successfully approve!','success');
           $('.modal').modal('close','#preview_for_rt');
           load_for_rt_appr();
+          sendMail();
         }else{
           M.toast({html:'An error was occured!',classes:'rounded'});
         }
@@ -233,6 +234,24 @@ const approve =()=>{
     });
   }
 }
+
+// SEND MAIL 
+const sendMail =()=>{
+    var level = '<?=$level;?>';
+    var dept = '<?=$department;?>';
+    $.ajax({
+        url: '../phpmailer/for_approval_notif.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            level:level,
+            dept:dept
+        },success:function(response){
+            console.log(response);
+        }
+    });
+}
+
 // GET ID OF REQUEST TO DECLINE
 const get_id_decline =(id)=>{
   // console.log(id);
