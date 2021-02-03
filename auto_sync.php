@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-            .spinner {
+    .spinner {
     margin: 100px auto 0;
     width: 70px;
     text-align: center;
@@ -145,8 +145,9 @@
                     method: 'update_synced',
                     id:id
                 },success:function(response){
+                    // console.log(response);
                     if(response == 'success'){
-                        setTimeout(forSync,5000);
+                        setTimeout(forSync,3000);
                     }else{
                         console.log('error');
                     }
