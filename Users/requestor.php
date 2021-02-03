@@ -81,7 +81,7 @@ include 'Modals/preview_request.php';
         </div>
    </div>
 <!-- ---------------------------------------------------- -->
-<input type="text" id="deptTxt">
+<input type="hidden" id="deptTxt">
         <div class="col s12">
             <table class="centered z-depth-5 responsive-table" id="table_requests">
                 <thead>

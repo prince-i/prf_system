@@ -27,7 +27,7 @@ foreach($stmt->fetchALL() as $x){
     }
 
     // DEFINE CONTRACT STATUS
-    if($contract == 'Probationary' || $contract == 'Fulltime'){
+    if($contract == 'Probationary'){
         // IF PROBITIONARY SYSTEM WILL INPUT THE DEPLOYMENT DATE 42 DAYS FROM APPROVAL DATE
          $deployDate = date('Y-m-d',strtotime("+42 day",strtotime($approveDate)));
         // echo $approveDate;
