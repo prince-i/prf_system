@@ -44,14 +44,14 @@ include 'Modals/declineNoteModal.php';
       <a href="#">Approver Dashboard</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><span style="font-size:20px;font-weight:bold;">&plus;</span></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="requestor.php">Create PRF Request</a></li>
+        <li><a href="requestor.php" id="createPRF">Create PRF Request</a></li>
         <li><a href="#" data-target="acct_option" class="dropdown-trigger"><?=ucwords($name);?>-<?=ucwords($position);?></a></li>
       </ul>
     </div>
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
-        <li class="tab"><a href="#request" onclick="load_for_approval()">For Approval Check<span class="new badge #64b5f6 blue lighten-2" id="pending"></a></span></li>
-        <li class="tab"><a href="#note" onclick="load_for_approval_note()">For Approval Note<span class="new badge #64b5f6 blue lighten-2" id="pending_note"></a></span></li>
+        <li class="tab"><a href="#request" onclick="load_for_approval()" id="approvalTab">For Approval Check<span class="new badge #64b5f6 blue lighten-2" id="pending"></a></span></li>
+        <li class="tab"><a href="#note" onclick="load_for_approval_note()" id="noteTab">For Approval Note<span class="new badge #64b5f6 blue lighten-2" id="pending_note"></a></span></li>
         <li class="tab"><a href="#approved" onclick="load_approve_req()">Approved Request<span class="new badge #64b5f6 blue lighten-2" id="approved_notif"></span></a></li>
         <li class="tab"><a href="#verified" onclick="verifiedView()">Verified Request<span class="new badge #64b5f6 blue lighten-2" id="verified_notif"></span></a></li>
         <li class="tab"><a href="#cancelled" onclick="cancelView()">Cancelled Request<span class="new badge #64b5f6 blue lighten-2" id="cancel_notif"></span></a></li>
@@ -101,7 +101,21 @@ $(document).ready(function(){
     count_approve_prf();
     count_verified();
     countCancel();
+    defineLevel();
 });
+
+function defineLevel(){
+    var level = '<?=$level;?>';
+    if(level == 3){
+        document.getElementById('createPRF').style.display = 'none';
+        document.getElementById('request').style.display = 'none';
+        document.getElementById('approvalTab').style.display = 'none';
+    }
+    if(level == 2){
+        document.getElementById('note').style.display = "none";
+        document.getElementById('noteTab').style.display = "none";
+    }
+}
 
 const load_for_approval =()=>{
     department = '<?=$department;?>';

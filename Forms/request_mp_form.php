@@ -122,14 +122,14 @@
     <div class="row">
         <div class="input-field col l6 m6 s12">
             <b>Required for interview/validation:</b>
-            <select name="" id="interview_status" class="browser-default z-depth-5">
+            <select name="" id="interview_status" class="browser-default z-depth-5" onchange="interviewer()">
                 <option value="" selected disabled>--Select--</option>
                 <option value="need">Need</option>
                 <option value="noneed">No need</option>
             </select>
         </div>
-        <div class="input-field col l6 m6 s12">
-            <input type="text" id="interviewers"><label for="">Interviewer/s</label>
+        <div class="input-field col l6 m6 s12" style="display:none;" id="interField">
+            <input type="text" id="interviewers" ><label for="">Interviewer/s</label>
         </div>
     </div>
     <!-- INTERVIEW INFO -->

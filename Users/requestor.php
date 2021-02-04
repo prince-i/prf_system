@@ -1,6 +1,6 @@
 <?php
     include_once "../php/session.php";
-    if($level > 3){
+    if($level > 2){
         session_unset();
         session_destroy();
         header('location:../index.php');
@@ -246,6 +246,16 @@ include 'Modals/preview_request.php';
             }
         });
     }
+// INTERVIEWER FIELD
+function interviewer(){
+    var x = document.querySelector('#interview_status').value;
+    if(x == 'need'){
+        document.getElementById('interField').style.display = 'block';
+    }else{
+        document.getElementById('interField').style.display = 'none';
+    }
+}
+
 // SUBMIT PRF DETAILS
 const submit_prf =()=>{
         var requestor = '<?=$name;?>';

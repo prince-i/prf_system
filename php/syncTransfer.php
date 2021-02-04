@@ -22,7 +22,10 @@ foreach($stmt->fetchALL() as $x){
     if(strlen($newSubCode) == 2){
         // IF THE PRF NUMBER CODE ADD 0 on start
         $newPRFCode = $yearCode."-0".$newSubCode;
-    }else{
+    }elseif(strlen($newSubCode) == 1){
+        $newPRFCode = $yearCode."-00".$newSubCode;
+    }
+    else{
        $newPRFCode = $yearCode."-".$newSubCode;
     }
 

@@ -286,8 +286,7 @@
     <div class="row">
         <div class="co s12">
             <div class="col s5 center">
-               <img id="stamp" class="responsive-img" src="../Img/approved.png" alt="" style="margin-top:16%;display:none;">
-               <!-- <p id="stamp" style="font-size:20px;border:2px solid black;display:none;">&check; APPROVED DOCUMENT</p> -->
+              
             </div>
             <div class="col s7">
                 <table class="centered" style="border:1px solid black;" cellpadding="0" cellspacing="0">
@@ -339,15 +338,7 @@
                 document.getElementById('watermark').style.display = "none";
             }
         }
-        detectDone();
-        function detectDone(){
-            var status = '<?=$step;?>';
-            if(status == '7'){
-                document.getElementById('stamp').style.display = "block";
-            }else{
-                document.getElementById('stamp').style.display = "none";
-            }
-        }
+
         detectPending();
         function detectPending(){
             var status = '<?=$step;?>';
