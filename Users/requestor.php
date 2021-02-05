@@ -301,44 +301,49 @@ const submit_prf =()=>{
         var plan_mp_dept = document.getElementById('plan_mp_count_dept').value;
         var actual_mp_section = document.getElementById('actual_mp_count_section').value;
         var plan_mp_section = document.getElementById('plan_mp_count_section').value;
+// TYPE OF HIRING
+        var typeHiring = document.getElementById('typeHiring').value;
 // VALIDATION --------------------------------------------------------------------------------------------------------------------------------------
-        if(position == ''){
-            swal('Warning','Hiring position is required.','info');
-        }else if(assign_dept == ''){
-            swal('Warning','Assigned Department must not empty.','info');
-        }else if(numberOfCheck <= 0){
-            swal('Warning','Choose atleast 1 (one) reason for hiring.','info');
-        }else if(contract_status == ''){
-            swal('Warning','Contract status must not empty.','info');
-        }else if(educational_attainment == ''){
-            swal('Warning','Please enter educational attainment!','info');
-        }else if(work_exp == ''){
-            swal('Warning','Please enter required work experience!','info'); 
-        }else if(certification == ''){
-            swal('Warning','Please enter required license or certification!','info'); 
-        }else if(job_duties == ''){
-            swal('Warning','Please explain the description of duties!','info');
-        }else if(interview_need_stats == ''){
-            swal('Warning','Please tell us if he/she is required undergo an interview!','info');
-        }else if(interviewer == ''){
-            swal('Warning','Please enter all the interviewers!','info');
-        }else if(date_interview_set == ''){
-            swal('Warning','Please set a date for interview!','info');
-        }else if(time_interview_set == ''){
-            swal('Warning','Please set a time for interview.','info');
-        }else if(budget_source == ''){
-            swal('Warning','Please specify your budget source information.','info');
-        }else if(budget_status == ''){
-            swal('Warning','Budget status is required.','info');
-        }else if(actual_mp_dept == ''){
-            swal('Warning','Actual Manpower count of department is required.','info');
-        }else if(plan_mp_dept == ''){
-            swal('Warning','Plan manpower count of department is required.','info');
-        }else if(actual_mp_section == ''){
-            swal('Warning','Actual manpower count of section is required.','info');
-        }else if(plan_mp_section == ''){
-            swal('Warning','Plan manpower count of your section is required.','info');
-        }else{
+        // if(position == ''){
+        //     swal('Warning','Hiring position is required.','info');
+        // }else if(assign_dept == ''){
+        //     swal('Warning','Assigned Department must not empty.','info');
+        // }else if(numberOfCheck <= 0){
+        //     swal('Warning','Choose atleast 1 (one) reason for hiring.','info');
+        // }else if(contract_status == ''){
+        //     swal('Warning','Contract status must not empty.','info');
+        // }else if(educational_attainment == ''){
+        //     swal('Warning','Please enter educational attainment!','info');
+        // }else if(work_exp == ''){
+        //     swal('Warning','Please enter required work experience!','info'); 
+        // }else if(certification == ''){
+        //     swal('Warning','Please enter required license or certification!','info'); 
+        // }else if(job_duties == ''){
+        //     swal('Warning','Please explain the description of duties!','info');
+        // }else if(interview_need_stats == ''){
+        //     swal('Warning','Please tell us if he/she is required undergo an interview!','info');
+        // }else if(interviewer == ''){
+        //     swal('Warning','Please enter all the interviewers!','info');
+        // }else if(date_interview_set == ''){
+        //     swal('Warning','Please set a date for interview!','info');
+        // }else if(time_interview_set == ''){
+        //     swal('Warning','Please set a time for interview.','info');
+        // }else if(budget_source == ''){
+        //     swal('Warning','Please specify your budget source information.','info');
+        // }else if(budget_status == ''){
+        //     swal('Warning','Budget status is required.','info');
+        // }else if(actual_mp_dept == ''){
+        //     swal('Warning','Actual Manpower count of department is required.','info');
+        // }else if(plan_mp_dept == ''){
+        //     swal('Warning','Plan manpower count of department is required.','info');
+        // }else if(actual_mp_section == ''){
+        //     swal('Warning','Actual manpower count of section is required.','info');
+        // }else if(plan_mp_section == ''){
+        //     swal('Warning','Plan manpower count of your section is required.','info');
+        // }else if(typeHiring == ''){
+        //     swal('Warning','Please specify the hiring type.','info');
+        // }
+        // else{
         document.getElementById('submitPRF').disabled = true;
         $.ajax({
             url:'../php/requestorController.php',
@@ -380,6 +385,7 @@ const submit_prf =()=>{
                 plan_mp_section:plan_mp_section,
                 email:'<?=$username;?>',
                 level: '<?=$level;?>',
+                typeHiring:typeHiring
             },success:function(response){
                     swal('Notification',response,'success');
                     document.getElementById('submitPRF').disabled = false;
@@ -389,7 +395,7 @@ const submit_prf =()=>{
                     $('#dept').val(assign_dept);
             }
         });
-    }
+    // }
 }
 function sendMail(){
     var level = '<?=$level;?>';

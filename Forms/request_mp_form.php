@@ -178,6 +178,15 @@
         </div>
     </div>
     <div class="row">
+    <div class="input-field col s12 l6 m6 ">
+        <select name="" id="typeHiring" class="browser-default z-depth-5">
+                <option value="">--Type of Hiring--</option>
+                <option value="internal">Internal</option>
+                <option value="external">External</option>
+        </select>
+    </div>
+    </div>
+    <div class="row">
         <div class="input-field col s12">
             <button class="btn-large #0d47a1 blue darken-4 z-depth-5" id="submitPRF" onclick="submit_prf()">submit request&rarr;</button>
         </div>
