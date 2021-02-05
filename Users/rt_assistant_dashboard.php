@@ -31,6 +31,7 @@
   include 'Modals/rt_verify_check_modal.php';
   include 'Modals/rt_preview_pending.php';
   include 'Modals/rt_decline_modal.php';
+  include 'Modals/options.php';
 ?>
 <!-- /MODAL -->
 <nav class="nav-extended #212121 grey darken-4 z-depth-5">
@@ -206,12 +207,41 @@ const load_cancelled =()=>{
     });
 }
 // APPROVE BY RT
-const approve =()=>{
-  var id = document.querySelector('#prf_ID').value;
+// const approve =()=>{
+//   var id = document.querySelector('#prf_ID').value;
+//   var name = '<?=$name;?>';
+//   var signatoryLevel = '<?=$level;?>';
+//   var x = confirm('You are going to approve this request, click OK to confirm.');
+//   if(x == true){
+//     $.ajax({
+//       url: '../php/rtController.php',
+//       type: 'POST',
+//       cache: false,
+//       data:{
+//         method: 'approve_rt',
+//         id:id,
+//         name:name,
+//         signatoryLevel:signatoryLevel
+//       },success:function(response){
+//         if(response == 'success'){
+//           swal('Notification','Successfully approve!','success');
+//           $('.modal').modal('close','#preview_for_rt');
+//           load_for_rt_appr();
+//           sendMail();
+//         }else{
+//           M.toast({html:'An error was occured!',classes:'rounded'});
+//         }
+//       }
+//     });
+//   }
+// }
+function approve() {
+  var id = document.getElementById('prf_ID').value;
   var name = '<?=$name;?>';
-  var signatoryLevel = '<?=$level;?>';
-  var x = confirm('You are going to approve this request, click OK to confirm.');
-  if(x == true){
+  var signatoryLevel = document.getElementById('nextApprover').value;
+  if(signatoryLevel == ''){
+    swal('Notification','PLEASE SELECT NEXT APPROVER','info');
+  }else{
     $.ajax({
       url: '../php/rtController.php',
       type: 'POST',
@@ -219,22 +249,19 @@ const approve =()=>{
       data:{
         method: 'approve_rt',
         id:id,
-        name:name,
-        signatoryLevel:signatoryLevel
+        signatoryLevel:signatoryLevel,
+        name:name
       },success:function(response){
+        console.log(response);
         if(response == 'success'){
-          swal('Notification','Successfully approve!','success');
-          $('.modal').modal('close','#preview_for_rt');
+          swal('Notification','Success!','success');
+          $('.modal').modal('close','#rtOption');
           load_for_rt_appr();
-          sendMail();
-        }else{
-          M.toast({html:'An error was occured!',classes:'rounded'});
         }
       }
     });
   }
 }
-
 // SEND MAIL 
 const sendMail =()=>{
     var level = '<?=$level;?>';
@@ -284,6 +311,12 @@ function decline_rt_check(){
     }
   });
   }
+}
+
+function hide_modal(){
+  $('.modal').modal('close','#preview_for_rt');
+  var id = document.getElementById('prf_ID').value;
+  console.log(id);
 }
 </script>
 </body>

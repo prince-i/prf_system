@@ -177,15 +177,33 @@
             </div>
         </div>
     </div>
-    <div class="row">
-    <div class="input-field col s12 l6 m6 ">
-        <select name="" id="typeHiring" class="browser-default z-depth-5">
+    <!-- ------------------------------------- -->
+        <div class="row">
+        <div class="input-field col s12 l6 m6 ">
+            <select name="" id="typeHiring" class="browser-default z-depth-5">
                 <option value="">--Type of Hiring--</option>
                 <option value="internal">Internal</option>
                 <option value="external">External</option>
-        </select>
-    </div>
-    </div>
+            </select>
+        </div>
+      
+        <div class="input-field col s12 l6 m6 ">
+            <?php
+                if($level == 1){
+                    echo '<select id="nextSignatory" class="browser-default z-depth-5">';
+                    echo '<option value="">--Special Signatory--</option>';
+                    echo '<option value="'.$level.'">Default</option>';
+                    echo '<option value="'.($level + 1).'">For Signatory of Dept. Mngr/Div. Mngr</option>';
+                    echo '</select>';
+                }else{
+                    echo '<select id="nextSignatory" class="browser-default z-depth-5" disabled>';
+                    echo '<option value="'.$level.'">Default</option>';
+                    echo '</select>';
+                }
+            ?>
+        </div>
+        </div>
+        <!-- ------------------------- -->
     <div class="row">
         <div class="input-field col s12">
             <button class="btn-large #0d47a1 blue darken-4 z-depth-5" id="submitPRF" onclick="submit_prf()">submit request&rarr;</button>

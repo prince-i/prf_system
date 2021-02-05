@@ -82,6 +82,7 @@
         $plan_mp_section = $_POST['plan_mp_section'];
         $level = $_POST['level'];
         $typeHiring = $_POST['typeHiring'];
+        $nextSign = $_POST['nextSign'];
         if($level == 1){
             // REQUESTOR
                 $save_req = "INSERT INTO tb_request_mp (`id`,`requestor`,`requestor_email`,`requesting_position`,`assigned_dept`,`female_num_mp`,
@@ -91,7 +92,7 @@
             `budget_source`,`budget_status`,`actual_mp_dept`,`actual_mp_section`,`plan_mp_dept`,`plan_mp_section`,`request_date`,`approval_status`,`verification_status`,`step`,`typeHiring`)
             VALUES ('$id','$requestor','$email','$position','$assign_dept','$female_mp_count','$male_mp_count','$total','$contractStatus','$dateStart','$dateEnd','$educ','$cert','$work_exp','$other_quali',
             '$job_duties','$interview_stat','$interviewer','$interview_date_time','$add_mp_val','$mp_plan_val','$re_org_val','$promotion','$retirement','$replace_val','$replaceName',
-            '$other_text','$budget_source','$budget_status','$actual_mp_dept','$actual_mp_section','$plan_mp_dept','$plan_mp_section','$server_date_time','FOR APPROVAL OF ASST. MNGR/SECTION MNGR.','PENDING','1','$typeHiring')";
+            '$other_text','$budget_source','$budget_status','$actual_mp_dept','$actual_mp_section','$plan_mp_dept','$plan_mp_section','$server_date_time','FOR APPROVAL OF ASST. MNGR/SECTION MNGR.','PENDING','$nextSign','$typeHiring')";
             $stmt = $conn->prepare($save_req);
             if($stmt->execute()){
                 echo "Success!";
@@ -108,7 +109,7 @@
             `budget_source`,`budget_status`,`actual_mp_dept`,`actual_mp_section`,`plan_mp_dept`,`plan_mp_section`,`request_date`,`approval_status`,`verification_status`,`step`,`approve_check_by`,`approve_check_remarks`,`typeHiring`)
             VALUES ('$id','$requestor','$email','$position','$assign_dept','$female_mp_count','$male_mp_count','$total','$contractStatus','$dateStart','$dateEnd','$educ','$cert','$work_exp','$other_quali',
             '$job_duties','$interview_stat','$interviewer','$interview_date_time','$add_mp_val','$mp_plan_val','$re_org_val','$promotion','$retirement','$replace_val','$replaceName',
-            '$other_text','$budget_source','$budget_status','$actual_mp_dept','$actual_mp_section','$plan_mp_dept','$plan_mp_section','$server_date_time','FOR APPROVAL OF DEPT. MNGR./DIV. MNGR.','PENDING','2','N/A','APPROVED','$typeHiring')";
+            '$other_text','$budget_source','$budget_status','$actual_mp_dept','$actual_mp_section','$plan_mp_dept','$plan_mp_section','$server_date_time','FOR APPROVAL OF DEPT. MNGR./DIV. MNGR.','PENDING','$nextSign','N/A','APPROVED','$typeHiring')";
             $stmt = $conn->prepare($save_req);
             if($stmt->execute()){
                 echo "Success!";

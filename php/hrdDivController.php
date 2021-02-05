@@ -4,7 +4,7 @@
     if($method == 'for_approval'){
         $filter = $_POST['filter'];
         if(empty($filter)){
-            $fetch = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step >= 4 AND step <=5  ORDER BY id ASC";
+            $fetch = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step = 5  ORDER BY id ASC";
             $stmt=$conn->prepare($fetch);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
@@ -21,7 +21,7 @@
                 echo '</tr>';
             }
         }else{
-            $fetch = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE step >= 4 AND step <=5  AND assigned_dept LIKE '$filter%' ORDER BY id ASC";
+            $fetch = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE step = 5  AND assigned_dept LIKE '$filter%' ORDER BY id ASC";
             $stmt=$conn->prepare($fetch);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){

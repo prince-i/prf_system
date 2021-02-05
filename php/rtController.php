@@ -203,7 +203,7 @@ elseif($method == 'verified_view'){
             echo '<button class="btn z-depth-5 #1976d2 blue darken-2" style="border-radius:20px;" onclick="preview()">preview</button>';
             echo '</div>';
             echo '<div class="input-field col s4">';
-            echo '<button class="btn z-depth-5 green" style="border-radius:20px;" onclick="approve()">approve</button>';
+            echo '<button class="btn z-depth-5 green modal-trigger" onclick="hide_modal()" style="border-radius:20px;" data-target="rtOption">approve</button>';
             echo '</div>';
             // decline
             echo '<div class="input-field col s4">';
@@ -369,24 +369,24 @@ elseif($method=='approve_rt'){
     $id = $_POST['id'];
     $name = $_POST['name'];
     $level = $_POST['signatoryLevel'];
-    // CHECK LEVEL APPROVAL
-    $fetchDoc = "SELECT step FROM tb_request_mp WHERE id = '$id'";
-    $stmt = $conn->prepare($fetchDoc);
-    $stmt->execute();
-    foreach($stmt->fetchall() as $x){
-        $step = $x['step'];
-    }
-    $compat = $step + 1;
-    if($compat == $level){
+    $signView = $level - 1;
+    // // CHECK LEVEL APPROVAL
+    // $fetchDoc = "SELECT step FROM tb_request_mp WHERE id = '$id'";
+    // $stmt = $conn->prepare($fetchDoc);
+    // $stmt->execute();
+    // foreach($stmt->fetchall() as $x){
+    //     $step = $x['step'];
+    // }
+    // $compat = $step + 1;
+    // if($compat == $level){
         // APPROVAL QUERY]
-        $approveQL = "UPDATE tb_request_mp SET verify_check_by = '$name', verify_check_remarks = 'APPROVED', verification_status = 'FOR APPROVAL OF HRD MANAGER AND HRD DIVISION MANAGER', step = '4' WHERE id = '$id'";
+        $approveQL = "UPDATE tb_request_mp SET verify_check_by = '$name', verify_check_remarks = 'APPROVED', verification_status = 'FOR APPROVAL OF HRD MANAGER AND HRD DIVISION MANAGER', step = '$signView' WHERE id = '$id'";
         $stmt=$conn->prepare($approveQL);
         if($stmt->execute()){
             echo 'success';
         }else{
             echo 'fail';
         }
-    }
 
 }
 // CANCEL REQ
