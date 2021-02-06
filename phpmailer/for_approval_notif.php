@@ -28,7 +28,7 @@ if($level == 1){
 if($level == 2){
     // FETCH APPROVER TO EMAIL
     $recipient = $level + 1;
-    $fetchUser = "SELECT username FROM prf_account WHERE acct_level = '$recipient' AND department LIKE '$dept%' LIMIT 1";
+    $fetchUser = "SELECT username,name FROM prf_account WHERE acct_level = '$recipient' AND department LIKE '$dept%' LIMIT 1";
     $stmt = $conn->prepare($fetchUser);
     $stmt->execute();
     foreach($stmt->fetchALL() as $x){
@@ -40,7 +40,7 @@ if($level == 2){
 if($level == 3){
     // FETCH APPROVER TO EMAIL
     $recipient = $level + 1;
-    $fetchUser = "SELECT username FROM prf_account WHERE acct_level = '$recipient' LIMIT 1";
+    $fetchUser = "SELECT username,name FROM prf_account WHERE acct_level = '$recipient' LIMIT 1";
     $stmt = $conn->prepare($fetchUser);
     $stmt->execute();
     foreach($stmt->fetchALL() as $x){
@@ -51,7 +51,7 @@ if($level == 3){
 
 if($level == 4){
     $recipient = $level + 1;
-    $fetchUser = "SELECT username FROM prf_account WHERE acct_level = '$recipient' LIMIT 1";
+    $fetchUser = "SELECT username,name FROM prf_account WHERE acct_level = '$recipient' LIMIT 1";
     $stmt = $conn->prepare($fetchUser);
     $stmt->execute();
     foreach($stmt->fetchALL() as $x){
@@ -62,7 +62,7 @@ if($level == 4){
 
 if($level == 5){
     $recipient = $level + 1;
-    $fetchUser = "SELECT username FROM prf_account WHERE acct_level = '$recipient' LIMIT 1";
+    $fetchUser = "SELECT username,name FROM prf_account WHERE acct_level = '$recipient' LIMIT 1";
     $stmt = $conn->prepare($fetchUser);
     $stmt->execute();
     foreach($stmt->fetchALL() as $x){
@@ -73,7 +73,7 @@ if($level == 5){
 
 if($level == 6){
     $recipient = $level + 1;
-    $fetchUser = "SELECT username FROM prf_account WHERE acct_level = '$recipient' LIMIT 1";
+    $fetchUser = "SELECT username,name FROM prf_account WHERE acct_level = '$recipient' LIMIT 1";
     $stmt = $conn->prepare($fetchUser);
     $stmt->execute();
     foreach($stmt->fetchALL() as $x){

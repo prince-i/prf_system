@@ -34,6 +34,7 @@
   include 'Modals/options.php';
 ?>
 <!-- /MODAL -->
+
 <nav class="nav-extended #212121 grey darken-4 z-depth-5">
     <div class="nav-wrapper">
     <a href="#" class="brand-logo center"><img src="../Img/logo.png" alt="" class="responsive-img" style="width:50px;"></a>
@@ -257,6 +258,7 @@ function approve() {
           swal('Notification','Success!','success');
           $('.modal').modal('close','#rtOption');
           load_for_rt_appr();
+          sendMail();
         }
       }
     });
@@ -264,7 +266,9 @@ function approve() {
 }
 // SEND MAIL 
 const sendMail =()=>{
-    var level = '<?=$level;?>';
+    var levelNext = document.getElementById('nextApprover').value;
+    var level = parseInt(levelNext - 1);
+    console.log(level);
     var dept = '<?=$department;?>';
     $.ajax({
         url: '../phpmailer/for_approval_notif.php',
@@ -275,6 +279,7 @@ const sendMail =()=>{
             dept:dept
         },success:function(response){
             console.log(response);
+            document.getElementById('nextApprover').value = '';
         }
     });
 }
