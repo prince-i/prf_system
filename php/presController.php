@@ -347,4 +347,6 @@
             echo '</div>';
         }
     }
+
+$conn = null;
 ?>

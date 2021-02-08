@@ -21,7 +21,7 @@
     <!-- BUTTON -->
     <div class="col s12">
         <div class="input-field">
-            <button class="btn blue col s12 waves-effect" onclick="approve()">Proceed</button>
+            <button class="btn blue col s12 waves-effect" onclick="approve()" id="proceedBtn">Proceed</button>
         </div>
     </div>
 </div>

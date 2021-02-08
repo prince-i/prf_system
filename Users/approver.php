@@ -50,11 +50,11 @@ include 'Modals/declineNoteModal.php';
     </div>
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
-        <li class="tab"><a href="#request" onclick="load_for_approval()" id="approvalTab">For Approval Check<span class="new badge #64b5f6 blue lighten-2" id="pending"></a></span></li>
-        <li class="tab"><a href="#note" onclick="load_for_approval_note()" id="noteTab">For Approval Note<span class="new badge #64b5f6 blue lighten-2" id="pending_note"></a></span></li>
-        <li class="tab"><a href="#approved" onclick="load_approve_req()">Approved Request<span class="new badge #64b5f6 blue lighten-2" id="approved_notif"></span></a></li>
-        <li class="tab"><a href="#verified" onclick="verifiedView()">Verified Request<span class="new badge #64b5f6 blue lighten-2" id="verified_notif"></span></a></li>
-        <li class="tab"><a href="#cancelled" onclick="cancelView()">Cancelled Request<span class="new badge #64b5f6 blue lighten-2" id="cancel_notif"></span></a></li>
+        <li class="tab"><a href="#request" onclick="load_for_approval()" id="approvalTab">For Approval Check</a></li>
+        <li class="tab"><a href="#note" onclick="load_for_approval_note()" id="noteTab">For Approval Note</a></li>
+        <li class="tab"><a href="#approved" onclick="load_approve_req()">Approved Request</a></li>
+        <li class="tab"><a href="#verified" onclick="verifiedView()">Verified Request</a></li>
+        <li class="tab"><a href="#cancelled" onclick="cancelView()">Cancelled Request</a></li>
       </ul>
     </div>
   </nav>
@@ -97,10 +97,10 @@ $(document).ready(function(){
         constrainWidth: false
     });
     load_for_approval();
-    count_for_note();
-    count_approve_prf();
-    count_verified();
-    countCancel();
+    // count_for_note();
+    // count_approve_prf();
+    // count_verified();
+    // countCancel();
     defineLevel();
 });
 
@@ -128,7 +128,7 @@ const load_for_approval =()=>{
             department: department
         },success:function(response){
             document.getElementById('for_approval_data').innerHTML = response;
-            count_for_approval();
+            // count_for_approval();
         }
     });
 }

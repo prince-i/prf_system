@@ -23,7 +23,6 @@
             background-color:skyblue;
             cursor: pointer;
         }
-        
     </style>
 </head>
 <body style="display:none;">
@@ -180,6 +179,7 @@ const approve =()=>{
   if(signatoryLevel == '')  {
     swal('Notification','PLEASE SELECT NEXT APPROVER','info');
   }else{
+    $('#proceed').attr('disabled',true);
     $.ajax({
       url: '../php/hrmgrController.php',
       type: 'POST',
@@ -196,8 +196,10 @@ const approve =()=>{
           $('.modal').modal('close','#hrOption');
           for_approval();
           sendMail();
+          $('#proceed').attr('disabled',false);
         }else{
           M.toast({html:'An error was occured!',classes:'rounded'});
+          $('#proceed').attr('disabled',false);
         }
       }
     });

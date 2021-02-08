@@ -46,10 +46,10 @@
     </div>
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
-        <li class="tab"><a href="#request" onclick="load_for_rt_appr()">For Verify Check<span class="new badge #616161 grey darken-2" id="check_notif"></a></span></li>
-        <li class="tab"><a href="#pending_above" onclick="load_pending()">Pending<span class="new badge #616161 grey darken-2" id="pending_note"></a></span></li>
-        <li class="tab"><a href="#verified" onclick="load_verified()">Verified Request<span class="new badge #616161 grey darken-2" id="verified_notif"></span></a></li>
-        <li class="tab"><a href="#cancelled" onclick="load_cancelled()">Cancelled Request<span class="new badge #616161 grey darken-2" id="cancel_notif"></span></a></li>
+        <li class="tab"><a href="#request" onclick="load_for_rt_appr()">For Verify Check</a></li>
+        <li class="tab"><a href="#pending_above" onclick="load_pending()">Pending</a></li>
+        <li class="tab"><a href="#verified" onclick="load_verified()">Verified Request</a></li>
+        <li class="tab"><a href="#cancelled" onclick="load_cancelled()">Cancelled Request</a></li>
       </ul>
     </div>
   </nav>
@@ -104,7 +104,7 @@
             filter:filter
         },success:function(response){
             document.getElementById('for_rt_approval').innerHTML = response;
-            count_for_approval();
+
         }
     });
   }
@@ -126,6 +126,8 @@ const load_pending =()=>{
         }
     });
 }
+
+
 // COUNT FOR VERIFY CHECK
 const count_for_approval =()=>{
     var rowCount = $('#for_rt_approval tr').length;
@@ -207,35 +209,7 @@ const load_cancelled =()=>{
         }
     });
 }
-// APPROVE BY RT
-// const approve =()=>{
-//   var id = document.querySelector('#prf_ID').value;
-//   var name = '<?=$name;?>';
-//   var signatoryLevel = '<?=$level;?>';
-//   var x = confirm('You are going to approve this request, click OK to confirm.');
-//   if(x == true){
-//     $.ajax({
-//       url: '../php/rtController.php',
-//       type: 'POST',
-//       cache: false,
-//       data:{
-//         method: 'approve_rt',
-//         id:id,
-//         name:name,
-//         signatoryLevel:signatoryLevel
-//       },success:function(response){
-//         if(response == 'success'){
-//           swal('Notification','Successfully approve!','success');
-//           $('.modal').modal('close','#preview_for_rt');
-//           load_for_rt_appr();
-//           sendMail();
-//         }else{
-//           M.toast({html:'An error was occured!',classes:'rounded'});
-//         }
-//       }
-//     });
-//   }
-// }
+// APPROVED FUNCTION
 function approve() {
   var id = document.getElementById('prf_ID').value;
   var name = '<?=$name;?>';
@@ -243,6 +217,7 @@ function approve() {
   if(signatoryLevel == ''){
     swal('Notification','PLEASE SELECT NEXT APPROVER','info');
   }else{
+    $('#proceedBtn').attr('disabled',true);
     $.ajax({
       url: '../php/rtController.php',
       type: 'POST',
@@ -259,6 +234,10 @@ function approve() {
           $('.modal').modal('close','#rtOption');
           load_for_rt_appr();
           sendMail();
+          $('#proceedBtn').attr('disabled',false);
+        }else{
+          swal('Notification','Error Detected','error');
+          $('#proceedBtn').attr('disabled',false);
         }
       }
     });
