@@ -221,8 +221,7 @@ elseif($method == 'preview_pending_form'){
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){
-            
-            echo '<div class="row">';
+            echo '<div class="row card" style="padding:10px;">';
             echo '<div class="col s12">';
             echo '<div class="col s6">Requested By:</div>';
             echo '<div class="col s6">'.$x['requestor'].'</div>';
@@ -279,7 +278,7 @@ elseif($method == 'preview_pending_form'){
             echo '</div>';
             // ------------------
             echo '</div>';
-            echo '<div class="row">';
+            echo '<div class="row card" style="padding:10px;">';
             echo '<div class="col s12">';
             echo '<div class="col s6"><b>Asst.Mngr./Section Mngr. Remarks</b></div>';
             echo '<div class="col s6">'.$x['approve_check_remarks'].'</div>';
