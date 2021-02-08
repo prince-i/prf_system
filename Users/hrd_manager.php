@@ -32,6 +32,7 @@
   include_once 'Modals/hrdmgr_approval_modal.php';
   include_once 'Modals/hrdmgr_pending.php';
   include_once 'Modals/decline_hrd.php';
+  include_once 'Modals/hr_manager_option.php';
 ?>
 <!-- /MODAL -->
 <nav class="nav-extended #212121 grey darken-4 z-depth-5">
@@ -175,9 +176,10 @@ const load_cancelled =()=>{
 const approve =()=>{
   var id = document.getElementById('prf_id').value;
   var name = '<?=$name;?>';
-  var signatoryLevel = '<?=$level;?>';
-  var x = confirm('You are going to approve this request, click OK to confirm.');
-  if(x == true){
+  var signatoryLevel = document.querySelector('#nextApprover').value;
+  if(signatoryLevel == '')  {
+    swal('Notification','PLEASE SELECT NEXT APPROVER','info');
+  }else{
     $.ajax({
       url: '../php/hrmgrController.php',
       type: 'POST',
@@ -191,7 +193,7 @@ const approve =()=>{
         // console.log(response);
         if(response == 'success'){
           swal('Notification','Successfully approve!','success');
-          $('.modal').modal('close','#universal');
+          $('.modal').modal('close','#hrOption');
           for_approval();
           sendMail();
         }else{
@@ -201,9 +203,12 @@ const approve =()=>{
     });
   }
 }
+
+
 // SEND MAIL NOTIF
 const sendMail =()=>{
-    var level = '<?=$level;?>';
+    var levelNext = document.getElementById('nextApprover').value;
+    var level = parseInt(levelNext - 1);
     var dept = '<?=$department;?>';
     $.ajax({
         url: '../phpmailer/for_approval_notif.php',
@@ -214,6 +219,7 @@ const sendMail =()=>{
             dept:dept
         },success:function(response){
             console.log(response);
+            document.getElementById('nextApprover').value = '';
         }
     });
 }
@@ -288,6 +294,12 @@ function decline_hrd(){
     }
   });
   }
+}
+
+function hidePreview(){
+  $('.modal').modal('close','#universal');
+  var id = document.getElementById('prf_id').value;
+  console.log(id);
 }
 </script>
 </body>

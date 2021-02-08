@@ -268,7 +268,7 @@ function approve() {
 const sendMail =()=>{
     var levelNext = document.getElementById('nextApprover').value;
     var level = parseInt(levelNext - 1);
-    console.log(level);
+    // console.log(level);
     var dept = '<?=$department;?>';
     $.ajax({
         url: '../phpmailer/for_approval_notif.php',

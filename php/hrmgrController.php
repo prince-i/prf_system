@@ -228,7 +228,7 @@ elseif($method == 'preview_for_approval'){
             echo '<button class="btn z-depth-5 #1976d2 blue darken-2" style="border-radius:20px;" onclick="preview()">preview</button>';
             echo '</div>';
             echo '<div class="input-field col s4">';
-            echo '<button class="btn z-depth-5 green" style="border-radius:20px;" onclick="approve()">approve</button>';
+            echo '<button class="btn z-depth-5 green modal-trigger" style="border-radius:20px;" onclick="hidePreview()" data-target="hrOption">approve</button>';
             echo '</div>';
             // decline
             echo '<div class="input-field col s4">';
@@ -350,17 +350,18 @@ elseif($method == 'approve_hrd'){
     $id = $_POST['id'];
     $name = $_POST['name'];
     $level = $_POST['signatoryLevel'];
+    $signView = $level - 1;
     // CHECK THE REQUEST STEP
-    $check = "SELECT step FROM tb_request_mp WHERE id = '$id'";
-    $stmt = $conn->prepare($check);
-    $stmt->execute();
-    foreach($stmt->fetchall() as $x){
-        $step = $x['step'];
-    }
-    $compatible = $step + 1;
-    if($compatible == $level){
+    // $check = "SELECT step FROM tb_request_mp WHERE id = '$id'";
+    // $stmt = $conn->prepare($check);
+    // $stmt->execute();
+    // foreach($stmt->fetchall() as $x){
+    //     $step = $x['step'];
+    // }
+    // $compatible = $step + 1;
+    // if($compatible == $level){
         // APPROVING QUERY
-        $approveQL = "UPDATE tb_request_mp SET verify_verifier_manager = '$name', verify_verifier_manager_remarks = 'APPROVED', verification_status = 'FOR HRD DIV. MNGR. APPROVAL', step = '5' WHERE id = '$id'";
+        $approveQL = "UPDATE tb_request_mp SET verify_verifier_manager = '$name', verify_verifier_manager_remarks = 'APPROVED', verification_status = 'FOR HRD DIV. MNGR. APPROVAL', step = '$signView' WHERE id = '$id'";
         $stmt = $conn->prepare($approveQL);
         if($stmt->execute()){
             echo 'success';
@@ -368,7 +369,7 @@ elseif($method == 'approve_hrd'){
             echo 'fail';
         }
     }
-}
+
 // DECLINE PRF BY HRD
 elseif($method == 'declineBy_hrd'){
     $prf_id = $_POST['prfID'];
