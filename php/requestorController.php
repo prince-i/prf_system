@@ -164,7 +164,7 @@
 // LOADING APPROVED PRF REQUESTOR VIEW
     elseif($method == 'fetch_approve_request_requestor'){
         $email = $_POST['email'];
-        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE step = '3' AND requestor_email LIKE '$email%' ORDER BY request_date ASC";
+        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE step = '3' AND requestor_email LIKE '$email%' ORDER BY id DESC";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         foreach($stmt->fetchall() as $x){
@@ -216,7 +216,7 @@ elseif($method == 'summary_prf_view'){
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     foreach($stmt->fetchALL() as $x){
-        echo '<div class="row">';
+        echo '<div class="row card" style="padding:10px;">';
         echo '<div class="col s12">';
         echo '<div class="col s6">Requested By:</div>';
         echo '<div class="col s6">'.$x['requestor'].'</div>';
@@ -273,7 +273,7 @@ elseif($method == 'summary_prf_view'){
         echo '</div>';
         // ------------------
         echo '</div>';
-            echo '<div class="row">';
+        echo '<div class="row card" style="padding:10px;">';
             echo '<div class="col s12">';
             echo '<div class="col s6"><b>Asst.Mngr./Section Mngr. Remarks</b></div>';
             echo '<div class="col s6">'.$x['approve_check_remarks'].'</div>';
@@ -317,7 +317,7 @@ elseif($method == 'summary_prf_view'){
 }
 elseif($method == 'load_verify_requestor_view'){
         $email = $_POST['email'];
-        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE step ='7' AND requestor_email LIKE '$email%' ORDER BY request_date ASC";
+        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE step ='7' AND requestor_email LIKE '$email%' ORDER BY id DESC";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         foreach($stmt->fetchall() as $x){
@@ -349,7 +349,7 @@ elseif($method=='count_cancel_request'){
 }
 elseif($method == 'load_cancel_request'){
     $email = $_POST['email'];
-        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE step ='0' AND requestor_email LIKE '$email%' ORDER BY request_date ASC";
+        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE step ='0' AND requestor_email LIKE '$email%' ORDER BY id DESC";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         foreach($stmt->fetchall() as $x){

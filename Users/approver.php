@@ -27,7 +27,9 @@
             background-color:skyblue;
             cursor: pointer;
         }
-
+        table{
+            font-size:12px;
+        }
     </style>
 </head>
 <body style="display:none;">
@@ -49,13 +51,25 @@ include 'Modals/declineNoteModal.php';
       </ul>
     </div>
     <div class="nav-content">
-      <ul class="tabs tabs-transparent">
-        <li class="tab"><a href="#request" onclick="load_for_approval()" id="approvalTab">For Approval Check</a></li>
-        <li class="tab"><a href="#note" onclick="load_for_approval_note()" id="noteTab">For Approval Note</a></li>
-        <li class="tab"><a href="#approved" onclick="load_approve_req()">Approved Request</a></li>
-        <li class="tab"><a href="#verified" onclick="verifiedView()">Verified Request</a></li>
-        <li class="tab"><a href="#cancelled" onclick="cancelView()">Cancelled Request</a></li>
-      </ul>
+      <?php
+        if($level == 2){
+            echo '<ul class="tabs tabs-transparent">';
+            echo '<li class="tab"><a href="#request" onclick="load_for_approval()" >For Approval Check</a></li>';
+            // echo '<li class="tab"><a href="#note" onclick="load_for_approval_note()">For Approval Note</a></li>';
+            echo '<li class="tab"><a href="#approved" onclick="load_approve_req()">Approved Request</a></li>';
+            echo '<li class="tab"><a href="#verified" onclick="verifiedView()">Verified Request</a></li>';
+            echo '<li class="tab"><a href="#cancelled" onclick="cancelView()">Cancelled Request</a></li>';
+            echo '</ul>';
+        }else{
+            echo '<ul class="tabs tabs-transparent">';
+            // echo '<li class="tab"><a href="#request" onclick="load_for_approval()" >For Approval Check</a></li>';
+            echo '<li class="tab"><a href="#note" onclick="load_for_approval_note()">For Approval Note</a></li>';
+            echo '<li class="tab"><a href="#approved" onclick="load_approve_req()">Approved Request</a></li>';
+            echo '<li class="tab"><a href="#verified" onclick="verifiedView()">Verified Request</a></li>';
+            echo '<li class="tab"><a href="#cancelled" onclick="cancelView()">Cancelled Request</a></li>';
+            echo '</ul>';
+        }
+      ?>
     </div>
   </nav>
 
@@ -102,6 +116,7 @@ $(document).ready(function(){
     // count_verified();
     // countCancel();
     defineLevel();
+    // load_for_approval_note();
 });
 
 function defineLevel(){

@@ -4,7 +4,7 @@
     if($method == 'for_approval'){
         $filter = $_POST['filter'];
         if(empty($filter)){
-            $qry = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='6'  ORDER BY id ASC";
+            $qry = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='6'  ORDER BY id DESC";
             $stmt=$conn->prepare($qry);
             $stmt->execute();
             foreach($stmt->fetchAll() as $x){
@@ -21,7 +21,7 @@
                 echo '</tr>';
             }
         }else{
-            $qry = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='6' AND assigned_dept LIKE '$filter%' ORDER BY id ASC";
+            $qry = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='6' AND assigned_dept LIKE '$filter%' ORDER BY id DESC";
             $stmt = $conn->prepare($qry);
             $stmt->execute();
             foreach($stmt->fetchAll() as $x){
@@ -43,7 +43,7 @@
     if($method == 'verified_prf'){
         $filter = $_POST['filter'];
         if(empty($filter)){
-            $qry = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='7'  ORDER BY id ASC";
+            $qry = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='7'  ORDER BY id DESC";
             $stmt=$conn->prepare($qry);
             $stmt->execute();
             foreach($stmt->fetchAll() as $x){
@@ -60,7 +60,7 @@
                 echo '</tr>';
             }
         }else{
-            $qry = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='7' AND assigned_dept LIKE '$filter%' ORDER BY id ASC";
+            $qry = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='7' AND assigned_dept LIKE '$filter%' ORDER BY id DESC";
             $stmt = $conn->prepare($qry);
             $stmt->execute();
             foreach($stmt->fetchAll() as $x){
@@ -82,7 +82,7 @@
     if($method == 'cancelled_prf'){
         $filter = $_POST['filter'];
         if(empty($filter)){
-            $qry = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='0'  ORDER BY id ASC";
+            $qry = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='0'  ORDER BY id DESC";
             $stmt=$conn->prepare($qry);
             $stmt->execute();
             foreach($stmt->fetchAll() as $x){
@@ -99,7 +99,7 @@
                 echo '</tr>';
             }
         }else{
-            $qry = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='0' AND assigned_dept LIKE '$filter%' ORDER BY id ASC";
+            $qry = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='0' AND assigned_dept LIKE '$filter%' ORDER BY id DESC";
             $stmt = $conn->prepare($qry);
             $stmt->execute();
             foreach($stmt->fetchAll() as $x){
@@ -124,7 +124,7 @@
         $stmt = $conn->prepare($fetch);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){
-            echo '<h5 class="center" style="margin-top:-10%;">FOR APPROVAL CHECKING</h5>';
+            echo '<h5 class="center" style="margin-top:-5%;">FOR APPROVAL</h5>';
             echo '<div class="row">';
             echo '<div class="col s12">';
             echo '<div class="col s6">Requested By:</div>';
@@ -248,8 +248,7 @@
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){
-            
-            echo '<div class="row">';
+            echo '<div class="row card" style="padding:10px;">';
             echo '<div class="col s12">';
             echo '<div class="col s6">Requested By:</div>';
             echo '<div class="col s6">'.$x['requestor'].'</div>';
@@ -306,7 +305,7 @@
             echo '</div>';
             // ------------------
             echo '</div>';
-            echo '<div class="row">';
+            echo '<div class="row card" style="padding:10px;">';
             echo '<div class="col s12">';
             echo '<div class="col s6"><b>Asst.Mngr./Section Mngr. Remarks</b></div>';
             echo '<div class="col s6">'.$x['approve_check_remarks'].'</div>';

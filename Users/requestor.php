@@ -22,7 +22,9 @@
         #table_requests tbody tr:hover{
             background-color:skyblue;
         }
-
+        table{
+            font-size:12px;
+        }
     </style>
 </head>
 <body style="display:none;">
@@ -78,13 +80,13 @@ include 'Modals/preview_request.php';
         </div>
         <!-- print btn -->
         <div class="input-field col l2 m2 s12">
-            <button class="btn-large #64b5f6 blue lighten-2 col s12 z-depth-3 " id="printBtn">print</button>
+            <button class="btn-large #64b5f6 blue lighten-2 col s12 z-depth-3 " id="printBtn" onclick="exportCSV('export-request.csv')">print</button>
         </div>
    </div>
 <!-- ---------------------------------------------------- -->
 <input type="hidden" name="" id="stepTxt">
 <input type="hidden" id="deptTxt">
-        <div class="col s12">
+       <div class="col s12">
             <table class="centered z-depth-5 responsive-table" id="table_requests">
                 <thead>
                     <th>Request ID</th>
@@ -584,6 +586,29 @@ const detect_contract =()=>{
     }
 }
 
+// PRINT SYNTAX
+function exportCSV(filename) {
+    var csv = [];
+    var rows = document.querySelectorAll("#table_requests tr");
+    for (var i = 0; i < rows.length; i++) {
+        var row = [], cols = rows[i].querySelectorAll("td, th");
+        for (var j = 0; j < cols.length; j++) 
+            row.push(cols[j].innerText);
+        csv.push(row.join(","));        
+    }
+    downloadCSV(csv.join("\n"), filename);
+}
+function downloadCSV(csv, filename) {
+    var csvFile;
+    var downloadLink;
+    csvFile = new Blob([csv], {type: "text/csv"});
+    downloadLink = document.createElement("a");
+    downloadLink.download = filename;
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+}
 </script>
 </body>
 </html>

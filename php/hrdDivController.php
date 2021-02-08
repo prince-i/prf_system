@@ -4,7 +4,7 @@
     if($method == 'for_approval'){
         $filter = $_POST['filter'];
         if(empty($filter)){
-            $fetch = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step = 5  ORDER BY id ASC";
+            $fetch = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step = 5  ORDER BY id DESC";
             $stmt=$conn->prepare($fetch);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
@@ -21,7 +21,7 @@
                 echo '</tr>';
             }
         }else{
-            $fetch = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE step = 5  AND assigned_dept LIKE '$filter%' ORDER BY id ASC";
+            $fetch = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE step = 5  AND assigned_dept LIKE '$filter%' ORDER BY id DESC";
             $stmt=$conn->prepare($fetch);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
@@ -43,7 +43,7 @@
     elseif($method == 'pending_view'){
         $filter = $_POST['filter'];
         if(empty($filter)){
-            $fetch = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step = 6  ORDER BY id ASC";
+            $fetch = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step = 6  ORDER BY id DESC";
             $stmt=$conn->prepare($fetch);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
@@ -60,7 +60,7 @@
                 echo '</tr>';
             }
         }else{
-            $fetch = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE step= 6 AND assigned_dept LIKE '$filter%' ORDER BY id ASC";
+            $fetch = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE step= 6 AND assigned_dept LIKE '$filter%' ORDER BY id DESC";
             $stmt=$conn->prepare($fetch);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
@@ -82,7 +82,7 @@
     elseif($method == 'verified_view'){
         $filter = $_POST['filter'];
         if(empty($filter)){
-            $fetch = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='7'  ORDER BY id ASC";
+            $fetch = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='7'  ORDER BY id DESC";
             $stmt=$conn->prepare($fetch);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
@@ -99,7 +99,7 @@
                 echo '</tr>';
             }
         }else{
-            $fetch = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='7' AND assigned_dept LIKE '$filter%' ORDER BY id ASC";
+            $fetch = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='7' AND assigned_dept LIKE '$filter%' ORDER BY id DESC";
             $stmt=$conn->prepare($fetch);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
@@ -121,7 +121,7 @@
     elseif($method == 'cancel_view'){
         $filter = $_POST['filter'];
         if(empty($filter)){
-            $fetch = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='0'  ORDER BY id ASC";
+            $fetch = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='0'  ORDER BY id DESC";
             $stmt=$conn->prepare($fetch);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
@@ -138,7 +138,7 @@
                 echo '</tr>';
             }
         }else{
-            $fetch = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='0' AND assigned_dept LIKE '$filter%' ORDER BY id ASC";
+            $fetch = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='0' AND assigned_dept LIKE '$filter%' ORDER BY id DESC";
             $stmt=$conn->prepare($fetch);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
@@ -246,8 +246,7 @@
             $stmt = $conn->prepare($sql);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
-               
-                echo '<div class="row">';
+                echo '<div class="row card" style="padding:10px;">';
                 echo '<div class="col s12">';
                 echo '<div class="col s6">Requested By:</div>';
                 echo '<div class="col s6">'.$x['requestor'].'</div>';
@@ -304,7 +303,7 @@
                 echo '</div>';
                 // ------------------
                 echo '</div>';
-                echo '<div class="row">';
+                echo '<div class="row card" style="padding:10px;">';
                 echo '<div class="col s12">';
                 echo '<div class="col s6"><b>Asst.Mngr./Section Mngr. Remarks</b></div>';
                 echo '<div class="col s6">'.$x['approve_check_remarks'].'</div>';

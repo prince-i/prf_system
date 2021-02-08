@@ -23,6 +23,9 @@
             background-color:skyblue;
             cursor: pointer;
         }
+        table{
+          font-size:12px;
+        }
     </style>
 </head>
 <body style="display:none;">
@@ -34,7 +37,6 @@
   include 'Modals/options.php';
 ?>
 <!-- /MODAL -->
-
 <nav class="nav-extended #212121 grey darken-4 z-depth-5">
     <div class="nav-wrapper">
     <a href="#" class="brand-logo center"><img src="../Img/logo.png" alt="" class="responsive-img" style="width:50px;"></a>

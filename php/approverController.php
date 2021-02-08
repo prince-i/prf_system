@@ -3,7 +3,7 @@
     $method = $_POST['method'];
     if($method == 'load_for_approval'){
             $department = $_POST['department'];
-            $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='1'  AND assigned_dept LIKE '$department%' ORDER BY id ASC";
+            $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE  step ='1'  AND assigned_dept LIKE '$department%' ORDER BY id DESC";
             $stmt = $conn->prepare($query);
             $stmt->execute();
             if($stmt->rowCount() > 0){
@@ -24,7 +24,7 @@
     }
     if($method == 'preview_summary'){
         $id = $_POST['id']; 
-        $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,contract_status,education,required_license,work_exp,job_duties,request_date FROM tb_request_mp WHERE id = '$id'";;
+        $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,contract_status,education,required_license,work_exp,job_duties,request_date FROM tb_request_mp WHERE id = '$id' ORDER BY id DESC";;
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){
@@ -108,7 +108,7 @@
     // PREVIEW SUMMARY NOTE
     elseif($method == 'preview_note'){
         $id = $_POST['id']; 
-        $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,contract_status,education,required_license,work_exp,job_duties,request_date FROM tb_request_mp WHERE id = '$id'";;
+        $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,contract_status,education,required_license,work_exp,job_duties,request_date FROM tb_request_mp WHERE id = '$id' ORDER BY id DESC";;
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){
@@ -190,7 +190,7 @@
     // LOAD FOR APPROVAL NOTE
     elseif($method == 'load_for_approval_note'){
         $department = $_POST['department'];
-        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE step ='2' AND assigned_dept LIKE '$department%' ORDER BY id ASC";
+        $query = "SELECT id,requestor,requesting_position,assigned_dept,contract_status,requestor_email,approval_status,verification_status,request_date FROM tb_request_mp WHERE step ='2' AND assigned_dept LIKE '$department%' ORDER BY id DESC";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         if($stmt->rowCount() > 0){
@@ -209,20 +209,20 @@
             }
         }
     }
-    // COUNT APPROVAL NOTE
-    elseif($method == 'count_for_approval_note'){
-        $department = $_POST['department'];
-        $query = "SELECT COUNT(id) as total_for_note FROM tb_request_mp WHERE step = '2' AND assigned_dept LIKE '$department%'";
-        $stmt = $conn->prepare($query);
-        $stmt->execute();
-        if($stmt->rowCount()>0){
-            foreach($stmt->fetchALL() as $x){
-                echo $x['total_for_note'];
-            }
-        }else{
-            echo '0';
-        }
-    }
+    // // COUNT APPROVAL NOTE
+    // elseif($method == 'count_for_approval_note'){
+    //     $department = $_POST['department'];
+    //     $query = "SELECT COUNT(id) as total_for_note FROM tb_request_mp WHERE step = '2' AND assigned_dept LIKE '$department%'";
+    //     $stmt = $conn->prepare($query);
+    //     $stmt->execute();
+    //     if($stmt->rowCount()>0){
+    //         foreach($stmt->fetchALL() as $x){
+    //             echo $x['total_for_note'];
+    //         }
+    //     }else{
+    //         echo '0';
+    //     }
+    // }
     // STEP 2 APPROVAL
     elseif($method == 'approval_check_func'){
         $id = $_POST['id'];

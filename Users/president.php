@@ -23,7 +23,12 @@
             background-color:skyblue;
             cursor: pointer;
         }
-        
+        table{
+          font-size:13px;
+        }
+        div{
+          font-size:13px;
+        }
     </style>
 </head>
 <body style="display:none;">
@@ -45,9 +50,9 @@
     </div>
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
-        <li class="tab"><a href="#request" onclick="for_approval()">For Approval<span class="new badge #616161 grey darken-2" id="check_notif"></a></span></li>
-        <li class="tab"><a href="#verified" onclick="load_verified()">Verified Request<span class="new badge #616161 grey darken-2" id="verified_notif"></span></a></li>
-        <li class="tab"><a href="#cancelled" onclick="load_cancelled()">Cancelled Request<span class="new badge #616161 grey darken-2" id="cancel_notif"></span></a></li>
+        <li class="tab"><a href="#request" onclick="for_approval()">For Approval</a></li>
+        <li class="tab"><a href="#verified" onclick="load_verified()">Verified Request</a></li>
+        <li class="tab"><a href="#cancelled" onclick="load_cancelled()">Cancelled Request</a></li>
       </ul>
     </div>
   </nav>
