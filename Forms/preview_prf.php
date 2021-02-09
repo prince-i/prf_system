@@ -86,7 +86,7 @@
 </head>
 <body>
     <img src="../Img/CANCEL STAMP.png" alt="" id="watermark" style="position:absolute;opacity:0.15;width:100%;margin-top:20%;display:none;">
-    <img src="../Img/PENDING STAMP.png" alt="" id="pending" style="position:absolute;opacity:0.15;width:100%;margin-top:30%;display:none;">
+    <img src="../Img/PENDING STAMP.png" alt="" id="pending" style="position:absolute;opacity:0.15;width:90%;margin-top:30%;display:none;">
     <!--  PRF FORM -->
     <div class="row container" id="form">
         <br>
