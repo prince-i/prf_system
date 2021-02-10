@@ -10,12 +10,12 @@
     <h5 class="header">Position Requested</h5>
     <!-- POSITION -->
     <div class="col s12">
-        <div class="input-field col s12 l4 m4">
+        <div class="input-field col s12 l3 m4">
             <input type="text" list="positionList" id="position" onfocus="loadPosition()" autocomplete="off"><label for="">Rank/Position</label>
             <datalist id="positionList"></datalist>
         </div>
         <!-- DEPT -->
-        <div class="input-field col s12 l4 m4">
+        <div class="input-field col s12 l3 m4">
             <select name="" id="assigned_dept" class="browser-default z-depth-5">
                 <option value="" selected disabled>-- Select Assigned Department/Section --</option>
                 <?php
@@ -30,11 +30,14 @@
             </select>
         </div>
         <!-- GENDER -->
-        <div class="input-field col s6 l2 m2">
+        <div class="input-field col s3 l2 m2">
             <input type="number" name="" id="female_mp_count" class="" min=0 ><label for="">Female Required</label>
         </div>
-        <div class="input-field col s6 l2 m2">
+        <div class="input-field col s3 l2 m2">
             <input type="number" name="" id="male_mp_count" class="" min=0><label for="">Male Required</label>
+        </div>
+        <div class="input-field col s3 l2 m2">
+            <input type="number" name="" id="both_mp_count" class="" min=0><label for="">Either Male/Female</label>
         </div>
     </div>
 
@@ -135,10 +138,10 @@
     <!-- INTERVIEW INFO -->
     <div class="row">
     <div class="input-field col l6 m6 s12">
-        <input type="date" id="date_interview"><label for="">Day available for interview/validation</label>
+        <div id="choices1"></div>
     </div>
     <div class="input-field col l6 m6 s12">
-        <input type="time" id="time_interview"><label for="">Time available for interview/validation</label>
+        <div id="choices2"></div>
     </div>
     </div>
     <!-- BUGDET INFO -->

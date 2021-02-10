@@ -12,7 +12,7 @@ $dept = $_POST['dept'];
 if($level == 1){
     // FETCH APPROVER TO EMAIL
     $recipient = $level + 1;
-    $fetchUser = "SELECT username FROM prf_account WHERE acct_level = '$recipient' AND department LIKE '$dept%' LIMIT 1";
+    $fetchUser = "SELECT username, name FROM prf_account WHERE acct_level = '$recipient' AND department LIKE '$dept%' LIMIT 1";
     $stmt = $conn->prepare($fetchUser);
     $stmt->execute();
     foreach($stmt->fetchALL() as $x){

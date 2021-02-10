@@ -256,9 +256,23 @@ function interviewer(){
     var x = document.querySelector('#interview_status').value;
     if(x == 'need'){
         document.getElementById('interField').style.display = 'block';
+        $('#choices1').html('<input type="date" id="date_interview"><label for="">Day available for interview/validation</label>');
+        $('#choices2').html('<input type="time" id="time_interview"><label for="">Time available for interview/validation</label>');
     }else{
         document.getElementById('interField').style.display = 'none';
         document.getElementById('interviewers').value = 'N/A';
+        $('#choices1').html(
+            '<select id="date_interview" class="browser-default z-depth-5" style="border-radius:30px">'+
+            '<option value="" disabled selected>--SELECT DAY--</option>'+
+            '<option value="Monday">Monday</option>'+
+            '<option value="Tuesday">Tuesday</option>'+
+            '<option value="Wednesday">Wednesday</option>'+
+            '<option value="Thursday">Thursday</option>'+
+            '<option value="Friday">Friday</option>'+
+            '<option value="Saturday">Saturday</option>'+
+            '</select>'
+        );
+        $('#choices2').html('<input type="text" id="time_interview"><label for="">Time available for interview/validation</label>')
     }
 }
 
@@ -270,6 +284,8 @@ const submit_prf =()=>{
         var assign_dept = document.getElementById('assigned_dept').value;
         var female_mp_count = document.getElementById('female_mp_count').value;
         var male_mp_count = document.getElementById('male_mp_count').value;
+        var both_mp_count = document.getElementById('both_mp_count').value;
+        console.log(both_mp_count);
 // REASON OF HIRING
         var additional_mp_val = document.getElementById('additional_mp').value;
         var mp_plan_val = document.getElementById('mp_plan').value;
@@ -312,48 +328,48 @@ const submit_prf =()=>{
 // NEXT SIGNATORY
         var nextSign = document.getElementById('nextSignatory').value;
 // VALIDATION --------------------------------------------------------------------------------------------------------------------------------------
-        // if(position == ''){
-        //     swal('Warning','Hiring position is required.','info');
-        // }else if(assign_dept == ''){
-        //     swal('Warning','Assigned Department must not empty.','info');
-        // }else if(numberOfCheck <= 0){
-        //     swal('Warning','Choose atleast 1 (one) reason for hiring.','info');
-        // }else if(contract_status == ''){
-        //     swal('Warning','Contract status must not empty.','info');
-        // }else if(educational_attainment == ''){
-        //     swal('Warning','Please enter educational attainment!','info');
-        // }else if(work_exp == ''){
-        //     swal('Warning','Please enter required work experience!','info'); 
-        // }else if(certification == ''){
-        //     swal('Warning','Please enter required license or certification!','info'); 
-        // }else if(job_duties == ''){
-        //     swal('Warning','Please explain the description of duties!','info');
-        // }else if(interview_need_stats == ''){
-        //     swal('Warning','Please tell us if he/she is required undergo an interview!','info');
-        // }else if(interviewer == ''){
-        //     swal('Warning','Please enter all the interviewers!','info');
-        // }else if(date_interview_set == ''){
-        //     swal('Warning','Please set a date for interview!','info');
-        // }else if(time_interview_set == ''){
-        //     swal('Warning','Please set a time for interview.','info');
-        // }else if(budget_source == ''){
-        //     swal('Warning','Please specify your budget source information.','info');
-        // }else if(budget_status == ''){
-        //     swal('Warning','Budget status is required.','info');
-        // }else if(actual_mp_dept == ''){
-        //     swal('Warning','Actual Manpower count of department is required.','info');
-        // }else if(plan_mp_dept == ''){
-        //     swal('Warning','Plan manpower count of department is required.','info');
-        // }else if(actual_mp_section == ''){
-        //     swal('Warning','Actual manpower count of section is required.','info');
-        // }else if(plan_mp_section == ''){
-        //     swal('Warning','Plan manpower count of your section is required.','info');
-        // }else if(typeHiring == ''){
-        //     swal('Warning','Please specify the hiring type.','info');
-        // }else if(nextSign == ''){
-        //     swal('Warning','Please specify the next signatory.','info');
-        // }
-        // else{
+        if(position == ''){
+            swal('Warning','Hiring position is required.','info');
+        }else if(assign_dept == ''){
+            swal('Warning','Assigned Department must not empty.','info');
+        }else if(numberOfCheck <= 0){
+            swal('Warning','Choose atleast 1 (one) reason for hiring.','info');
+        }else if(contract_status == ''){
+            swal('Warning','Contract status must not empty.','info');
+        }else if(educational_attainment == ''){
+            swal('Warning','Please enter educational attainment!','info');
+        }else if(work_exp == ''){
+            swal('Warning','Please enter required work experience!','info'); 
+        }else if(certification == ''){
+            swal('Warning','Please enter required license or certification!','info'); 
+        }else if(job_duties == ''){
+            swal('Warning','Please explain the description of duties!','info');
+        }else if(interview_need_stats == ''){
+            swal('Warning','Please tell us if he/she is required undergo an interview!','info');
+        }else if(interviewer == ''){
+            swal('Warning','Please enter all the interviewers!','info');
+        }else if(date_interview_set == ''){
+            swal('Warning','Please set a date for interview!','info');
+        }else if(time_interview_set == ''){
+            swal('Warning','Please set a time for interview.','info');
+        }else if(budget_source == ''){
+            swal('Warning','Please specify your budget source information.','info');
+        }else if(budget_status == ''){
+            swal('Warning','Budget status is required.','info');
+        }else if(actual_mp_dept == ''){
+            swal('Warning','Actual Manpower count of department is required.','info');
+        }else if(plan_mp_dept == ''){
+            swal('Warning','Plan manpower count of department is required.','info');
+        }else if(actual_mp_section == ''){
+            swal('Warning','Actual manpower count of section is required.','info');
+        }else if(plan_mp_section == ''){
+            swal('Warning','Plan manpower count of your section is required.','info');
+        }else if(typeHiring == ''){
+            swal('Warning','Please specify the hiring type.','info');
+        }else if(nextSign == ''){
+            swal('Warning','Please specify the next signatory.','info');
+        }
+        else{
         document.getElementById('submitPRF').disabled = true;
         $.ajax({
             url:'../php/requestorController.php',
@@ -388,7 +404,7 @@ const submit_prf =()=>{
                 date_interview_set:date_interview_set,
                 time_interview_set:time_interview_set,
                 budget_source:budget_source,
-                budget_status:budget_source,
+                budget_status:budget_status,
                 actual_mp_dept:actual_mp_dept,
                 plan_mp_dept:plan_mp_dept,
                 actual_mp_section:actual_mp_section,
@@ -396,7 +412,8 @@ const submit_prf =()=>{
                 email:'<?=$username;?>',
                 level: '<?=$level;?>',
                 typeHiring:typeHiring,
-                nextSign:nextSign
+                nextSign:nextSign,
+                both_mp_count:both_mp_count
             },success:function(response){
                     swal('Notification',response,'success');
                     document.getElementById('submitPRF').disabled = false;
@@ -407,7 +424,7 @@ const submit_prf =()=>{
                     sendMail();
             }
         });
-    // }
+    }
 }
 function sendMail(){
     var level = document.getElementById('stepTxt').value;
