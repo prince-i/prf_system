@@ -13,6 +13,8 @@
             $position = $x['requesting_position'];
             $mp_male_required = $x['male_num_mp'];
             $mp_female_required = $x['female_num_mp'];
+            $both_gender = $x['both'];
+            $totalMP = $x['total_mp'];
             $dept_section = $x['assigned_dept'];
             $contract_stat = $x['contract_status'];
             $educ = $x['education'];
@@ -139,13 +141,33 @@
             <!-- COLUMN 1 -->
             <div class="col s6">
                 <p>Rank/Position: <u><?=$position;?></u></p>
-                <p style="margin-top:-2%;">No. of Manpower required (Male): <u><?=$mp_male_required;?></u></p>
+                <p style="margin-top:-2%;">Gender:</p>
             </div>
+
             <!-- COLUMN 2 -->
             <div class="col s6">
                 <p>Assigned Department/Section: <u><?=$dept_section;?></u></p>
-                <p style="margin-top:-2%;">No. of Manpower required (Female): <u><?=$mp_female_required;?></u></p>
-                <p style="margin-top:-2%;">Total Manpower required: <u><?=$mp_male_required + $mp_female_required;?></u></p>
+                <?php
+                    // MALE RETURN
+                    if($mp_male_required == 0){
+                        
+                    }else{
+                        echo '<p style="margin-top:-2%;"><b>&#x2611; Male</b> &nbsp;&nbsp;&nbsp;No. of Manpower required: <u>'.$mp_male_required.'</u> MP</p>';
+                    }
+                    // FEMALE RETURN
+                    if($mp_female_required == 0){
+                        
+                    }else{
+                        echo '<p style="margin-top:-2%;"><b>&#x2611; Female</b> &nbsp;&nbsp;&nbsp;No. of Manpower required: <u>'.$mp_female_required.'</u> MP</p>';
+                    }
+                    // EITHER MALE OR FEMALE
+                    if($both_gender == 0){
+                        
+                    }else{
+                        echo '<p style="margin-top:-2%;"><b>&#x2611; Male/Female</b> &nbsp;&nbsp;&nbsp;No. of Manpower required: <u>'.$both_gender.'</u> MP</p>';
+                    }
+                ?>
+                <p style="margin-top:-2%;">Total Manpower required: <u><?=$totalMP;?></u> MP</p>
             </div>
         </div> 
         <!-- REASON FOR HIRING -->
@@ -154,24 +176,24 @@
             <!-- REASON FOR HIRING VALUES-->
             <?php
                 if($additional_mp == 1){
-                    echo '<div class="col s4">&check; Additional Manpower</div>';
+                    echo '<div class="col s4">&#x2611; Additional Manpower</div>';
                 }
                 if($mp_plan == 1){
-                    echo '<div class="col s4">&check; Manpower Plan</div>';
+                    echo '<div class="col s4">&#x2611; Manpower Plan</div>';
                 }
                 if($reorganization == 1){
-                    echo '<div class="col s4">&check; Reorganization</div>';
+                    echo '<div class="col s4">&#x2611; Reorganization</div>';
                 }
                 if($promotion == 1){
-                    echo '<div class="col s4">&check; Promotion</div>';
+                    echo '<div class="col s4">&#x2611; Promotion</div>';
                 }
                 if($retirement == 1){
-                    echo '<div class="col s4">&check; Retirement</div>';
+                    echo '<div class="col s4">&#x2611; Retirement</div>';
                 }
                 if($replacement == 1){
                     echo '<div class="row">';
                     echo '<div class="col s12">';
-                    echo '<div class="col s4">&check; Replacement</div>';
+                    echo '<div class="col s4">&#x2611; Replacement</div>';
                     echo '<div class="col s8"><u>'.$replacement_name.'</u></div>';
                     echo '</div>';
                     echo '</div>';
