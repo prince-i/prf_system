@@ -216,6 +216,7 @@ function approve() {
   var id = document.getElementById('prf_ID').value;
   var name = '<?=$name;?>';
   var signatoryLevel = document.getElementById('nextApprover').value;
+  console.log(signatoryLevel);
   if(signatoryLevel == ''){
     swal('Notification','PLEASE SELECT NEXT APPROVER','info');
   }else{

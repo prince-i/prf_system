@@ -83,9 +83,9 @@
         $level = $_POST['level'];
         $typeHiring = $_POST['typeHiring'];
         $nextSign = $_POST['nextSign'];
-        if($level == 1){
+        if($nextSign == 1){
             // REQUESTOR
-                $save_req = "INSERT INTO tb_request_mp (`id`,`requestor`,`requestor_email`,`requesting_position`,`assigned_dept`,`female_num_mp`,
+            $save_req = "INSERT INTO tb_request_mp (`id`,`requestor`,`requestor_email`,`requesting_position`,`assigned_dept`,`female_num_mp`,
             `male_num_mp`,`total_mp`,`contract_status`,`date_start`,`date_end`,`education`,`required_license`,`work_exp`,`other_qualification`,
             `job_duties`,`interview_need`,`interviewers`,`availability_for_interview`,`additional_mp`,
             `mp_plan`,`reorganization`,`promotion`,`retirement`,`replacement`,`replacement_mp_name`,`others`,
@@ -100,7 +100,7 @@
                 echo "Failed!";
             }
         }
-        if($level == 2){
+        if($nextSign == 2){
             // APPROVE CHECKER REQUEST
                 $save_req = "INSERT INTO tb_request_mp (`id`,`requestor`,`requestor_email`,`requesting_position`,`assigned_dept`,`female_num_mp`,
             `male_num_mp`,`total_mp`,`contract_status`,`date_start`,`date_end`,`education`,`required_license`,`work_exp`,`other_qualification`,

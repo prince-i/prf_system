@@ -369,16 +369,7 @@ elseif($method=='approve_rt'){
     $name = $_POST['name'];
     $level = $_POST['signatoryLevel'];
     $signView = $level - 1;
-    // // CHECK LEVEL APPROVAL
-    // $fetchDoc = "SELECT step FROM tb_request_mp WHERE id = '$id'";
-    // $stmt = $conn->prepare($fetchDoc);
-    // $stmt->execute();
-    // foreach($stmt->fetchall() as $x){
-    //     $step = $x['step'];
-    // }
-    // $compat = $step + 1;
-    // if($compat == $level){
-        // APPROVAL QUERY]
+    if($signView == 4){
         $approveQL = "UPDATE tb_request_mp SET verify_check_by = '$name', verify_check_remarks = 'APPROVED', verification_status = 'FOR APPROVAL OF HRD MANAGER AND HRD DIVISION MANAGER', step = '$signView' WHERE id = '$id'";
         $stmt=$conn->prepare($approveQL);
         if($stmt->execute()){
@@ -386,6 +377,25 @@ elseif($method=='approve_rt'){
         }else{
             echo 'fail';
         }
+    }
+    if($signView == 5){
+        $approveQL = "UPDATE tb_request_mp SET verify_check_by = '$name', verify_check_remarks = 'APPROVED',verify_verifier_manager_remarks = 'APPROVED', verification_status = 'FOR APPROVAL OF HRD MANAGER AND HRD DIVISION MANAGER', step = '$signView',verify_verifier_manager = 'N/A' WHERE id = '$id'";
+        $stmt=$conn->prepare($approveQL);
+        if($stmt->execute()){
+            echo 'success';
+        }else{
+            echo 'fail';
+        }
+    }
+    if($signView == 6){
+        $approveQL = "UPDATE tb_request_mp SET verify_check_by = '$name', verify_check_remarks = 'APPROVED',verify_verifier_manager_remarks = 'APPROVED', verification_status = 'FOR APPROVAL OF HRD MANAGER AND HRD DIVISION MANAGER', step = '$signView',verify_verifier_manager = 'N/A',verify_verifier_div_mgr = 'N/A', verify_verifier_div_mgr_remarks = 'APPROVED' WHERE id = '$id'";
+        $stmt=$conn->prepare($approveQL);
+        if($stmt->execute()){
+            echo 'success';
+        }else{
+            echo 'fail';
+        }
+    }
 
 }
 // CANCEL REQ
