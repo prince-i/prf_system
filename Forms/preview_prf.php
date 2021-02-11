@@ -13,7 +13,7 @@
             $position = $x['requesting_position'];
             $mp_male_required = $x['male_num_mp'];
             $mp_female_required = $x['female_num_mp'];
-            $both_gender = $x['both'];
+            $both_gender = $x['both_mp'];
             $totalMP = $x['total_mp'];
             $dept_section = $x['assigned_dept'];
             $contract_stat = $x['contract_status'];

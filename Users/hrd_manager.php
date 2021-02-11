@@ -106,7 +106,6 @@
             filter:filter
         },success:function(response){
             document.getElementById('for_hrd_approval').innerHTML = response;
-            count_for_approval();
         }
     });
   }
@@ -126,12 +125,7 @@ const load_pending =()=>{
         }
     });
 }
-// COUNT FOR VERIFY CHECK
-const count_for_approval =()=>{
-    var rowCount = $('#for_hrd_approval tr').length;
-    var count = parseInt(rowCount);
-    document.getElementById('check_notif').innerHTML = count;
-}
+
 
 // PREVIEW PRF
 const preview =()=>{

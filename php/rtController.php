@@ -133,7 +133,7 @@ elseif($method == 'verified_view'){
 // VIEW MODAL CHECKING 
     elseif($method == 'preview_verify_check_rt'){
         $id = $_POST['id']; 
-        $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,contract_status,education,required_license,work_exp,job_duties,request_date FROM tb_request_mp WHERE id = '$id'";
+        $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,both_mp,contract_status,education,required_license,work_exp,job_duties,request_date FROM tb_request_mp WHERE id = '$id'";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){
@@ -168,6 +168,12 @@ elseif($method == 'verified_view'){
             echo '<div class="col s6">No. of MP Need(Female):</div>';
             echo '<div class="col s6">'.$x['female_num_mp'].'</div>';
             echo '</div>';
+            // ------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6">No. of MP (Male/Female):</div>';
+            echo '<div class="col s6">'.$x['both_mp'].'</div>';
+            echo '</div>';
+            
             // ------------------
             echo '<div class="col s12">';
             echo '<div class="col s6">Contract Status:</div>';
@@ -217,7 +223,7 @@ elseif($method == 'verified_view'){
 // VIEW PENDING
 elseif($method == 'preview_pending_form'){
         $id = $_POST['id']; 
-        $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,contract_status,education,required_license,work_exp,job_duties,request_date,approve_check_remarks,approve_noted_remarks,verify_check_remarks,verify_verifier_manager_remarks,verify_verifier_div_mgr_remarks,cancel_remarks FROM tb_request_mp WHERE id = '$id'";;
+        $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,both_mp,contract_status,education,required_license,work_exp,job_duties,request_date,approve_check_remarks,approve_noted_remarks,verify_check_remarks,verify_verifier_manager_remarks,verify_verifier_div_mgr_remarks,cancel_remarks FROM tb_request_mp WHERE id = '$id'";;
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){
@@ -250,6 +256,11 @@ elseif($method == 'preview_pending_form'){
             echo '<div class="col s12">';
             echo '<div class="col s6">No. of MP Need(Female):</div>';
             echo '<div class="col s6">'.$x['female_num_mp'].'</div>';
+            echo '</div>';
+            // ------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6">No. of MP (Male/Female):</div>';
+            echo '<div class="col s6">'.$x['both_mp'].'</div>';
             echo '</div>';
             // ------------------
             echo '<div class="col s12">';

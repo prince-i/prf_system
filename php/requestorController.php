@@ -90,7 +90,7 @@
         if($nextSign == 1){
             // REQUESTOR
             $save_req = "INSERT INTO tb_request_mp (`id`,`requestor`,`requestor_email`,`requesting_position`,`assigned_dept`,`female_num_mp`,
-            `male_num_mp`,`both`,`total_mp`,`contract_status`,`date_start`,`date_end`,`education`,`required_license`,`work_exp`,`other_qualification`,
+            `male_num_mp`,`both_mp`,`total_mp`,`contract_status`,`date_start`,`date_end`,`education`,`required_license`,`work_exp`,`other_qualification`,
             `job_duties`,`interview_need`,`interviewers`,`availability_for_interview`,`additional_mp`,
             `mp_plan`,`reorganization`,`promotion`,`retirement`,`replacement`,`replacement_mp_name`,`others`,
             `budget_source`,`budget_status`,`actual_mp_dept`,`actual_mp_section`,`plan_mp_dept`,`plan_mp_section`,`request_date`,`approval_status`,`verification_status`,`step`,`typeHiring`)
@@ -106,8 +106,8 @@
         }
         if($nextSign == 2){
             // APPROVE CHECKER REQUEST
-                $save_req = "INSERT INTO tb_request_mp (`id`,`requestor`,`requestor_email`,`requesting_position`,`assigned_dept`,`female_num_mp`,
-            `male_num_mp`,`both`,`total_mp`,`contract_status`,`date_start`,`date_end`,`education`,`required_license`,`work_exp`,`other_qualification`,
+            $save_req = "INSERT INTO tb_request_mp (`id`,`requestor`,`requestor_email`,`requesting_position`,`assigned_dept`,`female_num_mp`,
+            `male_num_mp`,`both_mp`,`total_mp`,`contract_status`,`date_start`,`date_end`,`education`,`required_license`,`work_exp`,`other_qualification`,
             `job_duties`,`interview_need`,`interviewers`,`availability_for_interview`,`additional_mp`,
             `mp_plan`,`reorganization`,`promotion`,`retirement`,`replacement`,`replacement_mp_name`,`others`,
             `budget_source`,`budget_status`,`actual_mp_dept`,`actual_mp_section`,`plan_mp_dept`,`plan_mp_section`,`request_date`,`approval_status`,`verification_status`,`step`,`approve_check_by`,`approve_check_remarks`,`typeHiring`)
@@ -216,7 +216,7 @@ elseif($method == 'count_verified_request'){
 // VIEWING  SUMMARY
 elseif($method == 'summary_prf_view'){
     $id = $_POST['id']; 
-    $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,contract_status,education,required_license,work_exp,job_duties,request_date,approve_check_remarks,approve_noted_remarks,verify_check_remarks,verify_verifier_manager_remarks,verify_verifier_div_mgr_remarks,cancel_remarks FROM tb_request_mp WHERE id = '$id'";;
+    $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,both_mp,contract_status,education,required_license,work_exp,job_duties,request_date,approve_check_remarks,approve_noted_remarks,verify_check_remarks,verify_verifier_manager_remarks,verify_verifier_div_mgr_remarks,cancel_remarks FROM tb_request_mp WHERE id = '$id'";;
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     foreach($stmt->fetchALL() as $x){
@@ -249,6 +249,11 @@ elseif($method == 'summary_prf_view'){
         echo '<div class="col s12">';
         echo '<div class="col s6">No. of MP Need(Female):</div>';
         echo '<div class="col s6">'.$x['female_num_mp'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">No. of MP (Male/Female):</div>';
+        echo '<div class="col s6">'.$x['both_mp'].'</div>';
         echo '</div>';
         // ------------------
         echo '<div class="col s12">';

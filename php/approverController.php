@@ -24,7 +24,7 @@
     }
     if($method == 'preview_summary'){
         $id = $_POST['id']; 
-        $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,contract_status,education,required_license,work_exp,job_duties,request_date FROM tb_request_mp WHERE id = '$id' ORDER BY id DESC";;
+        $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,both_mp,contract_status,education,required_license,work_exp,job_duties,request_date FROM tb_request_mp WHERE id = '$id' ORDER BY id DESC";;
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){
@@ -58,6 +58,11 @@
             echo '<div class="col s12">';
             echo '<div class="col s6">No. of MP Need(Female):</div>';
             echo '<div class="col s6">'.$x['female_num_mp'].'</div>';
+            echo '</div>';
+            // ------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6">No. of MP (Male/Female):</div>';
+            echo '<div class="col s6">'.$x['both_mp'].'</div>';
             echo '</div>';
             // ------------------
             echo '<div class="col s12">';
@@ -108,7 +113,7 @@
     // PREVIEW SUMMARY NOTE
     elseif($method == 'preview_note'){
         $id = $_POST['id']; 
-        $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,contract_status,education,required_license,work_exp,job_duties,request_date FROM tb_request_mp WHERE id = '$id' ORDER BY id DESC";;
+        $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,both_mp,contract_status,education,required_license,work_exp,job_duties,request_date FROM tb_request_mp WHERE id = '$id' ORDER BY id DESC";;
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){
@@ -141,6 +146,11 @@
             echo '<div class="col s12">';
             echo '<div class="col s6">No. of MP Need(Female):</div>';
             echo '<div class="col s6">'.$x['female_num_mp'].'</div>';
+            echo '</div>';
+            // ------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6">No. of MP (Male/Female):</div>';
+            echo '<div class="col s6">'.$x['both_mp'].'</div>';
             echo '</div>';
             // ------------------
             echo '<div class="col s12">';
@@ -298,7 +308,7 @@ elseif($method == 'approval_note_func'){
     // PREVIEW APPROVED 
     elseif($method == 'preview_approved'){
         $id = $_POST['id']; 
-        $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,contract_status,education,required_license,work_exp,job_duties,request_date FROM tb_request_mp WHERE id = '$id'";;
+        $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,both_mp,contract_status,education,required_license,work_exp,job_duties,request_date FROM tb_request_mp WHERE id = '$id'";;
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){
@@ -331,6 +341,11 @@ elseif($method == 'approval_note_func'){
             echo '<div class="col s12">';
             echo '<div class="col s6">No. of MP Need(Female):</div>';
             echo '<div class="col s6">'.$x['female_num_mp'].'</div>';
+            echo '</div>';
+            // ------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6">No. of MP (Male/Female):</div>';
+            echo '<div class="col s6">'.$x['both_mp'].'</div>';
             echo '</div>';
             // ------------------
             echo '<div class="col s12">';
@@ -456,7 +471,7 @@ elseif($method == 'count_cancel'){
 // PREVIEW CANCELLED
 elseif($method == 'preview_canceled'){
     $id = $_POST['id']; 
-        $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,contract_status,education,required_license,work_exp,job_duties,request_date,approve_check_remarks,approve_noted_remarks,verify_check_remarks,verify_verifier_manager_remarks,verify_verifier_div_mgr_remarks,cancel_remarks FROM tb_request_mp WHERE id = '$id'";;
+        $sql = "SELECT requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,both_mp,contract_status,education,required_license,work_exp,job_duties,request_date,approve_check_remarks,approve_noted_remarks,verify_check_remarks,verify_verifier_manager_remarks,verify_verifier_div_mgr_remarks,cancel_remarks FROM tb_request_mp WHERE id = '$id'";;
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){
@@ -490,6 +505,11 @@ elseif($method == 'preview_canceled'){
             echo '<div class="col s12">';
             echo '<div class="col s6">No. of MP Need(Female):</div>';
             echo '<div class="col s6">'.$x['female_num_mp'].'</div>';
+            echo '</div>';
+            // ------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6">No. of MP (Male/Female):</div>';
+            echo '<div class="col s6">'.$x['both_mp'].'</div>';
             echo '</div>';
             // ------------------
             echo '<div class="col s12">';

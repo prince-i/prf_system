@@ -111,24 +111,19 @@ $(document).ready(function(){
         constrainWidth: false
     });
     load_for_approval();
-    // count_for_note();
-    // count_approve_prf();
-    // count_verified();
-    // countCancel();
     defineLevel();
-    // load_for_approval_note();
 });
 
 function defineLevel(){
     var level = '<?=$level;?>';
     if(level == 3){
-        document.getElementById('createPRF').style.display = 'none';
-        document.getElementById('request').style.display = 'none';
-        document.getElementById('approvalTab').style.display = 'none';
+        $('#createPRF').css('display','none');
+        $('#request').css('display','none');
+        $('#approvalTab').css('display','none');
     }
     if(level == 2){
-        document.getElementById('note').style.display = "none";
-        document.getElementById('noteTab').style.display = "none";
+        $('#note').css('display','none');
+        $('#noteTab').css('display','none');
     }
 }
 
@@ -143,15 +138,10 @@ const load_for_approval =()=>{
             department: department
         },success:function(response){
             document.getElementById('for_approval_data').innerHTML = response;
-            // count_for_approval();
         }
     });
 }
-const count_for_approval =()=>{
-    var rowCount = $('#for_approval_data tr').length;
-    var count = parseInt(rowCount);
-    document.getElementById('pending').innerHTML = count;
-}
+
 const preview_approver_summary =(id)=>{
     $('#prf_ID').val(id);
     $.ajax({
@@ -182,7 +172,6 @@ const preview_approver_note =(id)=>{
     });
 }
 
-
 function preview(){
     var id = document.getElementById('prf_ID').value;
     window.open('../Forms/preview_prf.php?id='+id,"Preview","width=1000,height=600,left=150");
@@ -199,25 +188,10 @@ const load_for_approval_note =()=>{
             department: department
         },success:function(response){
             document.getElementById('for_approval_note_data').innerHTML = response;
-            count_for_note();
         }
     });
 }
-// COUNT FOR APPROVAL NOTE
-const count_for_note =()=>{
-    department = '<?=$department;?>';
-    $.ajax({
-        url: '../php/approverController.php',
-        type: 'POST',
-        cache: false,
-        data:{
-            method: 'count_for_approval_note',
-            department: department
-        },success:function(response){
-            $('#pending_note').html(response);
-        }
-    });
-}
+
 // CHECK REQUEST
 const check_request =()=>{
     var id = document.querySelector('#prf_ID').value;
@@ -340,7 +314,7 @@ const load_approve_req=()=>{
             department: department
         },success:function(response){
             document.getElementById('approved_data').innerHTML = response;
-            count_approve_prf();
+            
         }
     });
 }
@@ -359,36 +333,8 @@ const preview_approved_req =(id)=>{
         }
     });
 }
-// COUNT APPROVED 
-const count_approve_prf =()=>{
-    department = '<?=$department;?>';
-    $.ajax({
-        url: '../php/approverController.php',
-        type: 'POST',
-        cache: false,
-        data:{
-            method: 'count_approved_prf',
-            department: department
-        },success:function(response){
-            $('#approved_notif').html(response);
-        }
-    });
-}
-// COUNT VERIFIED REQUEST
-const count_verified =()=>{
-    department = '<?=$department;?>';
-    $.ajax({
-        url: '../php/approverController.php',
-        type: 'POST',
-        cache: false,
-        data:{
-            method: 'count_verify',
-            department: department
-        },success:function(response){
-            $('#verified_notif').html(response);
-        }
-    });
-}
+
+
 
 // LOAD VERIFIED
 const verifiedView =()=>{
@@ -402,7 +348,7 @@ const verifiedView =()=>{
             department: department
         },success:function(response){
             document.getElementById('verified_data').innerHTML = response;
-            count_verified();
+           
         }
     });
 }
@@ -418,22 +364,7 @@ const cancelView =()=>{
             department: department
         },success:function(response){
             document.getElementById('cancelled_data').innerHTML = response;
-            countCancel();
-        }
-    });
-}
-// COUNT CANCELLED
-const countCancel =()=>{
-    department = '<?=$department;?>';
-    $.ajax({
-        url: '../php/approverController.php',
-        type: 'POST',
-        cache: false,
-        data:{
-            method: 'count_cancel',
-            department: department
-        },success:function(response){
-            document.querySelector('#cancel_notif').innerHTML = response;
+      
         }
     });
 }
