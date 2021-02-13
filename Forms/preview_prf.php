@@ -426,11 +426,14 @@
             var status = '<?=$step;?>';
             if(status >= 1 && status <=6){
                 document.getElementById('pending').style.display = "block";
+            }else if(status == 0){
+                // DO NOTHING
             }else{
                 document.getElementById('pending').style.display = "none";
+                detect_second_page();
             }
         }
-        detect_second_page();
+        
         function detect_second_page() {
             var id = '<?=$id;?>';
             $.ajax({
