@@ -87,7 +87,7 @@
                 data:{
                     method: 'check_sync',
                 },success:function(response){
-                    console.log(response);
+                    // console.log(response);
                     // setTimeout(forSync,5000);
                     document.getElementById('for_sync').innerHTML = response;
                     var row = document.getElementById('for_sync').rows.length;
@@ -113,21 +113,24 @@
             var female = str[5];
             var male = str[6];
             var approve_date = str[7];
+            var both_mp = str[8];
             // AJAX
             $.ajax({
                 url: 'php/syncTransfer.php',
                 type: 'POST',
                 cache: false,
                 data:{
+                    id:id,
                     reqDate:reqDate,
                     dept:dept,
                     position:position,
                     contract_status:contract_status,
                     female:female,
                     male:male,
-                    approve_date:approve_date
+                    approve_date:approve_date,
+                    both_mp:both_mp
                 },success:function(response){
-                    console.log(response);
+                    // console.log(response);
                     if(response == 'done'){
                         set_sync(id);
                     }

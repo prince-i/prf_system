@@ -53,6 +53,7 @@
             //     $checker_sig = 'APPROVED';
             // }
             $president = $x['president_verify'];
+            $typeHiring = $x['typeHiring'];
         }
     }
 
@@ -83,6 +84,9 @@
         }
         #form{
             display: none;
+        }
+        html{
+            scroll-behavior: smooth;
         }
     </style>
 </head>
@@ -336,6 +340,62 @@
             </div>
         </div>
     </div>
+    
+    <div class="row" style="margin-top:15%;">
+        <p><b>To be filled up by <u>Recruitment Section:</u></b></p>
+        <!-- TYPE OF HIRING -->
+        <div class="row col s12">
+            <div class="col s6">Type of hiring:</div>
+            <div class="col s6">
+                <?php
+                    if($typeHiring == 'internal'){
+                        echo '&#x2611; Internal';
+                        echo '&nbsp; &#9744; External';
+                    }else{
+                        echo '&#9744; Internal';
+                        echo '&nbsp; &#x2611; External';
+                    }
+                ?>
+            </div>
+        </div>
+
+        <!-- PRF RECIEVED BY -->
+        <div class="row">
+            <div class="col s12">
+                <div class="col s4">PRF Recieved by:</div>
+                <div class="col s4"></div>
+                <div class="col s4"></div>
+            </div>
+        </div>       
+        <!-- Target date of deployment -->
+        <div class="row col s12">
+            <div class="col s6">Target Date of Deployment:</div>
+            <div class="col s6"></div>
+        </div>
+        <!-- DIVIDER -->
+        <div class="row col s12">
+        <div class="divider"></div>
+        </div>
+        <!-- STATUS OF REQUEST -->
+        <div class="row">
+        <div class="col s12">
+        <div class="col s4">Status of Request:</div>
+        <div class="col s4">&#x2611; Met &#x2611; Unmet</div>
+        <div class="col s4"></div>
+        </div>
+        </div>
+        <!-- DEPLOYED -->
+        <p>Names of Employee/s Hired:</p>
+       <table id="hired" class="centered">
+            <thead>
+                <th>Names</th>
+                <th>Date Hired</th>
+                <th>Batch No.</th>
+                <th>Remarks</th>
+            </thead>
+            <tbody id="deployed_data"></tbody>
+       </table>
+    </div>
     <br>
     <button class="btn-small blue z-depth-5" id="print_btn" onclick="print_docs()" style="border-radius:30px;">Print/Save</button>
     </div>
@@ -370,6 +430,39 @@
                 document.getElementById('pending').style.display = "none";
             }
         }
+        detect_second_page();
+        function detect_second_page() {
+            var id = '<?=$id;?>';
+            $.ajax({
+                url: '../php/extrapage.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'page_two',
+                    id:id
+                },success:function(response){
+                    // console.log(response);
+                    load_deployed(response);
+                }
+            });
+        }
+
+        function load_deployed(prf_number){
+            console.log(prf_number);
+            $.ajax({
+                url:'../php/fetch_deployed.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'load_page',
+                    prf_number:prf_number
+                },success:function(response){
+                    // console.log(response);
+                    document.getElementById('deployed_data').innerHTML = response;
+                }
+            });
+        }
+        
     </script>
 </body>
 </html>
