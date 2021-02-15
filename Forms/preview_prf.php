@@ -341,7 +341,7 @@
         </div>
     </div>
     
-    <div class="row" style="margin-top:15%;">
+    <div class="row" style="margin-top:18%;" id="second_page">
         <p><b>To be filled up by <u>Recruitment Section:</u></b></p>
         <!-- TYPE OF HIRING -->
         <div class="row col s12">
