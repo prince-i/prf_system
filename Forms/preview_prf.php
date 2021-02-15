@@ -54,6 +54,16 @@
             // }
             $president = $x['president_verify'];
             $typeHiring = $x['typeHiring'];
+            $date_start = $x['date_start'];
+            $date_end = $x['date_end'];
+            if($date_start == '0000-00-00'){
+                $date_start = '--';
+            }
+            if($date_end == '0000-00-00'){
+                $date_end = '--';
+            }
+            $approve_date = date_create($x['approve_date']);
+            $approve_date_convert  = date_format($approve_date,"F j, Y");
         }
     }
 
@@ -218,7 +228,10 @@
                 &nbsp;&nbsp;&nbsp;<u><?=$contract_stat?></u>
             </div>
             <div class="col s6">
-                <b>Date Start:</b> 0000-00-00 <b> &nbsp; Date End:</b> 0000-00-00
+                <div id="date_start_end">
+                <b>Date Start:</b> <?=$date_start;?> <b> &nbsp; Date End:</b> <?=$date_end;?>
+                
+                </div>
             </div>
         </div>
 
@@ -363,8 +376,8 @@
         <div class="row">
             <div class="col s12">
                 <div class="col s4">PRF Recieved by:</div>
-                <div class="col s4"></div>
-                <div class="col s4"></div>
+                <div class="col s4"><span id="prf_reciever"></span></div>
+                <div class="col s4"><?=$approve_date_convert;?></div>
             </div>
         </div>       
         <!-- Target date of deployment -->
@@ -385,7 +398,12 @@
         </div>
         </div>
         <!-- DEPLOYED -->
-        <p>Names of Employee/s Hired:</p>
+        <div class="row">
+            <div class="col s12">
+                <div class="col s4">Names of Employee/s Hired:</div>
+                <div class="col s8">(please attach the list/attendance form if more than below spaces)</div>
+            </div>
+        </div>
        <table id="hired" class="centered">
             <thead>
                 <th>Names</th>
@@ -430,6 +448,7 @@
                 // DO NOTHING
             }else{
                 document.getElementById('pending').style.display = "none";
+                document.getElementById('prf_reciever').innerHTML = 'Mayvilyn B. Magay';
                 detect_second_page();
             }
         }

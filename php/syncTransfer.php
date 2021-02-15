@@ -34,7 +34,14 @@ foreach($stmt->fetchALL() as $x){
     if($contract == 'Probationary'){
         // IF PROBITIONARY SYSTEM WILL INPUT THE DEPLOYMENT DATE 42 DAYS FROM APPROVAL DATE
          $deployDate = date('Y-m-d',strtotime("+42 day",strtotime($approveDate)));
-        // echo $approveDate;
+        // GET THE ID OF APPROVED DATE FROM FALP CALENDAR
+        // $startID =  "SELECT * FROM falp_calendar WHERE date_value = '$approveDate'";
+        // $stmt = $conn->prepare($startID);
+        // $stmt->execute();
+        // foreach($stmt->fetchALL() as $x){
+        //     $start = $x['id'];
+        // }
+    
     }
     if($contract == 'Through Manpower Provider'){
         // IF PROBITIONARY SYSTEM WILL INPUT THE DEPLOYMENT DATE 30 DAYS FROM APPROVAL DATE
