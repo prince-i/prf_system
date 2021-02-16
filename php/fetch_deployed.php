@@ -32,8 +32,8 @@ if($method == 'target_deploy_date'){
         $date =  date_create($x['request_date_of_deployment']);
         echo date_format($date,"F j, Y");
     }
-
-
 }
+
+
 $conn = null;
 ?>

@@ -101,7 +101,7 @@
     </style>
 </head>
 <body>
-<input type="text" name="" id="prf_number">
+<input type="hidden" name="" id="prf_number">
     <img src="../Img/CANCEL STAMP.png" alt="" id="watermark" style="position:absolute;opacity:0.15;width:100%;margin-top:20%;display:none;">
     <img src="../Img/PENDING STAMP.png" alt="" id="pending" style="position:absolute;opacity:0.15;width:90%;margin-top:30%;display:none;">
     <!--  PRF FORM -->
@@ -460,10 +460,9 @@
                 document.getElementById('pending').style.display = "none";
                 document.getElementById('prf_reciever').innerHTML = 'Mayvilyn B. Magay';
                 detect_second_page();
-                load_target_deploy_date();
             }
         }
-        get_prf_number();
+    get_prf_number();
        function get_prf_number(){
            $.ajax({
                 url: '../php/extrapage.php',
@@ -488,6 +487,7 @@
                     id:id
                 },success:function(response){
                     load_deployed(response);
+                    load_date_deploy(response);
                 }
             });
         }
@@ -507,8 +507,8 @@
             });
         }
 
-        function load_date_deploy(){
-            var prf = document.querySelector('#prf_number').value;
+        function load_date_deploy(prf){
+            console.log(prf);
             $.ajax({
                 url:'../php/fetch_deployed.php',
                 type: 'POST',
@@ -522,13 +522,9 @@
                 }
             });
         }
-
-        function last_hired_emp(){
-            
-        }
-
-     
-
+        
+        // fetch the hired count for this prf number
+        
     </script>
 </body>
 </html>
