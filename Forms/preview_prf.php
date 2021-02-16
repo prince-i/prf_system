@@ -382,8 +382,9 @@
         </div>       
         <!-- Target date of deployment -->
         <div class="row col s12">
-            <div class="col s6">Target Date of Deployment:</div>
-            <div class="col s6"></div>
+            <div class="col s4">Target Date of Deployment:</div>
+            <div class="col s4" id="target_deployment"></div>
+            <div class="col s4"></div>
         </div>
         <!-- DIVIDER -->
         <div class="row col s12">
@@ -450,6 +451,7 @@
                 document.getElementById('pending').style.display = "none";
                 document.getElementById('prf_reciever').innerHTML = 'Mayvilyn B. Magay';
                 detect_second_page();
+                load_target_deploy_date();
             }
         }
         
@@ -465,12 +467,13 @@
                 },success:function(response){
                     // console.log(response);
                     load_deployed(response);
+                    load_target_deploy_date();
                 }
             });
         }
 
         function load_deployed(prf_number){
-            console.log(prf_number);
+            // console.log(prf_number);
             $.ajax({
                 url:'../php/fetch_deployed.php',
                 type: 'POST',
@@ -484,7 +487,36 @@
                 }
             });
         }
-        
+        function load_target_deploy_date(){
+            var reqID = '<?=$id?>';
+            $.ajax({
+                url: '../php/extrapage.php',
+                type: 'POST',
+                cache:false,
+                data:{
+                    method: 'target_deploy_date',
+                    reqID:reqID
+                },success:function(response){
+                    load_date_deploy(response);
+                }
+            });
+        }
+
+        function load_date_deploy(prf){
+            console.log(prf);
+            $.ajax({
+                url:'../php/fetch_deployed.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method:'target_deploy_date',
+                    prfid:prf
+                },success:function(response){
+                    // console.log(response);
+                    document.getElementById('target_deployment').innerHTML = response;
+                }
+            });
+        }
     </script>
 </body>
 </html>

@@ -3,6 +3,9 @@ include 'rms_conn.php';
 $method = $_POST['method'];
 if($method == 'load_page'){
     $prfNo = $_POST['prf_number'];
+    if(empty($prfNo)){
+        // DO NOTHING
+    }else{
     // QUERY
     $sql = "SELECT names,date_deployed,batch_no,remarks FROM tbl_deployedlist WHERE control_number = '$prfNo'";
     $stmt = $conn->prepare($sql);
@@ -17,6 +20,18 @@ if($method == 'load_page'){
             echo '</tr>';
         }
     }
+}
+}
+if($method == 'target_deploy_date'){
+   $prf_num = $_POST['prfid'];
+    // DETECT TARGET DATE
+    $sql = "SELECT request_date_of_deployment FROM tbl_manpowerrequest WHERE control_number = '$prf_num'";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    foreach($stmt->fetchALL() as $x){
+        echo $x['request_date_of_deployment'];
+    }
+
 }
 $conn = null;
 ?>
