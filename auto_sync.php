@@ -114,6 +114,7 @@
             var male = str[6];
             var approve_date = str[7];
             var both_mp = str[8];
+            var date_start = str[9];
             // AJAX
             $.ajax({
                 url: 'php/syncTransfer.php',
@@ -128,9 +129,10 @@
                     female:female,
                     male:male,
                     approve_date:approve_date,
-                    both_mp:both_mp
+                    both_mp:both_mp,
+                    date_start:date_start
                 },success:function(response){
-                    // console.log(response);
+                    console.log(response);
                     if(response == 'done'){
                         set_sync(id);
                     }
@@ -148,7 +150,7 @@
                     method: 'update_synced',
                     id:id
                 },success:function(response){
-                    // console.log(response);
+                    console.log(response);
                     if(response == 'success'){
                         setTimeout(forSync,3000);
                     }else{

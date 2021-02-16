@@ -4,14 +4,14 @@
     <div class="modal-content">
         <div class="row">
             <div class="col s12">
-                <div class="input-field col s12"><input type="text" name="" id="name"><label for="">Complete Name</label></div>
+                <div class="input-field col s12"><input type="text" name="" id="name" autocomplete="off"><label for="">Complete Name</label></div>
             </div>
             <div class="col s12">
                 <div class="input-field col s6">
-                    <input type="text" name="" id="email_username"><label for="">Email</label>
+                    <input type="text" name="" id="email_username" autocomplete="off"><label for="">Email</label>
                 </div>
                 <div class="input-field col s6">
-                    <input type="text" name="" id="register_password"><label for="">Password</label>
+                    <input type="text" name="" id="register_password" autocomplete="off"><label for="">Password</label>
                 </div>
             </div>
         </div>

@@ -9,6 +9,7 @@ $female = $_POST['female'];
 $male = $_POST['male'];
 $approveDate = $_POST['approve_date'];
 $both_mp = $_POST['both_mp'];
+$date_start_spe = $_POST['date_start'];
 // DEFINE THE LAST CONTROL NUMBER FROM RMS DATABASE
 $check_ctrl_num = "SELECT MAX(control_number) as last_prf FROM tbl_manpowerrequest";
 $stmt=$conn->prepare($check_ctrl_num);
@@ -33,19 +34,45 @@ foreach($stmt->fetchALL() as $x){
     // DEFINE CONTRACT STATUS
     if($contract == 'Probationary'){
         // IF PROBITIONARY SYSTEM WILL INPUT THE DEPLOYMENT DATE 42 DAYS FROM APPROVAL DATE
-         $deployDate = date('Y-m-d',strtotime("+42 day",strtotime($approveDate)));
-        // GET THE ID OF APPROVED DATE FROM FALP CALENDAR
-        // $startID =  "SELECT * FROM falp_calendar WHERE date_value = '$approveDate'";
-        // $stmt = $conn->prepare($startID);
-        // $stmt->execute();
-        // foreach($stmt->fetchALL() as $x){
-        //     $start = $x['id'];
-        // }
-    
+        // GET THE FUCKING ID OF DEPLOY DATE FROM FALP CALENDAR
+        $fetchID = "SELECT (id + 42) as end_ID FROM prf_db.falp_calendar WHERE date_value = '$approveDate'";
+        $stmt=$conn->prepare($fetchID);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $x){
+           $endID =  $x['end_ID'];
+        }
+
+        // FETCH DEPLOY DATE 
+        $fetchDate = "SELECT date_value FROM prf_db.falp_calendar WHERE id = '$endID'";
+        $stmt = $conn->prepare($fetchDate);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $y){
+           $deployDate  = $y['date_value'];
+        }
+        
     }
     if($contract == 'Through Manpower Provider'){
         // IF PROBITIONARY SYSTEM WILL INPUT THE DEPLOYMENT DATE 30 DAYS FROM APPROVAL DATE
-         $deployDate = date('Y-m-d',strtotime("+30 day",strtotime($approveDate)));
+        $fetchID = "SELECT (id + 30) as end_ID FROM prf_db.falp_calendar WHERE date_value = '$approveDate'";
+        $stmt=$conn->prepare($fetchID);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $x){
+           $endID =  $x['end_ID'];
+        }
+
+        // FETCH DEPLOY DATE 
+        $fetchDate = "SELECT date_value FROM prf_db.falp_calendar WHERE id = '$endID'";
+        $stmt = $conn->prepare($fetchDate);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $y){
+           $deployDate  = $y['date_value'];
+        }
+    }
+    if($contract == 'Special Project Employee'){
+        $deployDate = $date_start_spe;
+    }
+    if($contract == 'On-the-Job Training'){
+        $deployDate = $date_start_spe;
     }
 
     // // INSERT TO RMS

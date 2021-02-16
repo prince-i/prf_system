@@ -160,6 +160,8 @@
                     if(response == 'success'){
                         swal('Nofitication','Successfully registered!','success');
                         $('.modal').modal('close','#signUp');
+                    }else if(response == 'exist'){
+                        swal('Notification','This email is already in use. Please choose another email!','info');
                     }
                 }
             });
