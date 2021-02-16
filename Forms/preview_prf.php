@@ -101,6 +101,7 @@
     </style>
 </head>
 <body>
+<input type="text" name="" id="prf_number">
     <img src="../Img/CANCEL STAMP.png" alt="" id="watermark" style="position:absolute;opacity:0.15;width:100%;margin-top:20%;display:none;">
     <img src="../Img/PENDING STAMP.png" alt="" id="pending" style="position:absolute;opacity:0.15;width:90%;margin-top:30%;display:none;">
     <!--  PRF FORM -->
@@ -358,32 +359,40 @@
         <p><b>To be filled up by <u>Recruitment Section:</u></b></p>
         <!-- TYPE OF HIRING -->
         <div class="row col s12">
-            <div class="col s6">Type of hiring:</div>
-            <div class="col s6">
+            <div class="col s4">Type of hiring:</div>
+            <!-- <div class="col s6"> -->
                 <?php
                     if($typeHiring == 'internal'){
+                        echo '<div class="col s4">';
                         echo '&#x2611; Internal';
-                        echo '&nbsp; &#9744; External';
+                        echo '</div>';
+                        echo '<div class="col s4" style="font-weight:bold;">';
+                        echo '&#9744; External';
+                        echo '</div>';
                     }else{
+                        echo '<div class="col s4">';
                         echo '&#9744; Internal';
-                        echo '&nbsp; &#x2611; External';
+                        echo '</div>';
+                        echo '<div class="col s4" style="font-weight:bold;">';
+                        echo '&#x2611; External';
+                        echo '</div>';
                     }
                 ?>
-            </div>
+            <!-- </div> -->
         </div>
 
         <!-- PRF RECIEVED BY -->
         <div class="row">
             <div class="col s12">
                 <div class="col s4">PRF Recieved by:</div>
-                <div class="col s4"><span id="prf_reciever"></span></div>
-                <div class="col s4"><?=$approve_date_convert;?></div>
+                <div class="col s4"><span id="prf_reciever" style="font-weight:bold;"></span></div>
+                <div class="col s4" style="font-weight:bold;"><?=$approve_date_convert;?></div>
             </div>
         </div>       
         <!-- Target date of deployment -->
         <div class="row col s12">
             <div class="col s4">Target Date of Deployment:</div>
-            <div class="col s4" id="target_deployment"></div>
+            <div class="col s4" id="target_deployment" style="font-weight:bold;"></div>
             <div class="col s4"></div>
         </div>
         <!-- DIVIDER -->
@@ -454,7 +463,20 @@
                 load_target_deploy_date();
             }
         }
-        
+        get_prf_number();
+       function get_prf_number(){
+           $.ajax({
+                url: '../php/extrapage.php',
+                type: 'POST',
+                cache:false,
+                data:{
+                    method: 'get_prf',
+                    id: '<?=$id;?>'
+                },success:function(response){
+                    $('#prf_number').val(response);
+                }
+           });
+       }
         function detect_second_page() {
             var id = '<?=$id;?>';
             $.ajax({
@@ -465,13 +487,10 @@
                     method: 'page_two',
                     id:id
                 },success:function(response){
-                    // console.log(response);
                     load_deployed(response);
-                    load_target_deploy_date();
                 }
             });
         }
-
         function load_deployed(prf_number){
             // console.log(prf_number);
             $.ajax({
@@ -487,23 +506,9 @@
                 }
             });
         }
-        function load_target_deploy_date(){
-            var reqID = '<?=$id?>';
-            $.ajax({
-                url: '../php/extrapage.php',
-                type: 'POST',
-                cache:false,
-                data:{
-                    method: 'target_deploy_date',
-                    reqID:reqID
-                },success:function(response){
-                    load_date_deploy(response);
-                }
-            });
-        }
 
-        function load_date_deploy(prf){
-            console.log(prf);
+        function load_date_deploy(){
+            var prf = document.querySelector('#prf_number').value;
             $.ajax({
                 url:'../php/fetch_deployed.php',
                 type: 'POST',
@@ -517,6 +522,13 @@
                 }
             });
         }
+
+        function last_hired_emp(){
+            
+        }
+
+     
+
     </script>
 </body>
 </html>
