@@ -102,6 +102,8 @@
 </head>
 <body>
 <input type="hidden" name="" id="prf_number">
+<input type="hidden" name="" id="deploy_stat">
+<input type="hidden" name="" id="date_deploy_stat">
     <img src="../Img/CANCEL STAMP.png" alt="" id="watermark" style="position:absolute;opacity:0.15;width:100%;margin-top:20%;display:none;">
     <img src="../Img/PENDING STAMP.png" alt="" id="pending" style="position:absolute;opacity:0.15;width:90%;margin-top:30%;display:none;">
     <!--  PRF FORM -->
@@ -403,8 +405,8 @@
         <div class="row">
         <div class="col s12">
         <div class="col s4">Status of Request:</div>
-        <div class="col s4">&#x2611; Met &#x2611; Unmet</div>
-        <div class="col s4"></div>
+        <div class="col s4" id="checkboxStat"></div>
+        <div class="col s4" id="remarksStat"></div>
         </div>
         </div>
         <!-- DEPLOYED -->
@@ -427,7 +429,6 @@
     <br>
     <button class="btn-small blue z-depth-5" id="print_btn" onclick="print_docs()" style="border-radius:30px;">Print/Save</button>
     </div>
-
     <script src="../jquery/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
@@ -503,12 +504,13 @@
                 },success:function(response){
                     // console.log(response);
                     document.getElementById('deployed_data').innerHTML = response;
+                    count_deployed();
                 }
             });
         }
-
+        // LOAD TARGET DEPLOY DATE
         function load_date_deploy(prf){
-            console.log(prf);
+            // console.log(prf);
             $.ajax({
                 url:'../php/fetch_deployed.php',
                 type: 'POST',
@@ -521,10 +523,75 @@
                     document.getElementById('target_deployment').innerHTML = response;
                 }
             });
+          
         }
+// -------------------------------------------------------------------------
+        // GET THE TOTAL # oF DEPLOYED APPLICANT INSIDE THE PRF NUMBER
+        function count_deployed(){
+           var table = document.getElementById('deployed_data');
+           var totalRow = table.rows.length;
+        //    console.log(totalRow);
+           compare(totalRow);
+           get_last_deploy();
+        }
+
+// GET LAST DEPLOYED EMPLOYEE
+        function get_last_deploy(){
+            // GET THE LAST ROW OF TABLE DEPLOYED EMPLOYEE
+            var lastTr = document.getElementById('deployed_data').lastElementChild;
+            // GET THE DEPLOYED DATE
+            var col = lastTr.cells[1].innerHTML;
+            compare_date(col);
+            
+        }
+
+
+// COMPARE DEPLOYED AND REQUEST
+        function compare(deploy){
+          var totalRequestPRF = '<?=$totalMP;?>';
+          if(deploy >= totalRequestPRF){
+            //   console.log('met');
+              $('#deploy_stat').val('met');
+          }else{
+              console.log('unmet');
+              $('#deploy_stat').val('unmet');
+          }
+        //   decision();
+        }
+
+        function compare_date(last){
+            var target_date = document.getElementById('target_deployment').innerHTML;
+            if(last > target_date){
+                $('#date_deploy_stat').val('unmet');
+            }else{
+                $('#date_deploy_stat').val('met');
+            }
+            decision();
+        }
+
+        // DEPLOYED ==  TOTAL REQUEST
+        // LAST DEPLOYED HIREE MUST = TO TARGET DEPLOY DATE
         
-        // fetch the hired count for this prf number
-        
+        function decision(){
+            var x = document.querySelector('#deploy_stat').value;
+            var y = document.querySelector('#date_deploy_stat').value;
+            if(x == 'met' && y == 'met'){
+                console.log('met');
+                $('#checkboxStat').html('<b>&#x2611; Met</b> &#9744; Unmet');
+            }
+            if(x =='met' && y == 'unmet'){
+                console.log('unmet');
+                $('#checkboxStat').html('&#9744; Met <b>&#x2611; Unmet</b>');
+            }
+            if(x == 'unmet' && y =='met'){
+                console.log('unmet');
+                $('#checkboxStat').html('&#9744; Met <b>&#x2611; Unmet</b>');
+            }
+            if(x == 'unmet' && y == 'unmet'){
+                console.log('unmet');
+                $('#checkboxStat').html('&#9744; Met <b>&#x2611; Unmet</b>');
+            }
+        }
     </script>
 </body>
 </html>

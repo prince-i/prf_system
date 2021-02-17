@@ -23,5 +23,15 @@ if($method == 'get_prf'){
     }
 }
 
+// if($method == 'fetch_prf_num'){
+//     $id = $_POST['id'];
+//     $sql ="SELECT prf_number FROM hired_list_key WHERE prf_req_id = '$id'";
+//     $stmt = $conn->prepare($sql);
+//     $stmt->execute();
+//     foreach($stmt->fetchALL() as $x){
+//         echo $x['prf_number'];
+//     }
+// }
+
 $conn=null;
 ?>

@@ -7,12 +7,12 @@ if($method == 'load_page'){
         // DO NOTHING
     }else{
     // QUERY
-    $sql = "SELECT names,date_deployed,batch_no,remarks FROM tbl_deployedlist WHERE control_number = '$prfNo'";
+    $sql = "SELECT names,date_deployed,batch_no,remarks FROM tbl_deployedlist WHERE control_number = '$prfNo' ORDER BY list_id ASC";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     if($stmt->rowCount() > 0){
         foreach($stmt->fetchALL() as $x){
-            echo '<tr>';
+            echo '<tr class="deployed">';
             echo '<td>'.$x['names'].'</td>';
             echo '<td>'.$x['date_deployed'].'</td>';
             echo '<td>'.$x['batch_no'].'</td>';
@@ -29,10 +29,12 @@ if($method == 'target_deploy_date'){
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     foreach($stmt->fetchALL() as $x){
-        $date =  date_create($x['request_date_of_deployment']);
-        echo date_format($date,"F j, Y");
+        echo $x['request_date_of_deployment'];
+        // $date =  date_create($x['request_date_of_deployment']);
+        // echo date_format($date,"F j, Y");
     }
 }
+
 
 
 $conn = null;
