@@ -5,7 +5,6 @@
         border-radius:20px;
     }
 </style>
-    
 <div class="row">
     <h5 class="header">Position Requested</h5>
     <!-- POSITION -->
@@ -131,17 +130,40 @@
                 <option value="noneed">No need</option>
             </select>
         </div>
-        <div class="input-field col l6 m6 s12" style="display:none;" id="interField">
-            <input type="text" id="interviewers" ><label for="">Interviewer/s</label>
+        <div class="input-field col l6 m6 s12"  id="interField">
+            <input type="text" id="interviewers" disabled><label for="">Interviewer/s</label>
         </div>
     </div>
     <!-- INTERVIEW INFO -->
     <div class="row">
-    <div class="input-field col l6 m6 s12">
-        <div id="choices1"></div>
+    <div class="input-field col l4 m4 s12">
+        <div id="choices1">
+        <select id="date_interview_from" class="browser-default z-depth-5"  disabled style="border-radius:30px">
+            <option value="" disabled selected>--FROM--</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            </select>
+        </div>
     </div>
-    <div class="input-field col l6 m6 s12">
-        <div id="choices2"></div>
+    <div class="input-field col l4 m4 s12">
+        <div id="choices2">
+        <select id="date_interview_to" class="browser-default z-depth-5" disabled  style="border-radius:30px">
+            <option value="" disabled selected>--FROM--</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            </select>
+        </div>
+    </div>
+    <div class=" col l4 m4 s12">
+        <div id="choices3" class="input-field"><input type="text" id="time_interview" disabled><label>Time of Interview</label></div>
     </div>
     </div>
     <!-- BUGDET INFO -->

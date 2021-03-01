@@ -255,24 +255,51 @@ include 'Modals/preview_request.php';
 function interviewer(){
     var x = document.querySelector('#interview_status').value;
     if(x == 'need'){
-        document.getElementById('interField').style.display = 'block';
-        $('#choices1').html('<input type="date" id="date_interview"><label for="">Day available for interview/validation</label>');
-        $('#choices2').html('<input type="time" id="time_interview"><label for="">Time available for interview/validation</label>');
+        $('#interviewers').attr('disabled',false);
+        $('#date_interview_from').attr('disabled',false);
+        $('#date_interview_to').attr('disabled',false);
+        $('#time_interview').attr('disabled',false);
+        // $('#choices1').show();
+        // $('#choices2').show();
+        // $('#choices3').show();
+        // document.getElementById('interviewers').value = '';
+        // document.getElementById('interField').style.display = 'block';
+        // $('#choices1').html(
+        //     '<select id="date_interview_from" class="browser-default z-depth-5" style="border-radius:30px">'+
+        //     '<option value="" disabled selected>--FROM--</option>'+
+        //     '<option value="Monday">Monday</option>'+
+        //     '<option value="Tuesday">Tuesday</option>'+
+        //     '<option value="Wednesday">Wednesday</option>'+
+        //     '<option value="Thursday">Thursday</option>'+
+        //     '<option value="Friday">Friday</option>'+
+        //     '<option value="Saturday">Saturday</option>'+
+        //     '</select>'
+        // );
+        // $('#choices2').html(
+        //     '<select id="date_interview_to" class="browser-default z-depth-5" style="border-radius:30px">'+
+        //     '<option value="" disabled selected>--TO--</option>'+
+        //     '<option value="Monday">Monday</option>'+
+        //     '<option value="Tuesday">Tuesday</option>'+
+        //     '<option value="Wednesday">Wednesday</option>'+
+        //     '<option value="Thursday">Thursday</option>'+
+        //     '<option value="Friday">Friday</option>'+
+        //     '<option value="Saturday">Saturday</option>'+
+        //     '</select>'
+        // );
+        // $('#choices3').html('<input type="text" id="time_interview"><label>Time of Interview</label>');
     }else{
-        document.getElementById('interField').style.display = 'none';
+        // document.getElementById('interField').style.display = 'none';
         document.getElementById('interviewers').value = 'N/A';
-        $('#choices1').html(
-            '<select id="date_interview" class="browser-default z-depth-5" style="border-radius:30px">'+
-            '<option value="" disabled selected>--SELECT DAY--</option>'+
-            '<option value="Monday">Monday</option>'+
-            '<option value="Tuesday">Tuesday</option>'+
-            '<option value="Wednesday">Wednesday</option>'+
-            '<option value="Thursday">Thursday</option>'+
-            '<option value="Friday">Friday</option>'+
-            '<option value="Saturday">Saturday</option>'+
-            '</select>'
-        );
-        $('#choices2').html('<input type="text" id="time_interview"><label for="">Time available for interview/validation</label>')
+        // $('#choices1').hide();
+        // $('#choices2').hide();
+        // $('#choices3').hide();
+        $('#interviewers').attr('disabled',true);
+        $('#date_interview_from').attr('disabled',true);
+        $('#date_interview_to').attr('disabled',true);
+        $('#time_interview').attr('disabled',true);
+        $('#date_interview_from').val('-');
+        $('#date_interview_to').val('-');
+        $('#time_interview').val('-');
     }
 }
 
@@ -313,8 +340,15 @@ const submit_prf =()=>{
 // interview/validation
         var interview_need_stats = document.getElementById('interview_status').value;
         var interviewer = document.getElementById('interviewers').value;
-        var date_interview_set = document.getElementById('date_interview').value;
-        var time_interview_set = document.getElementById('time_interview').value;
+        var date_from = document.getElementById('date_interview_from').value;
+        var date_to = document.getElementById('date_interview_to').value;
+        if(interview_need_stats == 'need'){
+            var date_interview_set =  date_from +" - "+ date_to;
+            var time_interview_set = document.getElementById('time_interview').value;
+        }else{
+            var date_interview_set = 'N/A';
+            var time_interview_set = 'N/A';
+        }
 // budget info
         var budget_source = document.getElementById('budget_source_val').value;
         var budget_status = document.getElementById('budget_status').value;
@@ -328,48 +362,48 @@ const submit_prf =()=>{
 // NEXT SIGNATORY
         var nextSign = document.getElementById('nextSignatory').value;
 // VALIDATION --------------------------------------------------------------------------------------------------------------------------------------
-        if(position == ''){
-            swal('Warning','Hiring position is required.','info');
-        }else if(assign_dept == ''){
-            swal('Warning','Assigned Department must not empty.','info');
-        }else if(numberOfCheck <= 0){
-            swal('Warning','Choose atleast 1 (one) reason for hiring.','info');
-        }else if(contract_status == ''){
-            swal('Warning','Contract status must not empty.','info');
-        }else if(educational_attainment == ''){
-            swal('Warning','Please enter educational attainment!','info');
-        }else if(work_exp == ''){
-            swal('Warning','Please enter required work experience!','info'); 
-        }else if(certification == ''){
-            swal('Warning','Please enter required license or certification!','info'); 
-        }else if(job_duties == ''){
-            swal('Warning','Please explain the description of duties!','info');
-        }else if(interview_need_stats == ''){
-            swal('Warning','Please tell us if he/she is required undergo an interview!','info');
-        }else if(interviewer == ''){
-            swal('Warning','Please enter all the interviewers!','info');
-        }else if(date_interview_set == ''){
-            swal('Warning','Please set a date for interview!','info');
-        }else if(time_interview_set == ''){
-            swal('Warning','Please set a time for interview.','info');
-        }else if(budget_source == ''){
-            swal('Warning','Please specify your budget source information.','info');
-        }else if(budget_status == ''){
-            swal('Warning','Budget status is required.','info');
-        }else if(actual_mp_dept == ''){
-            swal('Warning','Actual Manpower count of department is required.','info');
-        }else if(plan_mp_dept == ''){
-            swal('Warning','Plan manpower count of department is required.','info');
-        }else if(actual_mp_section == ''){
-            swal('Warning','Actual manpower count of section is required.','info');
-        }else if(plan_mp_section == ''){
-            swal('Warning','Plan manpower count of your section is required.','info');
-        }else if(typeHiring == ''){
-            swal('Warning','Please specify the hiring type.','info');
-        }else if(nextSign == ''){
-            swal('Warning','Please specify the next signatory.','info');
-        }
-        else{
+        // if(position == ''){
+        //     swal('Warning','Hiring position is required.','info');
+        // }else if(assign_dept == ''){
+        //     swal('Warning','Assigned Department must not empty.','info');
+        // }else if(numberOfCheck <= 0){
+        //     swal('Warning','Choose atleast 1 (one) reason for hiring.','info');
+        // }else if(contract_status == ''){
+        //     swal('Warning','Contract status must not empty.','info');
+        // }else if(educational_attainment == ''){
+        //     swal('Warning','Please enter educational attainment!','info');
+        // }else if(work_exp == ''){
+        //     swal('Warning','Please enter required work experience!','info'); 
+        // }else if(certification == ''){
+        //     swal('Warning','Please enter required license or certification!','info'); 
+        // }else if(job_duties == ''){
+        //     swal('Warning','Please explain the description of duties!','info');
+        // }else if(interview_need_stats == ''){
+        //     swal('Warning','Please tell us if he/she is required undergo an interview!','info');
+        // }else if(interviewer == ''){
+        //     swal('Warning','Please enter all the interviewers!','info');
+        // }else if(date_interview_set == ''){
+        //     swal('Warning','Please set a date for interview!','info');
+        // }else if(time_interview_set == ''){
+        //     swal('Warning','Please set a time for interview.','info');
+        // }else if(budget_source == ''){
+        //     swal('Warning','Please specify your budget source information.','info');
+        // }else if(budget_status == ''){
+        //     swal('Warning','Budget status is required.','info');
+        // }else if(actual_mp_dept == ''){
+        //     swal('Warning','Actual Manpower count of department is required.','info');
+        // }else if(plan_mp_dept == ''){
+        //     swal('Warning','Plan manpower count of department is required.','info');
+        // }else if(actual_mp_section == ''){
+        //     swal('Warning','Actual manpower count of section is required.','info');
+        // }else if(plan_mp_section == ''){
+        //     swal('Warning','Plan manpower count of your section is required.','info');
+        // }else if(typeHiring == ''){
+        //     swal('Warning','Please specify the hiring type.','info');
+        // }else if(nextSign == ''){
+        //     swal('Warning','Please specify the next signatory.','info');
+        // }
+        // else{
         document.getElementById('submitPRF').disabled = true;
         $.ajax({
             url:'../php/requestorController.php',
@@ -424,7 +458,7 @@ const submit_prf =()=>{
                     sendMail();
             }
         });
-    }
+    // }
 }
 function sendMail(){
     var level = document.getElementById('stepTxt').value;

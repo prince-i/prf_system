@@ -87,6 +87,9 @@
         $level = $_POST['level'];
         $typeHiring = $_POST['typeHiring'];
         $nextSign = $_POST['nextSign'];
+        if($interview_stat == 'noneed'){
+            $interview_date_time = 'N/A';
+        }
         if($nextSign == 1){
             // REQUESTOR
             $save_req = "INSERT INTO tb_request_mp (`id`,`requestor`,`requestor_email`,`requesting_position`,`assigned_dept`,`female_num_mp`,
