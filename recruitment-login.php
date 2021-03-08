@@ -32,6 +32,9 @@
         </div>
     </div>
 
+
+
+<!-- JAVASCRIPT -->
     <script src="jquery/jquery.min.js"></script>
     <script src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
     <script src="node_modules/sweetalert/dist/sweetalert.min.js"></script>
