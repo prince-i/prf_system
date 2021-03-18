@@ -20,7 +20,8 @@ try {
 
     //Recipients
     $mail->setFrom('falpsystemgroup2019@gmail.com', 'PRF System');
-    $mail->addAddress($email, '');    
+    $mail->addAddress($email, ''); 
+    // $mail->addCC('','');
     $mail->addReplyTo('noreply@example.com', 'No-Reply');
  
     // Content
