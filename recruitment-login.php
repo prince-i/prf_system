@@ -18,17 +18,20 @@
                 </div>
                 <!-- USERNAME -->
                 <div class="input-field col s12">
-                    <input type="text" id="username"><label for="">Username</label>
+                    <input type="text" id="username" name="rec_username" autocomplete="off"><label for="">Username</label>
                 </div>
                 <!-- PASSWORD -->
                 <div class="input-field col s12">
-                    <input type="password" name="" id="password"><label for="">Password</label>
+                    <input type="password" name="rec_password" id="password"><label for="">Password</label>
                 </div>
                 <!-- LOGIN -->
                 <div class="input-field col s12">
-                    <input type="submit" value="login" class="btn blue col s12">
+                    <input type="submit" value="login" name="recruitment_login" class="btn blue col s12">
                 </div>
             </form>
+        </div>
+        <div class="row col s12">
+            <center><?php require 'php/recruitment_server.php'?></center>
         </div>
     </div>
 
