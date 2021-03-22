@@ -2,6 +2,11 @@
 <?php 
 require '../php/rec_session.php';
 include 'Modals/account_menu.php';
+if($role != 'recruitment'){
+    session_unset();
+    session_destroy();
+    header('location:../recruitment-login.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

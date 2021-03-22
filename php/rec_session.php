@@ -9,6 +9,7 @@
         foreach($res as $x){
             $name = $x['name'];
             $email = $x['email'];
+            $role = $x['user_role'];
         }
     }else{
         session_unset();
