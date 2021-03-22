@@ -8,6 +8,7 @@
     <title><?php echo title; ?></title>
     <link rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="Img/logo.jpg" type="image/jpg" sizes="16x16">
 </head>
 <body>
     <div class="row center container" style="width:50%;">
