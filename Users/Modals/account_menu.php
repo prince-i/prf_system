@@ -1,5 +1,5 @@
 <ul id='acct_option' class='dropdown-content'>
-    <li><a href="#">Change Password&nbsp;<img src="../Img/reset_pass.png" alt="" class="responsive-img" style="width:15px;"></a></li>
+    <!-- <li><a href="#">Change Password&nbsp;<img src="../Img/reset_pass.png" alt="" class="responsive-img" style="width:15px;"></a></li> -->
     <li><a href="#" class="modal-trigger" data-target="logout_form">Signout&nbsp;<img src="../Img/signout.png" alt="" class="responsive-img" style="width:12px;"></a></li>
   </ul>
 

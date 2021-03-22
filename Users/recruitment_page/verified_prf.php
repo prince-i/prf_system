@@ -3,6 +3,15 @@
         <div class="input-field col s4">
             <select name="" id="" class="browser-default  z-depth-1">
                 <option value="" selected disabled>--SELECT DEPARTMENT--</option>
+                <?php
+                    $fetchQL = "SELECT deptCode,deptDesc FROM tb_department ORDER BY id ASC";
+                    $stmt = $conn->prepare($fetchQL);
+                    $stmt->execute();
+                    foreach($stmt->fetchALL() as $x){
+                        echo '<option value="'.$x['deptCode'].'">'.$x['deptDesc'].'</option>';
+                    }
+                    
+                ?>
             </select>
         </div>
         <div class="row col s12" style="height:420px;overflow:auto;">
