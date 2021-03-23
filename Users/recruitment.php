@@ -31,7 +31,7 @@ if($role != 'recruitment'){
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
         <li class="tab"><a href="#pendingPRF" onclick="load_pending_list()">Pending PRF</a></li>
-        <li class="tab"><a href="#verifiedPRF" onclick="">Verified PRF</a></li>
+        <li class="tab"><a href="#verifiedPRF" onclick="load_verified_prf()">Verified PRF</a></li>
         <li class="tab"><a href="#user_accounts" onclick="">User Accounts</a></li>
         <li class="tab"><a href="#recruitment_acct" onclick="">Recruitment Accounts</a></li>
       </ul>
@@ -45,8 +45,8 @@ if($role != 'recruitment'){
 
 <div id="pendingPRF"><?php include 'recruitment_page/pending_prf.php';?></div>
 <div id="verifiedPRF"><?php include 'recruitment_page/verified_prf.php';?></div>
-<div id="user_accounts"><?php include '';?></div>
-<div id="recruitment_acct"><?php include '';?></div>
+<div id="user_accounts"><?php include 'recruitment_page/user_accounts.php';?></div>
+<div id="recruitment_acct"><?php include 'recruitment_page/recruitment_acct.php';?></div>
 
 </body>
 
@@ -82,6 +82,21 @@ if($role != 'recruitment'){
                 filter_pending:filter_pending
             },success:function(response){
                 $('#pending_prf_view').html(response);
+            }
+        });
+    }
+
+    function load_verified_prf(){
+      var filter_verified = $('#verified_filter').val();
+        $.ajax({
+            url: '../php/recruitment_process.php',
+            type: 'POST',
+            cache: false,
+            data:{
+                method: 'load_verified',
+                filter_verified:filter_verified
+            },success:function(response){
+                $('#verified_prf_view').html(response);
             }
         });
     }

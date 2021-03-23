@@ -2,7 +2,7 @@
     <div class="col s12">
         <div class="input-field col s4">
             <select name="" id="filter_pending" class="browser-default z-depth-1" onchange="load_pending_list()">
-                <option value="" selected disabled>--SELECT DEPARTMENT--</option>
+                <option value="" selected>--SELECT DEPARTMENT--</option>
                 <?php
                     $fetchQL = "SELECT deptCode,deptDesc FROM tb_department ORDER BY id ASC";
                     $stmt = $conn->prepare($fetchQL);
@@ -16,7 +16,7 @@
         </div>
         </div>
         <div class="row col s12" style="height:420px;overflow:auto;">
-            <table class="centered">
+            <table class="centered z-depth-2" style="zoom:80%;">
                 <thead>
                     <th>Requestor</th>
                     <th>Requestor Email</th>

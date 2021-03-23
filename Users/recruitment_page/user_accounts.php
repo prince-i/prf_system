@@ -1,8 +1,8 @@
 <div class="row">
     <div class="col s12">
         <div class="input-field col s4">
-            <select name="" id="verified_filter" class="browser-default  z-depth-1" onchange="load_verified_prf()">
-                <option value="" selected>--SELECT DEPARTMENT--</option>
+            <select name="" id="filter_pending" class="browser-default z-depth-1" onchange="load_pending_list()">
+                <option value="" selected disabled>--SELECT DEPARTMENT--</option>
                 <?php
                     $fetchQL = "SELECT deptCode,deptDesc FROM tb_department ORDER BY id ASC";
                     $stmt = $conn->prepare($fetchQL);
@@ -14,20 +14,20 @@
                 ?>
             </select>
         </div>
+        </div>
         <div class="row col s12" style="height:420px;overflow:auto;">
             <table class="centered z-depth-2" style="zoom:80%;">
                 <thead>
-                    <th>PRF #</th>
-                    <th>Requestor</th>
-                    <th>Requestor Email</th>
-                    <th>Requesting Position</th>
-                    <th>Requesting Dept</th>
-                    <th>Approval Status</th>
-                    <th>Verification Status</th>
-                    <th>Type of Hiring</th>
-                    <th>Date Request</th>
+                    <th>UserID</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Role</th>
+                    <th>Position</th>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Level</th>
                 </thead>
-                <tbody id="verified_prf_view">
+                <tbody id="users_data">
                     <!--  -->
                 </tbody>
             </table>
