@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col s12">
         <div class="input-field col s4">
-            <select name="" id="filter_pending" class="browser-default z-depth-1" onchange="load_pending_list()">
+            <select name="" id="filter_user" class="browser-default z-depth-1" onchange="load_prf_account()">
                 <option value="" selected disabled>--SELECT DEPARTMENT--</option>
                 <?php
                     $fetchQL = "SELECT deptCode,deptDesc FROM tb_department ORDER BY id ASC";

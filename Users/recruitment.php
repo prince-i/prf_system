@@ -2,6 +2,7 @@
 <?php 
 require '../php/rec_session.php';
 include 'Modals/account_menu.php';
+include 'Modals/prf_user_acct_menu.php';
 if($role != 'recruitment'){
     session_unset();
     session_destroy();
@@ -32,7 +33,7 @@ if($role != 'recruitment'){
       <ul class="tabs tabs-transparent">
         <li class="tab"><a href="#pendingPRF" onclick="load_pending_list()">Pending PRF</a></li>
         <li class="tab"><a href="#verifiedPRF" onclick="load_verified_prf()">Verified PRF</a></li>
-        <li class="tab"><a href="#user_accounts" onclick="">User Accounts</a></li>
+        <li class="tab"><a href="#user_accounts" onclick="load_prf_account()">User Accounts</a></li>
         <li class="tab"><a href="#recruitment_acct" onclick="">Recruitment Accounts</a></li>
       </ul>
     </div>
@@ -99,6 +100,60 @@ if($role != 'recruitment'){
                 $('#verified_prf_view').html(response);
             }
         });
+    }
+
+    // LOAD USER ACCOUNTS
+    function load_prf_account(){
+      var filter_user = document.getElementById('filter_user').value;
+      $.ajax({
+        url: '../php/recruitment_process.php',
+        type: 'POST',
+        cache: false,
+        data:{
+          method: 'load_prf_user',
+          filter_user:filter_user
+        },success:function(response){
+          $('#users_data').html(response);
+        }
+      });
+    }
+
+    // GET ID OF USER PRF FROM TABLE
+    function fetch_id_prf_user(param){
+      var text = param.split('~!~');
+      var id = text[0];
+      var username = text[1];
+      var email = text[2];
+      var password = text[3];
+      var role = text[4];
+      var position = text[5];
+      var name = text[6];
+      var department = text[7];
+      var level = text[8];
+      $('#user_record_id').val(id);
+      $('#userID').val(username);
+      $('#email_prf').val(email);
+      $('#prf_pass').val(password);
+      $('#saved_role').html(role);
+      $('#prf_name').val(name);
+      $('#saved_level').html(level);
+      $('#prf_department').val(department);
+      $('#prf_position').val(position);
+    }
+
+    function load_level(){
+      var prf_role = document.getElementById('prf_role').value;
+      $.ajax({
+        url: '../php/load_dept_section.php',
+        type:'POST',
+        cache:false,
+        data:{
+          method:'load_level',
+          role:prf_role
+        },success:function(response){
+          $('#prf_level').html(response);
+        }
+      });
     }
 </script>
 </body>

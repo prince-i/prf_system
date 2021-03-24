@@ -77,4 +77,41 @@
             }
         }
     }
+
+    if($method == 'load_prf_user'){
+        $dept = $_POST['filter_user'];
+        if(empty($dept)){
+            $query = "SELECT id,username,email,password,role,position,name,department,acct_level FROM prf_account";
+            $stmt = $conn->prepare($query);
+            $stmt->execute();
+            foreach($stmt->fetchALL() as $x){
+                echo '<tr onclick="fetch_id_prf_user(&quot;'.$x['id'].'~!~'.$x['username'].'~!~'.$x['email'].'~!~'.$x['password'].'~!~'.$x['role'].'~!~'.$x['position'].'~!~'.$x['name'].'~!~'.$x['department'].'~!~'.$x['acct_level'].'&quot;)" class="modal-trigger" data-target="prf_user_menu" style="cursor:pointer">';
+                echo '<td>'.$x['username'].'</td>';
+                echo '<td>'.$x['email'].'</td>';
+                echo '<td>'.$x['password'].'</td>';
+                echo '<td>'.$x['role'].'</td>';
+                echo '<td>'.$x['position'].'</td>';
+                echo '<td>'.$x['name'].'</td>';
+                echo '<td>'.$x['department'].'</td>';
+                echo '<td>'.$x['acct_level'].'</td>';
+                echo '</tr>';
+            }
+        }else{
+            $query = "SELECT id,username,email,password,role,position,name,department,acct_level FROM prf_account WHERE department LIKE '$dept%'";
+            $stmt = $conn->prepare($query);
+            $stmt->execute();
+            foreach($stmt->fetchALL() as $x){
+                echo '<tr>';
+                echo '<td>'.$x['username'].'</td>';
+                echo '<td>'.$x['email'].'</td>';
+                echo '<td>'.$x['password'].'</td>';
+                echo '<td>'.$x['role'].'</td>';
+                echo '<td>'.$x['position'].'</td>';
+                echo '<td>'.$x['name'].'</td>';
+                echo '<td>'.$x['department'].'</td>';
+                echo '<td>'.$x['acct_level'].'</td>';
+                echo '</tr>';
+            }
+        }
+    }
 ?>
