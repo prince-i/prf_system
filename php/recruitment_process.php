@@ -46,7 +46,7 @@
             $stmt=$conn->prepare($sql);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
-                echo '<tr onclick="verified_preview('.$x['prf_req_id'].')">';
+                echo '<tr onclick="verified_preview('.$x['prf_req_id'].')" style="cursor:pointer">>';
                 echo '<td>'.$x['prf_number'].'</td>';
                 echo '<td>'.$x['requestor'].'</td>';
                 echo '<td>'.$x['requestor_email'].'</td>';
@@ -63,7 +63,7 @@
             $stmt=$conn->prepare($sql);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
-                echo '<tr onclick="verified_preview('.$x['prf_req_id'].')">';
+                echo '<tr onclick="verified_preview('.$x['prf_req_id'].')" style="cursor:pointer">>';
                 echo '<td>'.$x['prf_number'].'</td>';
                 echo '<td>'.$x['requestor'].'</td>';
                 echo '<td>'.$x['requestor_email'].'</td>';
