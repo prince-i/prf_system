@@ -5,11 +5,11 @@
     if($method == 'load_pending'){
         $dept = $_POST['filter_pending'];
         if(empty($dept)){
-            $sql = "SELECT requestor,requestor_email,requesting_position,assigned_dept,approval_status,verification_status,typeHiring,request_date FROM tb_request_mp WHERE step < 7 ORDER BY id ASC";
+            $sql = "SELECT id,requestor,requestor_email,requesting_position,assigned_dept,approval_status,verification_status,typeHiring,request_date FROM tb_request_mp WHERE step > 0 AND step < 7 ORDER BY id ASC";
             $stmt=$conn->prepare($sql);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
-                echo '<tr>';
+                echo '<tr style="cursor:pointer;" onclick="pending_preview('.$x['id'].')">';
                 echo '<td>'.$x['requestor'].'</td>';
                 echo '<td>'.$x['requestor_email'].'</td>';
                 echo '<td>'.$x['requesting_position'].'</td>';
@@ -21,11 +21,11 @@
                 echo '</tr>';
             }
         }else{
-            $sql = "SELECT requestor,requestor_email,requesting_position,assigned_dept,approval_status,verification_status,typeHiring,request_date FROM tb_request_mp WHERE step < 7 AND assigned_dept LIKE '$dept%' ORDER BY id ASC";
+            $sql = "SELECT id,requestor,requestor_email,requesting_position,assigned_dept,approval_status,verification_status,typeHiring,request_date FROM tb_request_mp WHERE step < 7 AND assigned_dept LIKE '$dept%' ORDER BY id ASC";
             $stmt=$conn->prepare($sql);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
-                echo '<tr>';
+                echo '<tr style="cursor:pointer;">';
                 echo '<td>'.$x['requestor'].'</td>';
                 echo '<td>'.$x['requestor_email'].'</td>';
                 echo '<td>'.$x['requesting_position'].'</td>';

@@ -67,6 +67,13 @@
         }
     }
 
+    // FETCH PRF
+    $prfQL = "SELECT prf_number FROM hired_list_key WHERE prf_req_id = '$id'";
+    $stmt=$conn->prepare($prfQL);
+    $stmt->execute();
+    foreach($stmt->fetchALL() as $x){
+        $control_number = $x['prf_number'];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -120,7 +127,7 @@
             </div>
             <!-- COLUMN 2 -->
             <div class="col s7">
-                <span id="control_num"></span>
+                <span class="right">Control No: <?=$control_number;?></span>
                 <table class="centered" style="border:1.5px solid black;" cellpadding="0" height=""> 
                     <tr style="border:1.5px solid black;" class="#bdbdbd grey lighten-1">
                         <td colspan="3" style="font-weight:bold;font-size:10px;">Approval of Requesting Department</td>

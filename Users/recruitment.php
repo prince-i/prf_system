@@ -187,6 +187,10 @@ if($role != 'recruitment'){
     function verified_preview(prf_req_id){
       window.open('../Forms/preview_prf.php?id='+prf_req_id,"Preview","width=1000,height=600,left=150");
     }
+
+    function pending_preview(id){
+      window.open('../Forms/preview_prf.php?id='+id,"Preview","width=1000,height=600,left=150");
+    }
 </script>
 </body>
 </html>
