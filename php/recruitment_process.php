@@ -42,11 +42,11 @@
     if($method == 'load_verified'){
         $dept = $_POST['filter_verified'];
         if(empty($dept)){
-            $sql = "SELECT step,prf_number,requestor,requestor_email,requesting_position,assigned_dept,approval_status,verification_status,typeHiring,request_date FROM tb_request_mp LEFT JOIN hired_list_key ON tb_request_mp.id = hired_list_key.prf_req_id WHERE step = 7 AND sync_status = 'ok'";
+            $sql = "SELECT prf_req_id,step,prf_number,requestor,requestor_email,requesting_position,assigned_dept,approval_status,verification_status,typeHiring,request_date FROM tb_request_mp LEFT JOIN hired_list_key ON tb_request_mp.id = hired_list_key.prf_req_id WHERE step = 7 AND sync_status = 'ok'";
             $stmt=$conn->prepare($sql);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
-                echo '<tr>';
+                echo '<tr onclick="verified_preview('.$x['prf_req_id'].')">';
                 echo '<td>'.$x['prf_number'].'</td>';
                 echo '<td>'.$x['requestor'].'</td>';
                 echo '<td>'.$x['requestor_email'].'</td>';
@@ -59,11 +59,11 @@
                 echo '</tr>';
             }
         }else{
-            $sql = "SELECT step,prf_number,requestor,requestor_email,requesting_position,assigned_dept,approval_status,verification_status,typeHiring,request_date FROM tb_request_mp LEFT JOIN hired_list_key ON tb_request_mp.id = hired_list_key.prf_req_id WHERE step = 7 AND assigned_dept LIKE '$dept%' AND sync_status = 'ok'";
+            $sql = "SELECT prf_req_id,step,prf_number,requestor,requestor_email,requesting_position,assigned_dept,approval_status,verification_status,typeHiring,request_date FROM tb_request_mp LEFT JOIN hired_list_key ON tb_request_mp.id = hired_list_key.prf_req_id WHERE step = 7 AND assigned_dept LIKE '$dept%' AND sync_status = 'ok'";
             $stmt=$conn->prepare($sql);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
-                echo '<tr>';
+                echo '<tr onclick="verified_preview('.$x['prf_req_id'].')">';
                 echo '<td>'.$x['prf_number'].'</td>';
                 echo '<td>'.$x['requestor'].'</td>';
                 echo '<td>'.$x['requestor_email'].'</td>';
@@ -101,7 +101,7 @@
             $stmt = $conn->prepare($query);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
-                echo '<tr>';
+                echo '<tr onclick="fetch_id_prf_user(&quot;'.$x['id'].'~!~'.$x['username'].'~!~'.$x['email'].'~!~'.$x['password'].'~!~'.$x['role'].'~!~'.$x['position'].'~!~'.$x['name'].'~!~'.$x['department'].'~!~'.$x['acct_level'].'&quot;)" class="modal-trigger" data-target="prf_user_menu" style="cursor:pointer">';
                 echo '<td>'.$x['username'].'</td>';
                 echo '<td>'.$x['email'].'</td>';
                 echo '<td>'.$x['password'].'</td>';
@@ -112,6 +112,17 @@
                 echo '<td>'.$x['acct_level'].'</td>';
                 echo '</tr>';
             }
+        }
+    }
+
+    if($method == 'delete_prf_user'){
+        $id = $_POST['id'];
+        $sql = "DELETE FROM prf_account WHERE id = '$id'";
+        $stmt = $conn->prepare($sql);
+        if($stmt->execute()){
+            echo 'deleted';
+        }else{
+            echo 'fail';
         }
     }
 ?>

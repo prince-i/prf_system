@@ -46,8 +46,7 @@
                 <div class="input-field col s6">
                     <b class="red-text">Level- <span id="saved_level"></span></b>
                     <select name="" id="prf_level" class="browser-default z-depth-1">
-                        <option value="" disabled selected>--Select Level--</option>
-                        
+                        <option value="" disabled selected>--Select Level--</option>   
                     </select>
                 </div>
             </div>
@@ -73,7 +72,7 @@
 
     <div class="modal-footer">
         <button class="btn blue">update</button>
-        <button class="btn red">delete</button>
+        <button class="btn red" onclick="delete_user_prf()">delete</button>
         <button class="btn-flat modal-close">close</button>
     </div>
 </div>

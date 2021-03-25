@@ -1,5 +1,5 @@
 <?php
-    require_once '../php/Database.php';
+    require '../php/Database.php';
     $id = $_GET['id'];
     //DETECT IF ID WAS DELETED, DOESNT FETCHED OR REMOVE THE PRF PREVIEW WILL CLOSED
     if(empty($id)){
@@ -120,6 +120,7 @@
             </div>
             <!-- COLUMN 2 -->
             <div class="col s7">
+                <span id="control_num"></span>
                 <table class="centered" style="border:1.5px solid black;" cellpadding="0" height=""> 
                     <tr style="border:1.5px solid black;" class="#bdbdbd grey lighten-1">
                         <td colspan="3" style="font-weight:bold;font-size:10px;">Approval of Requesting Department</td>

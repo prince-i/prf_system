@@ -155,6 +155,38 @@ if($role != 'recruitment'){
         }
       });
     }
+
+    // DELETE USER
+    function delete_user_prf(){
+      var id = document.querySelector('#user_record_id').value;
+      var x = confirm('To confirm deletion. Press OK');
+      if(x== true){
+        // DELETE
+        $.ajax({
+          url:'../php/recruitment_process.php',
+          type: 'POST',
+          cache: false,
+          data:{
+            method:'delete_prf_user',
+            id:id
+          },success:function(response){
+            if(response == 'deleted'){
+              M.toast({html:'Successfully deleted!',classes:'green'});
+              load_prf_account();
+              $('.modal').modal('close','#prf_user_menu');
+            }else{
+              M.toast({html:'Failed!',classes:'red'});
+            }
+          }
+        });
+      }else{
+        // DO NOTHING
+      }
+    }
+
+    function verified_preview(prf_req_id){
+      window.open('../Forms/preview_prf.php?id='+prf_req_id,"Preview","width=1000,height=600,left=150");
+    }
 </script>
 </body>
 </html>
