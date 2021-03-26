@@ -21,7 +21,7 @@
                 echo '</tr>';
             }
         }else{
-            $sql = "SELECT id,requestor,requestor_email,requesting_position,assigned_dept,approval_status,verification_status,typeHiring,request_date FROM tb_request_mp WHERE step < 7 AND assigned_dept LIKE '$dept%' ORDER BY id ASC";
+            $sql = "SELECT id,requestor,requestor_email,requesting_position,assigned_dept,approval_status,verification_status,typeHiring,request_date FROM tb_request_mp WHERE step > 0 AND step < 7 AND assigned_dept LIKE '$dept%' ORDER BY id ASC";
             $stmt=$conn->prepare($sql);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
@@ -77,6 +77,45 @@
             }
         }
     }
+
+    if($method == 'load_cancel_prf'){
+        $dept = $_POST['filter_cancel'];
+        if(empty($dept)){
+            $sql = "SELECT id,requestor,requestor_email,requesting_position,assigned_dept,approval_status,verification_status,typeHiring,request_date FROM tb_request_mp WHERE step = 0 ORDER BY id ASC";
+            $stmt=$conn->prepare($sql);
+            $stmt->execute();
+            foreach($stmt->fetchALL() as $x){
+                echo '<tr style="cursor:pointer;" onclick="pending_preview('.$x['id'].')">';
+                echo '<td>'.$x['requestor'].'</td>';
+                echo '<td>'.$x['requestor_email'].'</td>';
+                echo '<td>'.$x['requesting_position'].'</td>';
+                echo '<td>'.$x['assigned_dept'].'</td>';
+                echo '<td>'.$x['approval_status'].'</td>';
+                echo '<td>'.$x['verification_status'].'</td>';
+                echo '<td>'.$x['typeHiring'].'</td>';
+                echo '<td>'.$x['request_date'].'</td>';
+                echo '</tr>';
+            }
+        }else{
+            $sql = "SELECT id,requestor,requestor_email,requesting_position,assigned_dept,approval_status,verification_status,typeHiring,request_date FROM tb_request_mp WHERE step = 0 AND assigned_dept LIKE '$dept%' ORDER BY id ASC";
+            $stmt=$conn->prepare($sql);
+            $stmt->execute();
+            foreach($stmt->fetchALL() as $x){
+                echo '<tr style="cursor:pointer;">';
+                echo '<td>'.$x['requestor'].'</td>';
+                echo '<td>'.$x['requestor_email'].'</td>';
+                echo '<td>'.$x['requesting_position'].'</td>';
+                echo '<td>'.$x['assigned_dept'].'</td>';
+                echo '<td>'.$x['approval_status'].'</td>';
+                echo '<td>'.$x['verification_status'].'</td>';
+                echo '<td>'.$x['typeHiring'].'</td>';
+                echo '<td>'.$x['request_date'].'</td>';
+                echo '</tr>';
+            }
+        }
+    }
+
+
 
     if($method == 'load_prf_user'){
         $dept = $_POST['filter_user'];

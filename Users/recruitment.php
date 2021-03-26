@@ -33,6 +33,7 @@ if($role != 'recruitment'){
       <ul class="tabs tabs-transparent">
         <li class="tab"><a href="#pendingPRF" onclick="load_pending_list()">Pending PRF</a></li>
         <li class="tab"><a href="#verifiedPRF" onclick="load_verified_prf()">Verified PRF</a></li>
+        <li class="tab"><a href="#cancelledPRF" onclick="load_cancel_prf()">Cancelled PRF</a></li>
         <li class="tab"><a href="#user_accounts" onclick="load_prf_account()">User Accounts</a></li>
         <li class="tab"><a href="#recruitment_acct" onclick="">Recruitment Accounts</a></li>
       </ul>
@@ -46,6 +47,7 @@ if($role != 'recruitment'){
 
 <div id="pendingPRF"><?php include 'recruitment_page/pending_prf.php';?></div>
 <div id="verifiedPRF"><?php include 'recruitment_page/verified_prf.php';?></div>
+<div id="cancelledPRF"><?php include 'recruitment_page/cancelled_prf.php';?></div>
 <div id="user_accounts"><?php include 'recruitment_page/user_accounts.php';?></div>
 <div id="recruitment_acct"><?php include 'recruitment_page/recruitment_acct.php';?></div>
 
@@ -114,6 +116,22 @@ if($role != 'recruitment'){
           filter_user:filter_user
         },success:function(response){
           $('#users_data').html(response);
+        }
+      });
+    }
+
+    // LOAD CANCEL PRF
+    function load_cancel_prf(){
+      var filter_cancel = document.getElementById('filter_cancelled').value;
+      $.ajax({
+        url: '../php/recruitment_process.php',
+        type: 'POST',
+        cache: false,
+        data:{
+          method: 'load_cancel_prf',
+          filter_cancel:filter_cancel
+        },success:function(response){
+          $('#cancel_prf_view').html(response);
         }
       });
     }
