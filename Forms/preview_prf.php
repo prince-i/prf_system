@@ -71,8 +71,12 @@
     $prfQL = "SELECT prf_number FROM hired_list_key WHERE prf_req_id = '$id'";
     $stmt=$conn->prepare($prfQL);
     $stmt->execute();
-    foreach($stmt->fetchALL() as $x){
-        $control_number = $x['prf_number'];
+    if($stmt->rowCount() > 0){
+        foreach($stmt->fetchALL() as $x){
+            $control_number = $x['prf_number'];
+        }
+    }else{
+        $control_number = "--";
     }
 ?>
 

@@ -25,7 +25,7 @@
             $stmt=$conn->prepare($sql);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
-                echo '<tr style="cursor:pointer;">';
+                echo '<tr style="cursor:pointer;" <tr style="cursor:pointer;" onclick="pending_preview('.$x['id'].')">';
                 echo '<td>'.$x['requestor'].'</td>';
                 echo '<td>'.$x['requestor_email'].'</td>';
                 echo '<td>'.$x['requesting_position'].'</td>';
@@ -101,7 +101,7 @@
             $stmt=$conn->prepare($sql);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
-                echo '<tr style="cursor:pointer;">';
+                echo '<tr style="cursor:pointer;" <tr style="cursor:pointer;" onclick="pending_preview('.$x['id'].')">';
                 echo '<td>'.$x['requestor'].'</td>';
                 echo '<td>'.$x['requestor_email'].'</td>';
                 echo '<td>'.$x['requesting_position'].'</td>';
