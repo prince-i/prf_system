@@ -399,13 +399,13 @@
         $department = $_POST['department'];
         $position = $_POST['position'];
         // SQL check userID if used 
-        $sql = "SELECT username FROM prf_account WHERE username = '$userID'";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        $stmt->fetchALL();
-        if($stmt->rowCount() > 0){
-            echo 'already_use';
-        }else{
+        // $sql = "SELECT username FROM prf_account WHERE username = '$userID'";
+        // $stmt = $conn->prepare($sql);
+        // $stmt->execute();
+        // $stmt->fetchALL();
+        // if($stmt->rowCount() > 0){
+        //     echo 'already_use';
+        // }else{
             // UPDATE TABLE
             $update = "UPDATE prf_account SET username = '$userID',email = '$email',password = '$password', role = '$role',position = '$position', name = '$name', department = '$department', acct_level = '$level' WHERE id = '$id'";
             $stmt = $conn->prepare($update);
@@ -415,7 +415,7 @@
                 echo 'fail';
             }
         }
-    }
+    // }
 
 // REGISTRATION OF USER
 if($method == 'register_user'){
