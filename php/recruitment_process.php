@@ -416,4 +416,34 @@
             }
         }
     }
+
+// REGISTRATION OF USER
+if($method == 'register_user'){
+    $prf_name = $_POST['prf_name'];
+    $prf_username = $_POST['prf_username'];
+    $email = $_POST['prf_email'];
+    $password = $_POST['prf_password'];
+    $dept = $_POST['prf_dept'];
+    $role = $_POST['prf_role'];
+    $position = $_POST['prf_position'];
+    $level = $_POST['prf_level'];
+    // CHECK USERID IF USED
+    $check = "SELECT username FROM prf_account WHERE username = '$prf_username'";
+    $stmt = $conn->prepare($check);
+    $stmt->execute();
+    $stmt->fetchALL();
+    if($stmt->rowCount() > 0){
+        echo 'exists';
+    }else{
+        // QUERY FOR INSERTING
+        $insert = "INSERT INTO prf_account (`id`,`username`,`email`,`password`,`role`,`position`,`name`,`department`,`acct_level`) 
+        VALUES ('0','$prf_username','$email','$password','$role','$position','$prf_name','$dept','$level')";
+        $stmt = $conn->prepare($insert);
+        if($stmt->execute()){
+            echo 'success';
+        }else{
+            echo 'fail';
+        }
+    }
+}
 ?>

@@ -50,7 +50,7 @@
         <div class="row">
             <div class="col s12">
                 <div class="input-field col s12">
-                    <button class="btn-large blue z-depth-5" style="border-radius:30px;" onclick="sendRegistration()">submit</button>
+                    <button class="btn-large blue z-depth-5" style="border-radius:30px;" id="regBtnUser" onclick="sendRegistration()">submit</button>
                 </div>
             </div>
         </div>

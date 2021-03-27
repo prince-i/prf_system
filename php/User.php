@@ -6,7 +6,7 @@
         $username = $_POST['username'];
         $password = $_POST['password'];
         $role = $_POST['role'];
-        $query = "SELECT *FROM prf_account WHERE username ='$username' AND password = '$password' AND account_verification = 'approved' LIMIT 1";
+        $query = "SELECT *FROM prf_account WHERE username ='$username' AND password = '$password' LIMIT 1";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         // $stmt->fetchAll();

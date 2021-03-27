@@ -39,11 +39,7 @@
     </style>
 </head>
 <body>
-    <!-- INCLUDES -->
-    <?php
-    include 'Users/Modals/signup.php';
-    ?>
-    <!-- <INCLUDES/> -->
+
     <div class="row">
         <div class="container z-depth-5" style="display:none;">
             <h4 class="center">PRF System</h4>
@@ -76,9 +72,6 @@
            <div class="row">
                 <div class="input-field left">
                     <a href="recruitment-login.php">Recruitment Login</a>
-                </div>
-                <div class="input-field right">
-                    <a href="#" data-target="signUp" class="modal-trigger">Create Account</a>
                 </div>
            </div>
         </div>
