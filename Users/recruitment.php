@@ -5,6 +5,7 @@ include 'Modals/account_menu.php';
 include 'Modals/prf_user_acct_menu.php';
 include 'Modals/recruitment_pending_modal.php';
 include 'Modals/recruitment_verified_modal.php';
+include 'Modals/signup.php';
 
 if($role != 'recruitment'){
     session_unset();
@@ -71,7 +72,9 @@ if($role != 'recruitment'){
         $('.dropdown-trigger').dropdown({
         constrainWidth: false
         });
-        load_pending_list()
+        load_pending_list();
+        load_dept(); 
+        load_position();
     });
 
  
@@ -163,7 +166,7 @@ if($role != 'recruitment'){
     }
 
     function load_level(){
-      var prf_role = document.getElementById('prf_role').value;
+      var prf_role = document.getElementById('role_select').value;
       $.ajax({
         url: '../php/load_dept_section.php',
         type:'POST',
@@ -172,10 +175,35 @@ if($role != 'recruitment'){
           method:'load_level',
           role:prf_role
         },success:function(response){
-          $('#prf_level').html(response);
+          $('#approval_level_select').html(response);
         }
       });
     }
+
+    const load_position =()=>{
+        $.ajax({
+                url: '../php/load_dept_section.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'load_position'
+                },success:function(response){
+                    $('#position_select').html(response);
+                }
+           });
+       }
+    const load_dept =()=>{
+           $.ajax({
+                url: '../php/load_dept_section.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'load_dept'
+                },success:function(response){
+                    $('#dept_view').html(response);
+                }
+           });
+       }
 
     // DELETE USER
     function delete_user_prf(){

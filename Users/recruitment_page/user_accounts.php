@@ -15,7 +15,7 @@
             </select>
         </div>
         <div class="input-field col s8">
-            <button class="btn blue right">Add User &plus;</button>
+            <button class="btn blue right modal-trigger" data-target="signUp">Add User &plus;</button>
         </div>
     </div>
         <div class="row col s12" style="height:420px;overflow:auto;">

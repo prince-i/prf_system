@@ -92,34 +92,34 @@
         $(document).ready(function(){
             $('.modal').modal();
             $('.container').fadeToggle(1000);
-            load_dept();
-            load_position();
+            // load_dept();
+            // load_position();
         });
 
-       const load_dept =()=>{
-           $.ajax({
-                url: 'php/load_dept_section.php',
-                type: 'POST',
-                cache: false,
-                data:{
-                    method: 'load_dept'
-                },success:function(response){
-                    $('#dept_view').html(response);
-                }
-           });
-       }
-       const load_position =()=>{
-        $.ajax({
-                url: 'php/load_dept_section.php',
-                type: 'POST',
-                cache: false,
-                data:{
-                    method: 'load_position'
-                },success:function(response){
-                    $('#position_select').html(response);
-                }
-           });
-       }
+    //    const load_dept =()=>{
+    //        $.ajax({
+    //             url: 'php/load_dept_section.php',
+    //             type: 'POST',
+    //             cache: false,
+    //             data:{
+    //                 method: 'load_dept'
+    //             },success:function(response){
+    //                 $('#dept_view').html(response);
+    //             }
+    //        });
+    //    }
+    //    const load_position =()=>{
+    //     $.ajax({
+    //             url: 'php/load_dept_section.php',
+    //             type: 'POST',
+    //             cache: false,
+    //             data:{
+    //                 method: 'load_position'
+    //             },success:function(response){
+    //                 $('#position_select').html(response);
+    //             }
+    //        });
+    //    }
     //    REGISTRATION
     const sendRegistration =()=>{
         name = $('#name').val();

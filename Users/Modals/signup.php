@@ -4,8 +4,10 @@
     <div class="modal-content">
         <div class="row">
             <div class="col s12">
-                <div class="input-field col s12"><input type="text" name="" id="name" autocomplete="off"><label for="">Complete Name</label></div>
+                <div class="input-field col s6"><input type="text" name="" id="name" autocomplete="off"><label for="">Complete Name</label></div>
+                <div class="input-field col s6"><input type="text" name="" id="username" autocomplete="off"><label for="">User ID</label></div>
             </div>
+            
             <div class="col s12">
                 <div class="input-field col s6">
                     <input type="text" name="" id="email_username" autocomplete="off"><label for="">Email</label>
@@ -24,7 +26,7 @@
                 </div>
                 <!-- ROLE -->
                 <div class="input-field col s6">
-                    <select name="" id="role_select" class="browser-default z-depth-5" onchange="update_appr_level()">
+                    <select name="" id="role_select" class="browser-default z-depth-5" onchange="load_level()">
                         <option value="" disabled selected>--Select Role--</option>
                         <option value="requestor">Requestor</option>
                         <option value="approver">Approver</option>
@@ -41,7 +43,6 @@
                 <div class="input-field col s6">
                     <select name="" id="approval_level_select" class="browser-default z-depth-5">
                         <option value="" disabled selected>--SELECT APPROVAL LEVEL--</option>
-                       
                     </select>
                 </div>
             </div>

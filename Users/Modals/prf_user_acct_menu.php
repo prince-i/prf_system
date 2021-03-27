@@ -24,19 +24,12 @@
                 <div class="input-field col s6">
                     <b class="red-text">Role</b>
                     <input type="text" name="" id="prf_role" oninput="load_level()">
-                    <!-- <select name="" id="prf_role" class="browser-default z-depth-1" onchange="load_level()">
-                    <option value="" disabled selected>--Select Role--</option>
-                        <option value="requestor">Requestor</option>
-                        <option value="approver">Approver</option>
-                        <option value="verifier">Verifier</option>
-                    </select> -->
                 </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col s12">
-                
                 <!-- NAME -->
                 <div class="input-field col s6">
                     <b class="red-text">Name</b>
@@ -47,9 +40,6 @@
                 <div class="input-field col s6">
                     <b class="red-text">Level</b>
                     <input type="text" name="" id="prf_level">
-                    <!-- <select name="" id="prf_level" class="browser-default z-depth-1">
-                        <option value="" disabled selected>--Select Level--</option>   
-                    </select> -->
                 </div>
             </div>
         </div>
