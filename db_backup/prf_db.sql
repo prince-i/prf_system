@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2021 at 04:49 AM
+-- Generation Time: Mar 27, 2021 at 06:07 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.13
 
@@ -351,7 +351,8 @@ INSERT INTO `hired_list_key` (`id`, `prf_req_id`, `prf_number`) VALUES
 (28, '197', '21-038'),
 (29, '174', '21-039'),
 (30, '162', '21-040'),
-(31, '173', '21-041');
+(31, '173', '21-041'),
+(32, '157', '21-042');
 
 -- --------------------------------------------------------
 
@@ -377,16 +378,13 @@ CREATE TABLE `prf_account` (
 --
 
 INSERT INTO `prf_account` (`id`, `username`, `email`, `password`, `role`, `position`, `name`, `department`, `account_verification`, `acct_level`) VALUES
-(1, '', 'admin@admin.com', 'admin', 'administrator', 'staff', 'prince arce', 'IT', 'approved', 0),
 (2, '20008', 'requestor@email.com', '20008', 'requestor', 'staff', 'juan dela cruz', 'IT', 'approved', 1),
 (3, '', 'approver@email.com', 'test', 'approver', 'supervisor', 'prince', 'IT', 'approved', 2),
 (5, '', 'it@email.com', 'test', 'approver', 'Manager', 'test', 'IT', 'approved', 3),
 (7, '', 'eqd@email.com', 'test', 'approver', 'Staff', 'test', 'EQD', 'approved', 2),
-(8, '', 'prince_arce01@outlook.com', 'test', 'verifier', 'Asst. Manager', '[RT manager name]', 'EQD', 'approved', 4),
 (12, '', 'asdad', 'asdasd', 'requestor', 'Staff', 'dad', 'IT', 'approved', 1),
 (13, 'hr', 'hr@email.com', 'test', 'verifier', 'Department Manager', 'hrd-name', 'HR', 'approved', 5),
 (14, '', 'hrdiv@email.com', 'test', 'verifier', 'Division Manager', 'hrd-division', 'HR', 'approved', 6),
-(15, '', 'rt@email.com', 'test', 'verifier', 'Assistant Manager', 'rt', 'HR', 'approved', 4),
 (16, 'pres', 'pres@email.com', 'test', 'verifier', 'Department Manager', 'president', 'HR', 'approved', 7),
 (17, 'rt', 'divina.amor.tumambing.detorres@furukawaelectric.com', 'test', 'verifier', 'Assistant Manager', 'Divina Amor de Torres', 'HR', 'approved', 4);
 
@@ -401,8 +399,16 @@ CREATE TABLE `recruitment_account` (
   `username` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `name` varchar(400) COLLATE utf8_unicode_ci DEFAULT NULL
+  `name` varchar(400) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_role` varchar(200) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `recruitment_account`
+--
+
+INSERT INTO `recruitment_account` (`id`, `username`, `password`, `email`, `name`, `user_role`) VALUES
+(1, '0000', '0000', 'prince_arce01@outlook.com', 'Prince Arce', 'recruitment');
 
 -- --------------------------------------------------------
 
@@ -602,10 +608,10 @@ CREATE TABLE `tb_request_mp` (
 --
 
 INSERT INTO `tb_request_mp` (`id`, `requestor`, `requestor_email`, `requesting_position`, `assigned_dept`, `female_num_mp`, `male_num_mp`, `both_mp`, `total_mp`, `contract_status`, `date_start`, `date_end`, `education`, `required_license`, `work_exp`, `other_qualification`, `job_duties`, `interview_need`, `interviewers`, `availability_for_interview`, `additional_mp`, `mp_plan`, `reorganization`, `promotion`, `retirement`, `replacement`, `replacement_mp_name`, `others`, `budget_source`, `budget_status`, `actual_mp_dept`, `actual_mp_section`, `plan_mp_dept`, `plan_mp_section`, `approve_check_by`, `approve_check_remarks`, `approve_noted_by`, `approve_noted_remarks`, `approval_status`, `verify_check_by`, `verify_check_remarks`, `verify_verifier_manager`, `verify_verifier_manager_remarks`, `verify_verifier_div_mgr`, `verify_verifier_div_mgr_remarks`, `president_verify`, `cancel_remarks`, `step`, `verification_status`, `request_date`, `typeHiring`, `sync_status`, `approve_date`) VALUES
-(157, 'Test', 'approver@email.com', 'Associate', 'EQD-Equipment Engineering', 1, 0, NULL, 1, 'Probationary', '2021-02-15', '0000-00-00', 'Bachelors Degree', 'N/A', 'N?A', 'N?A', 'N?A', 'need', 'barjakul wakadu', '2021-02-05 10:00', '1', '1', '1', '0', '0', '0', '', '', 'EQD', 'EQD', 1, 1, 1, 1, 'Test', 'APPROVED', 'Test', NULL, 'APPROVED', NULL, NULL, 'hrd-name', 'APPROVED', 'APPROVED', NULL, 'President', 'APPROVED', '7', 'DONE', '2021-01-12 13:14:52', NULL, '', '2021-03-18'),
+(157, 'Test', 'approver@email.com', 'Associate', 'EQD-Equipment Engineering', 1, 0, NULL, 1, 'Probationary', '2021-02-15', '0000-00-00', 'Bachelors Degree', 'N/A', 'N?A', 'N?A', 'N?A', 'need', 'barjakul wakadu', '2021-02-05 10:00', '1', '1', '1', '0', '0', '0', '', '', 'EQD', 'EQD', 1, 1, 1, 1, 'Test', 'APPROVED', 'Test', NULL, 'APPROVED', NULL, NULL, 'hrd-name', 'APPROVED', 'APPROVED', NULL, 'President', 'APPROVED', '7', 'DONE', '2021-01-12 13:14:52', NULL, 'ok', '2021-03-18'),
 (160, 'Mj', 'approver@email.com', 'fasfdsfsafdds', 'IT-Support Group', 1, 13, NULL, 14, 'Full Time', '0000-00-00', '0000-00-00', 'College Level', 'N/A', 'adsad', 'asdasd', 'asdsa', 'need', 'asdsad', '2020-12-31 18:42', '1', '1', '0', '0', '0', '0', '', '', 'G-ASSIST', 'G-ASSIST', 1, 1, 1, 1, 'Mj', 'APPROVED', NULL, 'DISAPPROVED (ayaw ni tanaka)', 'DISAPPROVED', NULL, NULL, NULL, NULL, NULL, NULL, '', '', '0', 'DISAPPROVED', '2021-01-28 10:39:56', NULL, '', NULL),
 (162, 'Juan Dela Cruz', 'requestor@email.com', 'Associate', 'IT-Support Group', 0, 1, NULL, 1, 'Probationary', '0000-00-00', '0000-00-00', 'Bachelors Degree', 'N/A', 'sdff', 'asf', 'sfsaf', 'need', 'asdsad', '2021-01-30 19:22', '1', '1', '0', '0', '0', '0', '', '', 'IT', 'IT', 12, 12, 13, 13, 'Mj', 'APPROVED', 'Test', 'APPROVED', 'APPROVED', '[RT manager name]', 'APPROVED', 'hrd-name', 'APPROVED', 'hrd-division', 'APPROVED', 'President', 'APPROVED', '7', 'DONE', '2021-01-30 11:20:50', NULL, 'ok', '2021-02-18'),
-(163, 'Juan Dela Cruz', 'requestor@email.com', 'Assistant Manager', 'IT-System Group', NULL, 0, 1, 1, 'Probationary', '0000-00-00', '0000-00-00', 'Bachelors Degree', 'N/A', '1 year', 'sdf', 'sfsfs', 'need', 'secret', '2021-02-01 19:41', '1', '1', '0', '0', '0', '0', '', '', 'IT', 'IT', 1, 1, 1, 1, 'Mj', 'APPROVED', 'Test', 'APPROVED', 'APPROVED', '[RT manager name]', 'APPROVED', 'hrd-name', 'APPROVED', 'hrd-division', 'APPROVED', 'President', 'APPROVED', '7', 'DONE', '2021-02-01 11:39:03', 'internal', 'ok', '2021-02-15'),
+(163, 'Juan Dela Cruz', 'requestor@email.com', 'Assistant Manager', 'IT-System Group', NULL, 0, 1, 1, 'Probationary', '0000-00-00', '0000-00-00', 'Bachelors Degree', 'N/A', '1 year', 'sdf', 'sfsfs', 'need', 'secret', '2021-02-01 19:41', '1', '1', '0', '0', '0', '0', '', '', 'IT', 'IT', 1, 1, 1, 1, 'Mj', 'APPROVED', 'Test', 'APPROVED', 'APPROVED', '[RT manager name]', 'APPROVED', 'hrd-name', 'APPROVED', 'hrd-division', 'APPROVED', 'President', 'APPROVED', '7', 'DONE', '2021-02-01 11:39:03', 'internal', '', '2021-02-15'),
 (215, 'Juan Dela Cruz', 'requestor@email.com', 'Associate', 'IT-Support Group', 0, 1, NULL, 1, 'Probationary', '0000-00-00', '0000-00-00', 'Bachelors Degree', 'n', 'n', 'n', 'n', 'need', 'sdfsdfsd', '2021-02-15 10:00', '1', '1', '0', '0', '0', '0', '', '', 'IT', 'IT', 1, 1, 1, 1, 'Prince', 'APPROVED', NULL, NULL, 'FOR APPROVAL OF DEPT. MNGR./SECTION MNGR.', NULL, NULL, NULL, NULL, NULL, NULL, '', '', '2', 'PENDING', '2021-02-10 13:49:30', 'external', '', NULL),
 (221, 'Juan Dela Cruz', 'requestor@email.com', 'Associate', 'IT-Support Group', 0, 0, 0, 0, 'Probationary', '0000-00-00', '0000-00-00', '', '', '', '', '', 'need', 'a', 'Monday - Wednesday 3-4pm', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, 'FOR APPROVAL OF ASST. MNGR/SECTION MNGR.', NULL, NULL, NULL, NULL, NULL, NULL, '', '', '1', 'PENDING', '2021-03-01 13:18:34', 'internal', '', NULL),
 (228, 'Juan Dela Cruz', 'requestor@email.com', 'Assistant Manager', 'IT-Support Group', 0, 0, 0, 0, '', '0000-00-00', '0000-00-00', '', '', '', '', '', 'noneed', 'N/A', 'N/A', '0', '0', '0', '0', '0', '0', '', '', '', '', 0, 0, 0, 0, NULL, NULL, NULL, NULL, 'FOR APPROVAL OF ASST. MNGR/SECTION MNGR.', NULL, NULL, NULL, NULL, NULL, NULL, '', '', '1', 'PENDING', '2021-03-01 14:51:33', '', '', NULL);
@@ -796,7 +802,7 @@ ALTER TABLE `falp_calendar`
 -- AUTO_INCREMENT for table `hired_list_key`
 --
 ALTER TABLE `hired_list_key`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `prf_account`
@@ -808,7 +814,7 @@ ALTER TABLE `prf_account`
 -- AUTO_INCREMENT for table `recruitment_account`
 --
 ALTER TABLE `recruitment_account`
-  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(14) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tb_certification`

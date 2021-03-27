@@ -22,13 +22,14 @@
                 </div>
                 <!-- ROLE -->
                 <div class="input-field col s6">
-                    <b class="red-text">Role - <span id="saved_role"></span></b>
-                    <select name="" id="prf_role" class="browser-default z-depth-1" onchange="load_level()">
+                    <b class="red-text">Role</b>
+                    <input type="text" name="" id="prf_role" oninput="load_level()">
+                    <!-- <select name="" id="prf_role" class="browser-default z-depth-1" onchange="load_level()">
                     <option value="" disabled selected>--Select Role--</option>
                         <option value="requestor">Requestor</option>
                         <option value="approver">Approver</option>
                         <option value="verifier">Verifier</option>
-                    </select>
+                    </select> -->
                 </div>
             </div>
         </div>
@@ -71,7 +72,7 @@
     </div>
 
     <div class="modal-footer">
-        <button class="btn blue">update</button>
+        <button class="btn blue" onclick="update_user_prf()"id="update_btn">update</button>
         <button class="btn red" onclick="delete_user_prf()">delete</button>
         <button class="btn-flat modal-close">close</button>
     </div>

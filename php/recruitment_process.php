@@ -9,7 +9,7 @@
             $stmt=$conn->prepare($sql);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
-                echo '<tr style="cursor:pointer;" onclick="pending_preview('.$x['id'].')">';
+                echo '<tr style="cursor:pointer;" class="modal-trigger" data-target="recruitment_pending_modal" onclick="pending_preview('.$x['id'].')">';
                 echo '<td>'.$x['requestor'].'</td>';
                 echo '<td>'.$x['requestor_email'].'</td>';
                 echo '<td>'.$x['requesting_position'].'</td>';
@@ -25,7 +25,7 @@
             $stmt=$conn->prepare($sql);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
-                echo '<tr style="cursor:pointer;" <tr style="cursor:pointer;" onclick="pending_preview('.$x['id'].')">';
+                echo '<tr style="cursor:pointer;" class="modal-trigger" data-target="recruitment_pending_modal" onclick="pending_preview('.$x['id'].')">';
                 echo '<td>'.$x['requestor'].'</td>';
                 echo '<td>'.$x['requestor_email'].'</td>';
                 echo '<td>'.$x['requesting_position'].'</td>';
@@ -46,7 +46,7 @@
             $stmt=$conn->prepare($sql);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
-                echo '<tr onclick="verified_preview('.$x['prf_req_id'].')" style="cursor:pointer">>';
+                echo '<tr onclick="verified_preview('.$x['prf_req_id'].')" class="modal-trigger" data-target="recruitment_verified_modal" style="cursor:pointer">>';
                 echo '<td>'.$x['prf_number'].'</td>';
                 echo '<td>'.$x['requestor'].'</td>';
                 echo '<td>'.$x['requestor_email'].'</td>';
@@ -63,7 +63,7 @@
             $stmt=$conn->prepare($sql);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
-                echo '<tr onclick="verified_preview('.$x['prf_req_id'].')" style="cursor:pointer">>';
+                echo '<tr onclick="verified_preview('.$x['prf_req_id'].')"  class="modal-trigger" data-target="recruitment_verified_modal" style="cursor:pointer">';
                 echo '<td>'.$x['prf_number'].'</td>';
                 echo '<td>'.$x['requestor'].'</td>';
                 echo '<td>'.$x['requestor_email'].'</td>';
@@ -85,7 +85,7 @@
             $stmt=$conn->prepare($sql);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
-                echo '<tr style="cursor:pointer;" onclick="pending_preview('.$x['id'].')">';
+                echo '<tr style="cursor:pointer;" class="modal-trigger" data-target="recruitment_pending_modal" onclick="pending_preview('.$x['id'].')">';
                 echo '<td>'.$x['requestor'].'</td>';
                 echo '<td>'.$x['requestor_email'].'</td>';
                 echo '<td>'.$x['requesting_position'].'</td>';
@@ -101,7 +101,7 @@
             $stmt=$conn->prepare($sql);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){
-                echo '<tr style="cursor:pointer;" <tr style="cursor:pointer;" onclick="pending_preview('.$x['id'].')">';
+                echo '<tr style="cursor:pointer;" <tr style="cursor:pointer;" class="modal-trigger" data-target="recruitment_pending_modal" onclick="pending_preview('.$x['id'].')">';
                 echo '<td>'.$x['requestor'].'</td>';
                 echo '<td>'.$x['requestor_email'].'</td>';
                 echo '<td>'.$x['requesting_position'].'</td>';
@@ -162,6 +162,258 @@
             echo 'deleted';
         }else{
             echo 'fail';
+        }
+    }
+
+    if($method == 'preview_pending'){
+    $id = $_POST['id'];
+    $sql = "SELECT id,requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,both_mp,contract_status,education,required_license,work_exp,job_duties,request_date,approve_check_remarks,approve_noted_remarks,verify_check_remarks,verify_verifier_manager_remarks,verify_verifier_div_mgr_remarks,cancel_remarks FROM tb_request_mp WHERE id = '$id'";;
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    foreach($stmt->fetchALL() as $x){
+        echo '<div class="row card" style="padding:10px;">';
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Requested By:</div>';
+        echo '<div class="col s6">'.$x['requestor'].'</div>';
+        echo '</div>';
+        // -----------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Position:</div>';
+        echo '<div class="col s6">'.$x['requesting_position'].'</div>';
+        echo '</div>';
+        // ---------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Requesting Department:</div>';
+        echo '<div class="col s6">'.$x['assigned_dept'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Requested By:</div>';
+        echo '<div class="col s6">'.$x['requestor'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">No. of MP Need(Male):</div>';
+        echo '<div class="col s6">'.$x['male_num_mp'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">No. of MP Need(Female):</div>';
+        echo '<div class="col s6">'.$x['female_num_mp'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">No. of MP (Male/Female):</div>';
+        echo '<div class="col s6">'.$x['both_mp'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Contract Status:</div>';
+        echo '<div class="col s6">'.$x['contract_status'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Education Attainment:</div>';
+        echo '<div class="col s6">'.$x['education'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Required License/Certification:</div>';
+        echo '<div class="col s6">'.$x['required_license'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Work Experience:</div>';
+        echo '<div class="col s6">'.$x['work_exp'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Requested Date:</div>';
+        echo '<div class="col s6">'.$x['request_date'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '</div>';
+        echo '<div class="row card" style="padding:10px;">';
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>Asst.Mngr./Section Mngr. Remarks</b></div>';
+            echo '<div class="col s6">'.$x['approve_check_remarks'].'</div>';
+            echo '</div>';
+            // -------------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>Dept.Mngr./Div Mngr. Remarks</b></div>';
+            echo '<div class="col s6">'.$x['approve_noted_remarks'].'</div>';
+            echo '</div>';
+            // -------------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>Recruitment Asst.Mngr. Remarks</b></div>';
+            echo '<div class="col s6">'.$x['verify_check_remarks'].'</div>';
+            echo '</div>';
+            // -------------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>HRD Mngr. Remarks</b></div>';
+            echo '<div class="col s6">'.$x['verify_verifier_manager_remarks'].'</div>';
+            echo '</div>';
+            // -------------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>HRD Division Mngr. Remarks</b></div>';
+            echo '<div class="col s6">'.$x['verify_verifier_div_mgr_remarks'].'</div>';
+            echo '</div>';
+            // -------------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>President Remarks</b></div>';
+            echo '<div class="col s6">'.$x['cancel_remarks'].'</div>';
+            echo '</div>';
+            echo '</div>';
+        // ------------------
+        echo '</div>';
+        echo '<br>';
+
+        echo '<div class="row">';
+        echo '<div class="col s12 center">';
+        echo '<button class="btn z-depth-5 #1976d2 blue darken-2" style="border-radius:20px;" onclick="preview_pending_prf('.$x['id'].')">preview</button>';
+        echo '</div>';
+        echo '</div>';
+        }
+    }
+
+    if($method == 'preview_verified'){
+        $id = $_POST['id'];
+    $sql = "SELECT id,requestor,requesting_position,assigned_dept,female_num_mp,male_num_mp,both_mp,contract_status,education,required_license,work_exp,job_duties,request_date,approve_check_remarks,approve_noted_remarks,verify_check_remarks,verify_verifier_manager_remarks,verify_verifier_div_mgr_remarks,cancel_remarks FROM tb_request_mp WHERE id = '$id'";;
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    foreach($stmt->fetchALL() as $x){
+        echo '<div class="row card" style="padding:10px;">';
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Requested By:</div>';
+        echo '<div class="col s6">'.$x['requestor'].'</div>';
+        echo '</div>';
+        // -----------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Position:</div>';
+        echo '<div class="col s6">'.$x['requesting_position'].'</div>';
+        echo '</div>';
+        // ---------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Requesting Department:</div>';
+        echo '<div class="col s6">'.$x['assigned_dept'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Requested By:</div>';
+        echo '<div class="col s6">'.$x['requestor'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">No. of MP Need(Male):</div>';
+        echo '<div class="col s6">'.$x['male_num_mp'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">No. of MP Need(Female):</div>';
+        echo '<div class="col s6">'.$x['female_num_mp'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">No. of MP (Male/Female):</div>';
+        echo '<div class="col s6">'.$x['both_mp'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Contract Status:</div>';
+        echo '<div class="col s6">'.$x['contract_status'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Education Attainment:</div>';
+        echo '<div class="col s6">'.$x['education'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Required License/Certification:</div>';
+        echo '<div class="col s6">'.$x['required_license'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Work Experience:</div>';
+        echo '<div class="col s6">'.$x['work_exp'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '<div class="col s12">';
+        echo '<div class="col s6">Requested Date:</div>';
+        echo '<div class="col s6">'.$x['request_date'].'</div>';
+        echo '</div>';
+        // ------------------
+        echo '</div>';
+        echo '<div class="row card" style="padding:10px;">';
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>Asst.Mngr./Section Mngr. Remarks</b></div>';
+            echo '<div class="col s6">'.$x['approve_check_remarks'].'</div>';
+            echo '</div>';
+            // -------------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>Dept.Mngr./Div Mngr. Remarks</b></div>';
+            echo '<div class="col s6">'.$x['approve_noted_remarks'].'</div>';
+            echo '</div>';
+            // -------------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>Recruitment Asst.Mngr. Remarks</b></div>';
+            echo '<div class="col s6">'.$x['verify_check_remarks'].'</div>';
+            echo '</div>';
+            // -------------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>HRD Mngr. Remarks</b></div>';
+            echo '<div class="col s6">'.$x['verify_verifier_manager_remarks'].'</div>';
+            echo '</div>';
+            // -------------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>HRD Division Mngr. Remarks</b></div>';
+            echo '<div class="col s6">'.$x['verify_verifier_div_mgr_remarks'].'</div>';
+            echo '</div>';
+            // -------------------------
+            echo '<div class="col s12">';
+            echo '<div class="col s6"><b>President Remarks</b></div>';
+            echo '<div class="col s6">'.$x['cancel_remarks'].'</div>';
+            echo '</div>';
+            echo '</div>';
+        // ------------------
+        echo '</div>';
+        echo '<br>';
+
+        echo '<div class="row">';
+        echo '<div class="col s12 center">';
+        echo '<button class="btn z-depth-5 #1976d2 blue darken-2" style="border-radius:20px;" onclick="preview_pending_prf('.$x['id'].')">preview</button>';
+        echo '</div>';
+        echo '</div>';
+        }
+    }
+
+// UPDATE USER ACCOUNT
+    if($method == 'update_user'){
+        $id = $_POST['user_record'];
+        $userID = $_POST['userID'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $role = $_POST['role'];
+        $name = $_POST['name'];
+        $level = $_POST['level'];
+        $department = $_POST['department'];
+        $position = $_POST['position'];
+        // SQL check userID if used 
+        $sql = "SELECT username FROM prf_account WHERE username = '$userID'";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $stmt->fetchALL();
+        if($stmt->rowCount() > 0){
+            echo 'already_use';
+        }else{
+            // UPDATE TABLE
+            $update = "UPDATE prf_account SET username = '$userID',email = '$email',password = '$password', role = '$role',position = '$position', name = '$name', department = '$department', acct_level = '$level' WHERE id = '$id'";
+            $stmt = $conn->prepare($update);
+            if($stmt->execute()){
+                echo 'success';
+            }else{
+                echo 'fail';
+            }
         }
     }
 ?>

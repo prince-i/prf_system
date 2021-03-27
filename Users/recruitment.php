@@ -3,6 +3,9 @@
 require '../php/rec_session.php';
 include 'Modals/account_menu.php';
 include 'Modals/prf_user_acct_menu.php';
+include 'Modals/recruitment_pending_modal.php';
+include 'Modals/recruitment_verified_modal.php';
+
 if($role != 'recruitment'){
     session_unset();
     session_destroy();
@@ -152,7 +155,7 @@ if($role != 'recruitment'){
       $('#userID').val(username);
       $('#email_prf').val(email);
       $('#prf_pass').val(password);
-      $('#saved_role').html(role);
+      $('#prf_role').val(role);
       $('#prf_name').val(name);
       $('#saved_level').html(level);
       $('#prf_department').val(department);
@@ -203,11 +206,97 @@ if($role != 'recruitment'){
     }
 
     function verified_preview(prf_req_id){
-      window.open('../Forms/preview_prf.php?id='+prf_req_id,"Preview","width=1000,height=600,left=150");
+      // window.open('../Forms/preview_prf.php?id='+prf_req_id,"Preview","width=1000,height=600,left=150");
+      $.ajax({
+        url: '../php/recruitment_process.php',
+        type:'POST',
+        cache:false,
+        data:{
+          method:'preview_verified',
+          id:prf_req_id
+        },success:function(response){
+          $('#verified_prf_info').html(response);
+        }
+      });
     }
 
     function pending_preview(id){
+      $.ajax({
+        url: '../php/recruitment_process.php',
+        type:'POST',
+        cache:false,
+        data:{
+          method:'preview_pending',
+          id:id
+        },success:function(response){
+          $('#pending_prf_info').html(response);
+        }
+      });
+    }
+
+    // PREVIEW PRF PENDING
+    function preview_pending_prf(id){
       window.open('../Forms/preview_prf.php?id='+id,"Preview","width=1000,height=600,left=150");
+    }
+    // UPDATE USER PRF
+    function update_user_prf(){
+      var user_record = document.getElementById('user_record_id').value;
+      var userID = document.getElementById('userID').value;
+      var email = document.getElementById('email_prf').value;
+      var password = document.getElementById('prf_pass').value;
+      var role = document.getElementById('prf_role').value;
+      var name = document.getElementById('prf_name').value;
+      var level = document.getElementById('prf_level').value;
+      var department = document.getElementById('prf_department').value;
+      var position = document.getElementById('prf_position').value;
+
+      if(userID == ''){
+        swal('Notification','User ID is required','info');
+      }else if(email == ''){
+        swal('Notification','Email is required','info');
+      }else if(password == ''){
+        swal('Notification','Password is required','info');
+      }else if(role == ''){
+        swal('Notification','Role is required','info');
+      }else if(name == ''){
+        swal('Notification','Name is required','info');
+      }else if(level == ''){
+        swal('Notification','Level is required','info');
+      }else if(department == ''){
+        swal('Notification','Department is required','info');
+      }else if(position == ''){
+        swal('Notification','Position is required','info');
+      }else{
+        $('#update_btn').attr('disabled',true);
+        $.ajax({
+          url: '../php/recruitment_process.php',
+          type: 'POST',
+          cache:false,
+          data:{
+            method: 'update_user',
+            user_record:user_record,
+            userID:userID,
+            email:email,
+            password:password,
+            role:role,
+            name:name,
+            level:level,
+            department:department,
+            position:position
+          },success:function(response){
+            if(response == 'success'){
+              swal('Notification','Successfully updated!','success');
+              load_prf_account();
+              $('.modal').modal('close','#prf_user_menu');
+            }else if(response == 'already_use'){
+              swal('Notification','UserID is already use please choose other userID!','info');
+            }else{
+              swal('Notification','Update error!','info');
+            }
+            $('#update_btn').attr('disabled',false);
+          }
+        });
+      }
     }
 </script>
 </body>
