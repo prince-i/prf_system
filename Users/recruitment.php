@@ -157,7 +157,7 @@ if($role != 'recruitment'){
       $('#prf_pass').val(password);
       $('#prf_role').val(role);
       $('#prf_name').val(name);
-      $('#saved_level').html(level);
+      $('#prf_level').val(level);
       $('#prf_department').val(department);
       $('#prf_position').val(position);
     }

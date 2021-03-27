@@ -45,10 +45,11 @@
 
                 <!-- LEVEL -->
                 <div class="input-field col s6">
-                    <b class="red-text">Level- <span id="saved_level"></span></b>
-                    <select name="" id="prf_level" class="browser-default z-depth-1">
+                    <b class="red-text">Level</b>
+                    <input type="text" name="" id="prf_level">
+                    <!-- <select name="" id="prf_level" class="browser-default z-depth-1">
                         <option value="" disabled selected>--Select Level--</option>   
-                    </select>
+                    </select> -->
                 </div>
             </div>
         </div>
