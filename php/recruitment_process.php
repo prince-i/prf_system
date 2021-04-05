@@ -446,4 +446,34 @@ if($method == 'register_user'){
         }
     }
 }
+// LOAD RECRUITMENT ACCOUNTS
+if($method == 'load_recruitment'){
+    $searchWord = $_POST['searchWord'];
+    if(empty($searchWord)){
+        $sql = "SELECT *FROM recruitment_account";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $x){
+            echo '<tr style="cursor:pointer;" onclick="get_recruitment_id(&quot;'.$x['id'].'~!~'.$x['username'].'~!~'.$x['password'].'~!~'.$x['email'].'~!~'.$x['name'].'&quot;)" class="modal-trigger" data-target="recruitmentAcct">';
+            echo '<td>'.$x['username'].'</td>';
+            echo '<td>'.$x['password'].'</td>';
+            echo '<td>'.$x['email'].'</td>';
+            echo '<td>'.$x['name'].'</td>';
+            echo '</tr>';
+        }
+    }else{
+        $sql = "SELECT *FROM recruitment_account WHERE username LIKE '$searchWord%' OR name LIKE '$searchWord%'";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        foreach($stmt->fetchALL() as $x){
+            echo '<tr style="cursor:pointer;" onclick="get_recruitment_id(&quot;'.$x['id'].'~!~'.$x['username'].'~!~'.$x['password'].'~!~'.$x['email'].'~!~'.$x['name'].'&quot;)" class="modal-trigger" data-target="recruitmentAcct">';
+            echo '<td>'.$x['username'].'</td>';
+            echo '<td>'.$x['password'].'</td>';
+            echo '<td>'.$x['email'].'</td>';
+            echo '<td>'.$x['name'].'</td>';
+            echo '</tr>';
+        }
+    }
+}
+
 ?>

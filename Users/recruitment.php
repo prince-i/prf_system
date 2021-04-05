@@ -6,6 +6,7 @@ include 'Modals/prf_user_acct_menu.php';
 include 'Modals/recruitment_pending_modal.php';
 include 'Modals/recruitment_verified_modal.php';
 include 'Modals/signup.php';
+include 'Modals/recruitmentAcctView.php';
 
 if($role != 'recruitment'){
     session_unset();
@@ -16,12 +17,20 @@ if($role != 'recruitment'){
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="../Img/logo.jpg" type="image/jpg" sizes="16x16">
     <meta charset="UTF-8">
+    <link rel="icon" href="../Img/logo.jpg" type="image/jpg" sizes="16x16">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recruitment</title>
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
+    <style>
+      tr:hover td{
+        background-color:#e6e2da;
+      }
+      span{
+        color:red;
+      }
+    </style>
 </head>
 <body>
 <nav class="nav-extended #212121 grey darken-4 z-depth-5">
@@ -39,7 +48,7 @@ if($role != 'recruitment'){
         <li class="tab"><a href="#verifiedPRF" onclick="load_verified_prf()">Verified PRF</a></li>
         <li class="tab"><a href="#cancelledPRF" onclick="load_cancel_prf()">Cancelled PRF</a></li>
         <li class="tab"><a href="#user_accounts" onclick="load_prf_account()">User Accounts</a></li>
-        <li class="tab"><a href="#recruitment_acct" onclick="">Recruitment Accounts</a></li>
+        <li class="tab"><a href="#recruitment_acct" onclick="load_recruitment()">Recruitment Accounts</a></li>
       </ul>
     </div>
   </nav>
@@ -386,6 +395,30 @@ if($role != 'recruitment'){
         }); 
       }
     }
+
+function load_recruitment(){
+  var searchWord = document.querySelector('#searchWord').value;
+  $.ajax({
+    url: '../php/recruitment_process.php',
+    type: 'POST',
+    cache: false,
+    data:{
+      method: 'load_recruitment',
+      searchWord:searchWord
+    },success:function(response){
+      document.querySelector('#recruitment_account').innerHTML = response;
+    }
+  });
+}
+
+function get_recruitment_id(param){
+  var string = param.split('~!~');
+  document.querySelector('#RecruitmentReferenceID').value = string[0];
+  document.querySelector('#RecruitmentUserID').value = string[1];
+  document.querySelector('#RecruitmentPass').value = string[2];
+  document.querySelector('#RecruitmentEmail').value = string[3];
+  document.querySelector('#RecruitmentName').value = string[4];
+}
 </script>
 </body>
 </html>
