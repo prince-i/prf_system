@@ -476,4 +476,32 @@ if($method == 'load_recruitment'){
     }
 }
 
+// UPDATE RECRUITMENT ACCOUNT
+if($method == 'update_recruitment'){
+    $id = $_POST['id'];
+    $userID = $_POST['userID'];
+    $password = $_POST['password'];
+    $email = $_POST['email'];
+    $name = $_POST['name'];
+    // UPDATE QUERY
+    $updateQL = "UPDATE recruitment_account SET username = '$userID', password = '$password', email = '$email', name = '$name' WHERE id = '$id'";
+    $stmt = $conn->prepare($updateQL);
+    if($stmt->execute()){
+        echo 'success';
+    }else{
+        echo 'fail';
+    }
+}
+
+// DELETE RECRUITMENT ACCOUNT
+if($method == 'delete_recruitment'){
+    $id = $_POST['id'];
+    $deleteQL = "DELETE FROM recruitment_account WHERE id = '$id'";
+    $stmt = $conn->prepare($deleteQL);
+    if($stmt->execute()){
+        echo 'delete';
+    }else{
+        echo 'fail';
+    }
+}
 ?>

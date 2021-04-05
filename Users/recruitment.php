@@ -419,6 +419,71 @@ function get_recruitment_id(param){
   document.querySelector('#RecruitmentEmail').value = string[3];
   document.querySelector('#RecruitmentName').value = string[4];
 }
+
+function update_recruitment(){
+  var id = document.querySelector('#RecruitmentReferenceID').value;
+  var userID = document.querySelector('#RecruitmentUserID').value;
+  var password = document.querySelector('#RecruitmentPass').value;
+  var email = document.querySelector('#RecruitmentEmail').value;
+  var name = document.querySelector('#RecruitmentName').value;
+  if(userID == ''){
+    swal('Alert!','Please enter username or user ID!','info');
+  }else if(password == ''){
+    swal('Alert!','Please enter password!','info');
+  }else if(email == ''){
+    swal('Alert!','Please enter updated email!','info');
+  }else if(name == ''){
+    swal('Alert!','Please enter the updated name!','info');
+  }else{
+    // AJAX FUNCTION
+    document.querySelector('#rec_update').disabled = true;
+    $.ajax({
+      url: '../php/recruitment_process.php',
+      type: 'POST',
+      cache: false,
+      data:{
+        method: 'update_recruitment',
+        id:id,
+        userID:userID,
+        password:password,
+        email:email,
+        name:name
+      },success:function(response){
+        if(response == 'success'){
+          load_recruitment();
+          $('.modal').modal('close','#recruitmentAcct');
+          swal('Notification','Updated successfully!','success');
+        }else{
+          swal('Notification','Please try again!','error');
+        }
+        document.querySelector('#rec_update').disabled = false;
+      }
+    });
+  }
+}
+
+function delete_recruitment(){
+  var id = document.querySelector('#RecruitmentReferenceID').value;
+  var x = confirm('To confirm deletion, click OK');
+  if(x == true){
+    // DELETE AJAX
+    $.ajax({
+      url: '../php/recruitment_process.php',
+      type: 'POST',
+      cache: false,
+      data:{
+        method: 'delete_recruitment',
+        id:id
+      },success:function(response){
+        console.log(response);
+      }
+    });
+
+  }else{
+    console.log('cancel');
+  }
+}
+
 </script>
 </body>
 </html>
