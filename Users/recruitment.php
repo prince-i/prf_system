@@ -350,21 +350,21 @@ if($role != 'recruitment'){
       var prf_level = document.getElementById('approval_level_select').value;
 
       if(prf_name == ''){
-        swal('Attention! Name is required!','','info');
+        swal('Name is required!','','info');
       }else if(prf_username == ''){
-        swal('Attention! UserID is required!','','info');
+        swal('UserID is required!','','info');
       }else if(prf_email == ''){
-        swal('Attention! Email is required!','','info');
+        swal('Email is required!','','info');
       }else if(prf_password == ''){
-        swal('Attention! Password is required!','','info');
+        swal('Password is required!','','info');
       }else if(prf_dept == ''){
-        swal('Attention! Department is required!','','info');
+        swal('Department is required!','','info');
       }else if(prf_role == ''){
-        swal('Attention! Role is required!','','info');
+        swal('Role is required!','','info');
       }else if(prf_position == ''){
-        swal('Attention! Position is required!','','info');
+        swal('Position is required!','','info');
       }else if(prf_level == ''){
-        swal('Attention! Level is required!','','info');
+        swal('Level is required!','','info');
       }else{
         $('#regBtnUser').attr('disabled',true);
         $.ajax({
@@ -386,6 +386,7 @@ if($role != 'recruitment'){
               swal('Successfully registered!','','success');
               load_prf_account();
               $('.modal').modal('close','#signUp');
+              clear_fields();
             }else if(response == 'exists'){
               swal('User ID already exist. Please try another!','','info');
             }else{
@@ -396,6 +397,17 @@ if($role != 'recruitment'){
         }); 
       }
     }
+
+function clear_fields(){
+  document.querySelector('#name').value = '';
+  document.querySelector('#username').value = '';
+  document.querySelector('#email_username').value = '';
+  document.querySelector('#register_password').value = '';
+  document.querySelector('#dept_view').selectedIndex = 0;
+  document.querySelector('#role_select').selectedIndex = 0;
+  document.querySelector('#position_select').selectedIndex = 0;
+  document.querySelector('#approval_level_select').selectedIndex = 0;
+}
 
 function load_recruitment(){
   var searchWord = document.querySelector('#searchWord').value;
