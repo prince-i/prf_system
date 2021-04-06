@@ -136,7 +136,7 @@
                 echo '</tr>';
             }
         }else{
-            $query = "SELECT id,username,email,password,role,position,name,department,acct_level FROM prf_account WHERE department LIKE '$dept%'";
+            $query = "SELECT id,username,email,password,role,position,name,department,acct_level FROM prf_account WHERE department LIKE '$dept%' OR username = '$dept' OR name LIKE '$dept%' OR role = '$dept'";
             $stmt = $conn->prepare($query);
             $stmt->execute();
             foreach($stmt->fetchALL() as $x){

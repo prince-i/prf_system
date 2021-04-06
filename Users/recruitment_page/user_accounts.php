@@ -1,7 +1,9 @@
 <div class="row">
     <div class="col s12">
         <div class="input-field col s4">
-            <select name="" id="filter_user" class="browser-default z-depth-1" onchange="load_prf_account()">
+            <input type="text" name="" id="filter_user" onchange="load_prf_account()" placeholder="Search">
+
+            <!-- <select name="" id="filter_user" class="browser-default z-depth-1" onchange="load_prf_account()">
                 <option value="" selected disabled>--SELECT DEPARTMENT--</option>
                 <?php
                     $fetchQL = "SELECT deptCode,deptDesc FROM tb_department ORDER BY id ASC";
@@ -12,7 +14,7 @@
                     }
                     
                 ?>
-            </select>
+            </select> -->
         </div>
         <div class="input-field col s8">
             <button class="btn blue right modal-trigger" data-target="signUp">Add User &plus;</button>

@@ -14,6 +14,9 @@
                 ?>
             </select>
         </div>
+        <div class="input-field col s4">
+            <input type="text" name="" id="searchFilter" placeholder="Search">
+        </div>
         <div class="row col s12" style="height:420px;overflow:auto;">
             <table class="centered z-depth-2" style="zoom:80%;">
                 <thead>

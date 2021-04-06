@@ -537,6 +537,22 @@ function save_recruitment(){
   }
 }
 
+$(document).ready(function(){
+  $("#searchFilter").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#verified_prf_view tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+
+  $("#searchPending").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#pending_prf_view tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
 </script>
 </body>
 </html>
