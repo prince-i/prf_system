@@ -2,27 +2,28 @@
     <div class="modal-content">
         <div class="row">
             <div class="col s12">
+            <h5 class="center">Previewing PRF User Account</h5>
                 <div class="input-field col s12">
                     <input type="hidden" id="user_record_id">
                 </div>
                 <!-- USERID -->
                 <div class="input-field col s6">
-                    <b class="red-text">UserID</b>
+                    <span class="red-text">UserID</span>
                     <input type="text" id="userID">
                 </div>
                 <!-- EMAIL -->
                 <div class="input-field col s6">
-                    <b class="red-text">Email</b>
+                    <span class="red-text">Email</span>
                     <input type="text" id="email_prf">
                 </div>
                 <!-- PASSWORD -->
                 <div class="input-field col s6">
-                    <b class="red-text">Password</b>
+                    <span class="red-text">Password</span>
                     <input type="text" id="prf_pass">
                 </div>
                 <!-- ROLE -->
                 <div class="input-field col s6">
-                    <b class="red-text">Role</b>
+                    <span class="red-text">Role</span>
                     <input type="text" name="" id="prf_role" oninput="load_level()">
                 </div>
             </div>
@@ -32,13 +33,13 @@
             <div class="col s12">
                 <!-- NAME -->
                 <div class="input-field col s6">
-                    <b class="red-text">Name</b>
+                    <span class="red-text">Name</span>
                     <input type="text" id="prf_name">
                 </div>
 
                 <!-- LEVEL -->
                 <div class="input-field col s6">
-                    <b class="red-text">Level</b>
+                    <span class="red-text">Level</span>
                     <input type="text" name="" id="prf_level">
                 </div>
             </div>
@@ -49,13 +50,13 @@
             <div class="col s12">
                 <!-- DEPARTMENT -->
                 <div class="input-field col s6">
-                    <b class="red-text">Department</b>
+                    <span class="red-text">Department</span>
                     <input type="text" id="prf_department">
                 </div>
 
                 <!-- POSITION -->
                 <div class="input-field col s6">
-                    <b class="red-text">Position</b>
+                    <span class="red-text">Position</span>
                     <input type="text" id="prf_position">
                 </div>
             </div>

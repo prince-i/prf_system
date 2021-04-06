@@ -7,6 +7,7 @@ include 'Modals/recruitment_pending_modal.php';
 include 'Modals/recruitment_verified_modal.php';
 include 'Modals/signup.php';
 include 'Modals/recruitmentAcctView.php';
+include 'Modals/add_recruitment.php';
 
 if($role != 'recruitment'){
     session_unset();
@@ -33,7 +34,7 @@ if($role != 'recruitment'){
     </style>
 </head>
 <body>
-<nav class="nav-extended #212121 grey darken-4 z-depth-5">
+<nav class="nav-extended #546e7a blue-grey darken-1 z-depth-5">
     <div class="nav-wrapper">
     <a href="#" class="brand-logo center"><img src="../Img/logo.png" alt="" class="responsive-img" style="width:50px;"></a>
       <a href="#">Recruitment Dashboard</a>
@@ -481,6 +482,29 @@ function delete_recruitment(){
 
   }else{
     console.log('cancel');
+  }
+}
+
+function load_add_recruitment_form(){
+  $('#add_recruitment_render').load('../Forms/form_recruitment.php');
+}
+
+function save_recruitment(){
+  var userID = document.querySelector('#new_userID').value;
+  var password = document.querySelector('#new_password').value;
+  var email = document.querySelector('#new_email').value;
+  var rec_name = document.querySelector('#new_name').value;
+  if(userID == ''){
+    swal('Alert!','Please enter User ID !','info');
+  }else if(password == ''){
+    swal('Alert!','Password is required!','info');
+  }else if(email == ''){
+    swal('Alert!','Email is required!','info');
+  }else if(rec_name == ''){
+    swal('Alert!','Please enter name!','info');
+  }else{
+    // AJAX FUNCTION
+    document.querySelector('#add_btn').disabled = true;
   }
 }
 

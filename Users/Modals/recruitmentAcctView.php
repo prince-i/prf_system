@@ -1,6 +1,7 @@
 <div class="modal modal-fixed-footer" id="recruitmentAcct">
 <div class="modal-content" style="font-size:12px;">
 <div class="row col s12">
+    <h5 class="center">Previewing Recruitment Account</h5>
     <input type="hidden" id="RecruitmentReferenceID">
     <div class="input-field col l6 m6 s12">
         <span>Username/UserID</span>

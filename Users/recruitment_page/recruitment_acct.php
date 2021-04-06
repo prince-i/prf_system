@@ -4,7 +4,7 @@
             <input type="text" name="" id="searchWord" onchange="load_recruitment()"><label for="">Search</label>
         </div>
         <div class="input-field col s8">
-            <button class="btn blue right modal-trigger" data-target="">Add Recruitment &plus;</button>
+            <button class="btn blue right modal-trigger" data-target="add_recruitment" onclick="load_add_recruitment_form()">Add Recruitment &plus;</button>
         </div>
     </div>
         <div class="row col s12" style="height:420px;overflow:auto;">

@@ -3,6 +3,7 @@
 <button class="btn-flat waves-effect modal-close right red-text">Close</button>
     <div class="modal-content">
         <div class="row">
+        <h5 class="center">PRF User Registration</h5>
             <div class="col s12">
                 <div class="input-field col s6"><input type="text" name="" id="name" autocomplete="off"><label for="">Complete Name</label></div>
                 <div class="input-field col s6"><input type="text" name="" id="username" autocomplete="off"><label for="">User ID</label></div>
