@@ -15,7 +15,7 @@
             </select>
         </div>
         <div class="input-field col s4">
-            <input type="text" name="" id="searchPending">
+            <input type="text" name="" id="searchPending" placeholder="Search">
         </div>
 
         </div>
