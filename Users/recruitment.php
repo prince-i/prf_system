@@ -428,13 +428,13 @@ function update_recruitment(){
   var email = document.querySelector('#RecruitmentEmail').value;
   var name = document.querySelector('#RecruitmentName').value;
   if(userID == ''){
-    swal('Alert!','Please enter username or user ID!','info');
+    swal('Please enter username or user ID!','','info');
   }else if(password == ''){
-    swal('Alert!','Please enter password!','info');
+    swal('Please enter password!','','info');
   }else if(email == ''){
-    swal('Alert!','Please enter updated email!','info');
+    swal('Please enter updated email!','','info');
   }else if(name == ''){
-    swal('Alert!','Please enter the updated name!','info');
+    swal('Please enter the updated name!','','info');
   }else{
     // AJAX FUNCTION
     document.querySelector('#rec_update').disabled = true;
@@ -453,9 +453,9 @@ function update_recruitment(){
         if(response == 'success'){
           load_recruitment();
           $('.modal').modal('close','#recruitmentAcct');
-          swal('Notification','Updated successfully!','success');
+          swal('Updated successfully!','','success');
         }else{
-          swal('Notification','Please try again!','error');
+          swal('Please try again!','','error');
         }
         document.querySelector('#rec_update').disabled = false;
       }
@@ -476,7 +476,13 @@ function delete_recruitment(){
         method: 'delete_recruitment',
         id:id
       },success:function(response){
-        console.log(response);
+        if(response == 'delete'){
+          load_recruitment();
+          swal('Successfully deleted!','','info');
+          $('.modal').modal('close','#recruitmentAcct');
+        }else{
+          swal('Deletion failed!','','info');
+        }
       }
     });
 
@@ -505,6 +511,29 @@ function save_recruitment(){
   }else{
     // AJAX FUNCTION
     document.querySelector('#add_btn').disabled = true;
+    $.ajax({
+      url: '../php/recruitment_process.php',
+      type: 'POST',
+      cache:false,
+      data:{
+        method: 'save_recruitment',
+        userID:userID,
+        password:password,
+        email:email,
+        rec_name:rec_name
+      },success:function(response){
+        if(response == 'exists'){
+          swal('User ID is already used by another user. Please try again.','','info');
+        }else if(response == 'success'){
+          swal('Successfully registered!','','info');
+          load_recruitment();
+          $('.modal').modal('close','#add_recruitment');
+        }else{
+          swal('Error!','','info');
+        }
+        document.querySelector('#add_btn').disabled = false;
+      }
+    });
   }
 }
 

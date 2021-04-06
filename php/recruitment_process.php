@@ -504,4 +504,30 @@ if($method == 'delete_recruitment'){
         echo 'fail';
     }
 }
+
+// REGISTER RECRUITMENT
+if($method == 'save_recruitment'){
+    $userID = $_POST['userID'];
+    $password = $_POST['password'];
+    $email = $_POST['email'];
+    $rec_name = $_POST['rec_name'];
+    // CHECK USERID IF USED
+    $chk = "SELECT username FROM recruitment_account WHERE username = '$userID'";
+    $s = $conn->prepare($chk);
+    $s->execute();
+    $s->fetchALL();
+    if($s->rowCount() > 0){
+        echo 'exists';
+    }else{
+        // INSERTING QUERY
+        $regQL = "INSERT INTO recruitment_account (`id`,`username`,`password`,`email`,`name`,`user_role`) VALUES ('0','$userID','$password','$email','$rec_name','recruitment')";
+        $stmt = $conn->prepare($regQL);
+        if($stmt->execute()){
+            echo 'success';
+        }else{
+            echo 'error';
+        }
+        // INSERTING END
+    }
+}
 ?>
