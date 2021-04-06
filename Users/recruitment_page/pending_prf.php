@@ -32,7 +32,7 @@
                     <th>Date Request</th>
                 </thead>
                 <tbody id="pending_prf_view">
-                    <!--  -->
+                    <!-- DATA -->
                 </tbody>
             </table>
         </div>
