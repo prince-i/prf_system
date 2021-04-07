@@ -87,6 +87,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PRF Document REQ-<?=$id;?></title>
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
+    <link rel="icon" href="../Img/logo.jpg" sizes="16x16" type="image/png">
     <style>
         body{
             font-family:arial;
