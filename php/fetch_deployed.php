@@ -7,7 +7,7 @@ if($method == 'load_page'){
         // DO NOTHING
     }else{
     // QUERY
-    $sql = "SELECT names,date_deployed,batch_no,remarks FROM tbl_deployedlist WHERE control_number = '$prfNo' ORDER BY list_id ASC";
+    $sql = "SELECT DISTINCT names,date_deployed,batch_no,remarks FROM tbl_deployedlist WHERE control_number = '$prfNo' ORDER BY list_id ASC";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     if($stmt->rowCount() > 0){

@@ -573,7 +573,7 @@
 
         function compare_date(last){
             var target_date = document.getElementById('target_deployment').innerHTML;
-            if(last > target_date){
+            if(last.toString() > target_date){
                 $('#date_deploy_stat').val('unmet');
             }else{
                 $('#date_deploy_stat').val('met');
