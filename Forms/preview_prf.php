@@ -62,8 +62,12 @@
             if($date_end == '0000-00-00'){
                 $date_end = '--';
             }
-            $approve_date = date_create($x['approve_date']);
-            $approve_date_convert  = date_format($approve_date,"F j, Y");
+            if($x['approve_date'] == ''){
+                $approve_date_convert = 'N/A';
+            }else{
+                $approve_date = date_create($x['approve_date']);
+                $approve_date_convert  = date_format($approve_date,"F j, Y");
+            }
         }
     }
 
